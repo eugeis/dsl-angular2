@@ -18,18 +18,28 @@
  *
  * @author Jonas Möller
  */
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Node } from './node.component';
 
 @Component({
 	selector: 'ee-panel-header',
-	styles: ["ee-panel-header { display: flex; } .panel-header { width: 100%; background: blue; height: 25px; }"],
+	styles: [".marker { display:block; cursor:pointer; } ee-panel-header { display: flex; } .panel-header { width: 100%; background: blue; height: 25px; }"],
 	template: `
-		<div class="panel-header"></div>
+		<div class="panel-header">
+			<div class="marker" (click)="close()"><span>X</span></div>
+		</div>
 	`,
 	directives: []
 })
 
 export class PanelHeaderComponent {
+	@Output("close") closeEmitter = new EventEmitter();
+
 	constructor() {
+	}
+
+	close() {
+		this.closeEmitter.emit();
 	}
 }

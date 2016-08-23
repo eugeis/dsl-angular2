@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { PanelComponent } from './panel.component';
 import { PanelHeaderComponent } from './ee-panel-header.component';
@@ -27,7 +27,7 @@ import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
 
 export interface Node {
 	branches: Node[],
-	data?: any
+	data?: any;
 }
 
 @Component({
@@ -36,12 +36,12 @@ export interface Node {
 		<div *ngIf="node && orientation" class="ee-node" [ngClass]="nodeClass(orientation)">
 			<div *ngIf="node.branches && node.branches.length > 0 ">
 				<div *ngFor="let branch of node.branches">
-					<ee-node [node]="branch" [orientation]="nodeInv(orientation)"></ee-node>
+					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (closePanel)="deletePanel($event)"></ee-node>
 					<ee-separator [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
-				<ee-panel-header></ee-panel-header>
+				<ee-panel-header (close)="closePanel()"></ee-panel-header>
 				<ee-panel [data]="node.data"></ee-panel>
 			</div>
 		</div>
@@ -53,12 +53,29 @@ export class NodeComponent {
 	@Input() node: Node;
 	@Input() orientation: NodeOrientation;
 
+	@Output("closePanel") closeEmitter = new EventEmitter();
+
 	nodeClass(orientation: NodeOrientation) {
 		return getClass(orientation);
 	}
 
 	nodeInv(orientation: NodeOrientation) {
 		return inv(orientation);
+	}
+
+	closePanel() {
+		this.closeEmitter.emit(this.node);
+	}
+
+	deletePanel($event) {
+		let i = this.node.branches.indexOf($event);
+		if (0 <= i && i < this.node.branches.length) {
+			this.node.branches.splice(i, 1);
+		}
+
+		if (this.node.branches.length == 0) {
+			this.closeEmitter.emit(this.node);
+		}
 	}
 
 	constructor() {  }
