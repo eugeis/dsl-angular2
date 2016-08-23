@@ -21,46 +21,42 @@
 import { Component, Input } from '@angular/core';
 
 import { PanelComponent } from './panel.component';
-import { SeperatorComponent } from './seperator.component';
+import { SeparatorComponent } from './separator.component';
+import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
 
 export interface Node {
 	branches: Node[],
 	data?: any
 }
 
-export enum NodeOrientation {
-	Horizontal = 1,
-	Vertical = 2
-}
-
 @Component({
-	selector: 'node',
+	selector: 'ee-node',
 	template: `
-		<div *ngIf="node && orientation" class="node" [ngClass]="getClass()">
+		<div *ngIf="node && orientation" class="ee-node" [ngClass]="nodeClass(orientation)">
 			<div *ngIf="node.branches && node.branches.length > 0 ">
 				<div *ngFor="let branch of node.branches">
-					<node [node]="branch" [orientation]="inv(orientation)"></node>
-					<seperator></seperator>
+					<ee-node [node]="branch" [orientation]="nodeInv(orientation)"></ee-node>
+					<ee-separator [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0">
-				<panel [data]="node.data"></panel>
+				<ee-panel [data]="node.data"></ee-panel>
 			</div>
 		</div>
 	`,
-	directives: [NodeComponent, PanelComponent, SeperatorComponent]
+	directives: [NodeComponent, PanelComponent, SeparatorComponent]
 })
 
 export class NodeComponent {
 	@Input() node: Node;
 	@Input() orientation: NodeOrientation;
 
-	inv(orientation: NodeOrientation) {
-		return (orientation == NodeOrientation.Horizontal) ? NodeOrientation.Vertical : NodeOrientation.Horizontal;
+	nodeClass(orientation: NodeOrientation) {
+		return getClass(orientation);
 	}
 
-	getClass() {
-		return (this.orientation == NodeOrientation.Horizontal) ? "hor" : "vert";
+	nodeInv(orientation: NodeOrientation) {
+		return inv(orientation);
 	}
 
 	constructor() {  }

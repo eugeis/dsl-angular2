@@ -20,15 +20,14 @@
  */
 import { Component } from '@angular/core';
 
-import { TaskEditor } from './src/views/task-editor.component';
+import { TreeComponent } from './elements/tree/tree.component';
 
 @Component({
 	selector: 'ee-app',
-	styles: [".projectname { font-style: italic; }"],
 	template: `
-		<task-editor></task-editor>
+		<ee-tree></ee-tree>
 	`,
-	directives: [TaskEditor]
+	directives: [TreeComponent]
 })
 
 export class AppComponent {

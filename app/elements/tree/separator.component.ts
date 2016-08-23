@@ -18,15 +18,23 @@
  *
  * @author Jonas Möller
  */
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { NodeOrientation, getClass } from './nodeorientation.enum';
 
 @Component({
-	selector: 'seperator',
+	selector: 'ee-separator',
 	template: `
-		<div class="seperator"></div>
+		<div class="ee-separator" [ngClass]="sepClass(orientation)"></div>
 	`
 })
 
-export class SeperatorComponent {
+export class SeparatorComponent {
+	@Input() orientation: NodeOrientation;
+
+	sepClass(orientation: NodeOrientation) {
+		return getClass(orientation);
+	}
+
 	constructor() {  }
 }

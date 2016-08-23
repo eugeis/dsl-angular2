@@ -21,9 +21,9 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-	selector: 'panel',
+	selector: 'ee-panel',
 	template: `
-		<div class="panel">{{data}}</div>
+		<div class="ee-panel">{{data}}</div>
 	`
 })
 
