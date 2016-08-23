@@ -34,6 +34,7 @@ export interface Tree extends Node {
 		<div *ngIf="tree && tree.orientation" class="ee-tree">
 			<ee-tree-header></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
+			<ee-tree-header></ee-tree-header>
 		</div>
 	`,
 	directives: [TreeHeaderComponent, NodeComponent]

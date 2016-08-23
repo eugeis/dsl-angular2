@@ -8,6 +8,10 @@ html, body {
 	height: 100%;
 }
 
+body {
+	background: linear-gradient(to bottom, rgb(236, 236, 236) 0%,rgb(181, 181, 181) 100%) !important;
+}
+
 ee-app, ee-tree, .ee-tree {
 	display: block;
 	width: inherit;
@@ -40,4 +44,11 @@ ee-node {
 
 .ee-node > div > div:last-child > ee-separator {
 	display: none;
+}
+
+.ee-panel-container {
+	background: white;
+	border-radius: 10px;
+	overflow: hidden;
+	margin: 1px;
 }

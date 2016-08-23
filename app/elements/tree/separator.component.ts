@@ -26,22 +26,18 @@ import { NodeOrientation, getClass } from './nodeorientation.enum';
 	selector: 'ee-separator',
 	styles: [`
 		.ee-separator {
-			background: #eeeeee;
+			background: transparent;
 			width: 100%;
 			height: 100%;
 		}
 
 		.ee-separator.hor {
-			border-top: 1px solid #e0e0e0;
-			border-bottom: 1px solid #e0e0e0;
 			padding-top:1px;
 			padding-bottom:1px;
 			cursor: ns-resize;
 		}
 
 		.ee-separator.vert {
-			border-left: 1px solid #e0e0e0;
-			border-right: 1px solid #e0e0e0;
 			padding-left:1px;
 			padding-right:1px;
 			cursor: ew-resize;

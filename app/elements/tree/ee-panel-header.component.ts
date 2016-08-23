@@ -24,10 +24,40 @@ import { Node } from './node.component';
 
 @Component({
 	selector: 'ee-panel-header',
-	styles: [".marker { display:block; cursor:pointer; } ee-panel-header { display: flex; } .panel-header { width: 100%; background: blue; height: 25px; }"],
+	styles: [`
+		.panel-space {
+			margin-left: auto;
+		}
+		.panel-icon {
+			flex: 0;
+			padding: 4px;
+		}
+		.panel-icon span {
+			font-weight: bold;
+			padding: 5px 12px 5px 12px;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 50ms ease-in 0s;
+			border: 1px solid transparent;
+		}
+
+		.panel-icon span:hover {
+			border: 1px solid #aaa;
+		}
+
+		ee-panel-header {
+			display: flex;
+		}
+
+		.panel-header {
+			width: 100%;
+			background: gainsboro;
+		}`],
 	template: `
 		<div class="panel-header">
-			<div class="marker" (click)="close()"><span>X</span></div>
+			<div class="panel-space"></div>
+			<div class="panel-icon"><span (click)="minimize()">_</span></div>
+			<div class="panel-icon"><span (click)="close()">x</span></div>
 		</div>
 	`,
 	directives: []

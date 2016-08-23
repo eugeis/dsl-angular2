@@ -22,7 +22,18 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'ee-tree-header',
-	styles: ["ee-tree-header { display: flex; } .tree-header { width: 100%; background: red; height: 25px; }"],
+	styles: [`
+	ee-tree-header {
+		display: flex;
+	}
+	.tree-header {
+		width: 100%;
+		background: linear-gradient(to bottom, rgba(244,244,244,1) 0%,rgba(247,247,247,1) 100%);
+		height: 35px;
+		border-bottom: 1px solid gainsboro;
+		margin-bottom: 3px;
+	}
+	`],
 	template: `
 		<div class="tree-header"></div>
 	`,
