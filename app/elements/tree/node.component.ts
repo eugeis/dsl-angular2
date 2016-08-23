@@ -21,6 +21,7 @@
 import { Component, Input } from '@angular/core';
 
 import { PanelComponent } from './panel.component';
+import { PanelHeaderComponent } from './ee-panel-header.component';
 import { SeparatorComponent } from './separator.component';
 import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
 
@@ -39,12 +40,13 @@ export interface Node {
 					<ee-separator [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
-			<div *ngIf="!node.branches || node.branches.length == 0">
+			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
+				<ee-panel-header></ee-panel-header>
 				<ee-panel [data]="node.data"></ee-panel>
 			</div>
 		</div>
 	`,
-	directives: [NodeComponent, PanelComponent, SeparatorComponent]
+	directives: [NodeComponent, PanelComponent, SeparatorComponent, PanelHeaderComponent]
 })
 
 export class NodeComponent {

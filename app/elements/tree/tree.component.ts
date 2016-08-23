@@ -20,6 +20,7 @@
  */
 import { Component, Input } from '@angular/core';
 
+import { TreeHeaderComponent } from './ee-tree-header.component';
 import { NodeComponent, Node } from './node.component';
 import { NodeOrientation } from './nodeorientation.enum';
 
@@ -31,10 +32,11 @@ export interface Tree extends Node {
 	selector: 'ee-tree',
 	template: `
 		<div *ngIf="tree && tree.orientation" class="ee-tree">
+			<ee-tree-header></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
 		</div>
 	`,
-	directives: [NodeComponent]
+	directives: [TreeHeaderComponent, NodeComponent]
 })
 
 export class TreeComponent {

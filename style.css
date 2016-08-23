@@ -14,21 +14,20 @@ ee-app, ee-tree, .ee-tree {
 	height: inherit;
 }
 
-.ee-tree div, .ee-tree {
+.ee-tree, .ee-panel-container {
+	flex-direction: column !important;
+}
+
+.ee-tree, .ee-tree div, .ee-node, .ee-panel {
 	display: flex;
 	flex: 1;
 	flex-direction: inherit;
+	position: relative;
 }
 
 ee-node {
 	display: flex;
 	flex: 1;
-}
-
-.ee-tree, .ee-node, .ee-panel {
-	display: flex;
-	flex: 1;
-	position: relative;
 }
 
 .ee-node.hor, .ee-separator.hor {
