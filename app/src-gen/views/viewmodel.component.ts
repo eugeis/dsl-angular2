@@ -18,16 +18,8 @@
  *
  * @author Jonas Möller
  */
-import { OnInit, Input } from '@angular/core';
-
-import { ViewModel } from './viewmodel.component';
-
-export class View implements OnInit {
-	@Input() viewModel: ViewModel;
-
-	ngOnInit() {
-		if (!this.viewModel) {
-			this.viewModel = new ViewModel();
-		}
+export class ViewModel {
+	constructor() {
+		console.log("New ViewModel");
 	}
 }
