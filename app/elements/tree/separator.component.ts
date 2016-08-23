@@ -46,10 +46,6 @@ import { NodeOrientation, getClass } from './nodeorientation.enum';
 			padding-right:1px;
 			cursor: ew-resize;
 		}
-
-		.ee-node > div > div:last-child > ee-separator {
-			display: none;
-		}
 	`],
 	template: `
 		<div class="ee-separator" [ngClass]="sepClass(orientation)" draggable="true"></div>
