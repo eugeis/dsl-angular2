@@ -27,7 +27,7 @@ ee-app, ee-tree, .ee-tree {
 	flex-direction: column !important;
 }
 
-.ee-tree, .ee-tree div, .ee-node, .ee-panel {
+.ee-tree, .ee-tree div.flex, .ee-node, .ee-panel {
 	display: flex;
 	flex: 1;
 	flex-direction: inherit;
@@ -39,11 +39,11 @@ ee-node {
 	flex: 1;
 }
 
-.ee-node.hor, .ee-separator.hor {
+.ee-node.flex.hor, .ee-separator.flex.hor {
 	flex-direction: column;
 }
 
-.ee-node.vert, .ee-separator.vert {
+.ee-node.flex.vert, .ee-separator.flex.vert {
 	flex-direction: row;
 }
 
@@ -56,4 +56,33 @@ ee-node {
 	border-radius: 10px;
 	overflow: hidden;
 	margin: 1px;
+}
+
+.panel-hover {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.3);
+	z-index: 100;
+	display: none;
+}
+
+.above {
+	left: 27.6395799%;
+	width: 44.720840%;
+	position: absolute;
+	background: black;
+	height: 10px;
+	z-index: 1000;
+	outline: 1px solid #fff;
+}
+
+.side {
+	top: 27.6395799%;
+	height: 44.720840%;
+	position: absolute;
+	background: black;
+	width: 10px;
+	z-index: 1000;
+	outline: 1px solid #fff;
 }

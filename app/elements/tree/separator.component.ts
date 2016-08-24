@@ -44,7 +44,7 @@ import { NodeOrientation, getClass } from './nodeorientation.enum';
 		}
 	`],
 	template: `
-		<div class="ee-separator" [ngClass]="sepClass(orientation)" draggable="true"></div>
+		<div class="ee-separator flex" [ngClass]="sepClass(orientation)" draggable="true"></div>
 	`
 })
 

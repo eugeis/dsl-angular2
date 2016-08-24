@@ -29,7 +29,7 @@ import { Node } from './node.component';
 			margin-left: auto;
 		}
 		.panel-icon {
-			flex: 0;
+			flex: 0 !important;
 			padding: 4px;
 		}
 		.panel-icon span {
@@ -54,10 +54,10 @@ import { Node } from './node.component';
 			background: gainsboro;
 		}`],
 	template: `
-		<div class="panel-header" draggable="true">
-			<div class="panel-space"></div>
-			<div class="panel-icon"><span (click)="minimize()">_</span></div>
-			<div class="panel-icon"><span (click)="close()">x</span></div>
+		<div class="panel-header flex" draggable="true">
+			<div class="panel-space flex"></div>
+			<!--<div class="panel-icon flex"><span (click)="minimize()">_</span></div>-->
+			<div class="panel-icon flex"><span (click)="close()">x</span></div>
 		</div>
 	`,
 	directives: []

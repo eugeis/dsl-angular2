@@ -24,7 +24,7 @@ import { Component, Input } from '@angular/core';
 	selector: 'ee-panel',
 	styles: [".ee-panel { padding: 4px;}"],
 	template: `
-		<div class="ee-panel">{{data}}</div>
+		<div class="ee-panel flex">{{data}}</div>
 	`
 })
 

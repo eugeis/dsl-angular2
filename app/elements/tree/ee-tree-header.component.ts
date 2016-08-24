@@ -35,7 +35,7 @@ import { Component } from '@angular/core';
 	}
 	`],
 	template: `
-		<div class="tree-header"></div>
+		<div class="tree-header flex"></div>
 	`,
 	directives: []
 })
