@@ -54,7 +54,7 @@ import { Node } from './node.component';
 			background: gainsboro;
 		}`],
 	template: `
-		<div class="panel-header">
+		<div class="panel-header" draggable="true">
 			<div class="panel-space"></div>
 			<div class="panel-icon"><span (click)="minimize()">_</span></div>
 			<div class="panel-icon"><span (click)="close()">x</span></div>

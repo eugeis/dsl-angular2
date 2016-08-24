@@ -36,7 +36,7 @@ export interface Node {
 		<div *ngIf="node && orientation" class="ee-node" [ngClass]="nodeClass(orientation)">
 			<div *ngIf="node.branches && node.branches.length > 0 ">
 				<div *ngFor="let branch of node.branches">
-					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (closePanel)="deletePanel($event)"></ee-node>
+					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
 					<ee-separator [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
@@ -53,6 +53,7 @@ export class NodeComponent {
 	@Input() node: Node;
 	@Input() orientation: NodeOrientation;
 
+	@Output("promotePanel") promoteEmitter = new EventEmitter();
 	@Output("closePanel") closeEmitter = new EventEmitter();
 
 	nodeClass(orientation: NodeOrientation) {
@@ -73,8 +74,20 @@ export class NodeComponent {
 			this.node.branches.splice(i, 1);
 		}
 
-		if (this.node.branches.length == 0) {
-			this.closeEmitter.emit(this.node);
+		if (this.node.branches.length == 1) {
+			this.promoteEmitter.emit(this.node);
+		}
+	}
+
+	promotePanel($event) {
+		let i = this.node.branches.indexOf($event);
+		if (0 <= i && i < this.node.branches.length && $event.branches.length == 1) {
+			if ($event.branches[0].branches.length <= 1) {
+				this.node.branches[i] = $event.branches[0];
+			} else {
+				this.node.branches.splice(i, 1);
+				this.node.branches.splice.apply(this.node.branches, [i, 0].concat($event.branches[0].branches));
+			}
 		}
 	}
 
