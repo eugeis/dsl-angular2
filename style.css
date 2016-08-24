@@ -18,6 +18,11 @@ ee-app, ee-tree, .ee-tree {
 	height: inherit;
 }
 
+.ee-tree > ee-tree-view {
+	position: absolute;
+	bottom: 0;
+}
+
 .ee-tree, .ee-panel-container {
 	flex-direction: column !important;
 }

@@ -22,6 +22,7 @@ import { Component, Input } from '@angular/core';
 
 import { TreeHeaderComponent } from './ee-tree-header.component';
 import { NodeComponent, Node } from './node.component';
+import { TreeView } from './treeview.component';
 import { NodeOrientation } from './nodeorientation.enum';
 
 export interface Tree extends Node {
@@ -34,10 +35,10 @@ export interface Tree extends Node {
 		<div *ngIf="tree && tree.orientation" class="ee-tree">
 			<ee-tree-header></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
-			<ee-tree-header></ee-tree-header>
+			<ee-tree-view [tree]="tree"></ee-tree-view>
 		</div>
 	`,
-	directives: [TreeHeaderComponent, NodeComponent]
+	directives: [TreeHeaderComponent, NodeComponent, TreeView]
 })
 
 export class TreeComponent {
@@ -45,43 +46,43 @@ export class TreeComponent {
 		orientation: NodeOrientation.Vertical,
 		branches: [{
 			branches: [],
-			data: "View 1"
+			data: "a"
 		}, {
 			branches: [{
 				branches: [],
-				data: "View 2"
+				data: "b"
 			},{
 				branches: [{
 					branches: [],
-					data: "View 1"
+					data: "c"
 				}, {
 					branches: [{
 						branches: [],
-						data: "View 2"
+						data: "d"
 					},{
 						branches: [],
-						data: "View 3"
+						data: "e"
 					}]
 				}, {
 					branches: [],
-					data: "View 4"
+					data: "f"
 				}, {
 					branches: [],
-					data: "View 5"
+					data: "g"
 				}, {
 					branches: [],
-					data: "View 6"
+					data: "h"
 				}]
 			}]
 		}, {
 			branches: [],
-			data: "View 4"
+			data: "i"
 		}, {
 			branches: [],
-			data: "View 5"
+			data: "j"
 		}, {
 			branches: [],
-			data: "View 6"
+			data: "k"
 		}]
 	};
 
