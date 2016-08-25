@@ -24,11 +24,7 @@ import { PanelComponent } from './panel.component';
 import { PanelHeaderComponent } from './ee-panel-header.component';
 import { SeparatorComponent } from './separator.component';
 import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
-
-export interface Node {
-	branches: Node[],
-	data?: any;
-}
+import { Node } from './node.interface';
 
 @Component({
 	selector: 'ee-node',
@@ -41,7 +37,7 @@ export interface Node {
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container flex">
-				<ee-panel-header (close)="closePanel()"></ee-panel-header>
+				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
 				<ee-panel [data]="node.data"></ee-panel>
 			</div>
 		</div>
@@ -50,7 +46,7 @@ export interface Node {
 })
 
 export class NodeComponent {
-	@Input() node: Node;
+	@Input() node: any;	//Node
 	@Input() orientation: NodeOrientation;
 
 	@Output("promotePanel") promoteEmitter = new EventEmitter();

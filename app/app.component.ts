@@ -21,13 +21,15 @@
 import { Component } from '@angular/core';
 
 import { TreeComponent } from './elements/tree/tree.component';
+import { DragService } from './elements/tree/drag.service';
 
 @Component({
 	selector: 'ee-app',
 	template: `
 		<ee-tree></ee-tree>
 	`,
-	directives: [TreeComponent]
+	directives: [TreeComponent],
+	providers: [DragService]
 })
 
 export class AppComponent {

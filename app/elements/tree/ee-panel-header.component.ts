@@ -20,7 +20,8 @@
  */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Node } from './node.component';
+import { Node } from './node.interface';
+import { DragStart } from './dragstart.directive';
 
 @Component({
 	selector: 'ee-panel-header',
@@ -54,16 +55,17 @@ import { Node } from './node.component';
 			background: gainsboro;
 		}`],
 	template: `
-		<div class="panel-header flex" draggable="true">
+		<div class="panel-header flex" [node]="node" dragStart>
 			<div class="panel-space flex"></div>
 			<!--<div class="panel-icon flex"><span (click)="minimize()">_</span></div>-->
 			<div class="panel-icon flex"><span (click)="close()">x</span></div>
 		</div>
 	`,
-	directives: []
+	directives: [DragStart]
 })
 
 export class PanelHeaderComponent {
+	@Input() node: any;	//Node
 	@Output("close") closeEmitter = new EventEmitter();
 
 	constructor() {

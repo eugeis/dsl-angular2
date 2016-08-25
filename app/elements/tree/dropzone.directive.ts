@@ -2,12 +2,13 @@ import { Directive, ElementRef, Input, HostListener, OnInit } from '@angular/cor
 
 import { DropInfo } from './dropinfo.model';
 import { CardinalDirection } from './cardinaldirection.enum';
+import { DragService } from './drag.service';
 
 @Directive({
 	selector: '[dropZone]'
 })
 
-export class DropZoneComponent implements OnInit {
+export class DropZone implements OnInit {
 	@Input() dropInfo: DropInfo;
 
 	@HostListener('dragover', ['$event']) onDragOver(e) {
@@ -38,8 +39,9 @@ export class DropZoneComponent implements OnInit {
 	firstY: number;
 	secondY: number;
 
-	constructor(er: ElementRef) {
+	constructor(er: ElementRef, private dragService: DragService) {
 		this.el = er.nativeElement;
+		this.dragService = dragService;
 	}
 
 	ngOnInit() {

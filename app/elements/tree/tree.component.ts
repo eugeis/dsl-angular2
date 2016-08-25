@@ -21,9 +21,10 @@
 import { Component, Input } from '@angular/core';
 
 import { TreeHeaderComponent } from './ee-tree-header.component';
-import { NodeComponent, Node } from './node.component';
+import { NodeComponent } from './node.component';
 import { TreeView } from './treeview.component';
 import { NodeOrientation } from './nodeorientation.enum';
+import { Node } from './node.interface';
 
 export interface Tree extends Node {
 	orientation: NodeOrientation

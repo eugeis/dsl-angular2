@@ -20,8 +20,8 @@
  */
 import { Component, Input } from '@angular/core';
 
-import { DropZoneComponent } from './dropzone.directive';
-import { DropIndicatorComponent } from './dropindicator.directive';
+import { DropZone } from './dropzone.directive';
+import { DropIndicator } from './dropindicator.directive';
 import { DropInfo } from './dropinfo.model';
 
 @Component({
@@ -33,7 +33,7 @@ import { DropInfo } from './dropinfo.model';
 			<div class="ee-panel-data">{{data}}</div>
 		</div>
 	`,
-	directives: [DropZoneComponent, DropIndicatorComponent]
+	directives: [DropZone, DropIndicator]
 })
 
 export class PanelComponent {

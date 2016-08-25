@@ -4,7 +4,7 @@ import { CardinalDirection } from  './cardinaldirection.enum';
 import { DropInfo } from './dropinfo.model';
 
 @Directive({ selector: '[dropIndicator]' })
-export class DropIndicatorComponent {
+export class DropIndicator {
 	@Input() dropInfo: DropInfo;
 	oldDropInfo: DropInfo;
 
