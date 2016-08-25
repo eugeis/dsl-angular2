@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import { Node } from './node.interface';
-
 @Injectable()
 export class DragService {
-	private node: Node;
+	private info: any;
 
-	setNode(n: Node) {
-		this.node = n;
+	setDragInfo(i) {
+		this.info = i;
 	}
 
 	getNode() {
-		return this.node;
+		return this.info.node;
+	}
+
+	close() {
+		this.info.closeEmitter.emit();
 	}
 
 	constructor() { }

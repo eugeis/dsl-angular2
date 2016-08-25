@@ -8,16 +8,20 @@ import { DragService } from './drag.service';
 })
 export class DragStart {
 	@Input() node: any;	//Node
+	@Input("close") closeEmitter: any;
 
 	constructor(private er: ElementRef, private dragService: DragService) {
 		er.nativeElement.draggable = true;
 	}
 
 	@HostListener('dragstart') onDragStart() {
-		this.dragService.setNode(this.node);
+		this.dragService.setDragInfo({
+			closeEmitter: this.closeEmitter,
+			node: this.node
+		});
 	}
 
 	@HostListener('dragend') onDragEnd() {
-		this.dragService.setNode(undefined);
+		this.dragService.setDragInfo(undefined);
 	}
 }

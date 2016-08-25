@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, Output, HostListener, OnInit, EventEmitter } from '@angular/core';
 
 import { DropInfo } from './dropinfo.model';
 import { CardinalDirection } from './cardinaldirection.enum';
@@ -10,6 +10,7 @@ import { DragService } from './drag.service';
 
 export class DropZone implements OnInit {
 	@Input() dropInfo: DropInfo;
+	@Output() rearrange = new EventEmitter();
 
 	@HostListener('dragover', ['$event']) onDragOver(e) {
 		this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
@@ -23,6 +24,8 @@ export class DropZone implements OnInit {
 
 	@HostListener('drop') onDrop() {
 		this.dropInfo.display = false;
+		this.dragService.close();
+		this.rearrange.emit(this.dragService.getNode());
 	}
 
 	@HostListener('window:resize', ['$event']) onResize(event) {

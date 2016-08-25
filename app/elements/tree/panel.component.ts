@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { DropZone } from './dropzone.directive';
 import { DropIndicator } from './dropindicator.directive';
@@ -28,7 +28,7 @@ import { DropInfo } from './dropinfo.model';
 	selector: 'ee-panel',
 	styles: [".ee-panel-data { padding: 4px;}"],
 	template: `
-		<div class="ee-panel flex" [dropInfo]="dropInfo" dropZone>
+		<div class="ee-panel flex" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone>
 			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
 			<div class="ee-panel-data">{{data}}</div>
 		</div>
@@ -38,10 +38,18 @@ import { DropInfo } from './dropinfo.model';
 
 export class PanelComponent {
 	@Input() data: any;
+	@Output("add") addEmitter = new EventEmitter();
 
 	dropInfo: DropInfo;
 
 	constructor() {
 		this.dropInfo = new DropInfo();
+	}
+
+	rearrange(node) {
+		this.addEmitter.emit({
+			dropInfo: this.dropInfo,
+			sourceNode: node
+		});
 	}
 }

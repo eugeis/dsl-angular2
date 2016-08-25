@@ -55,7 +55,7 @@ import { DragStart } from './dragstart.directive';
 			background: gainsboro;
 		}`],
 	template: `
-		<div class="panel-header flex" [node]="node" dragStart>
+		<div class="panel-header flex" [close]="closeEmitter" [node]="node" dragStart>
 			<div class="panel-space flex"></div>
 			<!--<div class="panel-icon flex"><span (click)="minimize()">_</span></div>-->
 			<div class="panel-icon flex"><span (click)="close()">x</span></div>
@@ -68,8 +68,7 @@ export class PanelHeaderComponent {
 	@Input() node: any;	//Node
 	@Output("close") closeEmitter = new EventEmitter();
 
-	constructor() {
-	}
+	constructor() { }
 
 	close() {
 		this.closeEmitter.emit();

@@ -25,6 +25,7 @@ import { PanelHeaderComponent } from './ee-panel-header.component';
 import { SeparatorComponent } from './separator.component';
 import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
 import { Node } from './node.interface';
+import { CardinalDirection } from './cardinaldirection.enum';
 
 @Component({
 	selector: 'ee-node',
@@ -32,13 +33,13 @@ import { Node } from './node.interface';
 		<div *ngIf="node && orientation" class="ee-node flex" [ngClass]="nodeClass(orientation)">
 			<div *ngIf="node.branches && node.branches.length > 0 " class="flex">
 				<div *ngFor="let branch of node.branches" class="flex">
-					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
+					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (addPanel)="addPanel($event)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
 					<ee-separator [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container flex">
 				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
-				<ee-panel [data]="node.data"></ee-panel>
+				<ee-panel [data]="node.data" (add)="add($event)"></ee-panel>
 			</div>
 		</div>
 	`,
@@ -49,6 +50,7 @@ export class NodeComponent {
 	@Input() node: any;	//Node
 	@Input() orientation: NodeOrientation;
 
+	@Output("addPanel") addEmitter = new EventEmitter();
 	@Output("promotePanel") promoteEmitter = new EventEmitter();
 	@Output("closePanel") closeEmitter = new EventEmitter();
 
@@ -58,6 +60,52 @@ export class NodeComponent {
 
 	nodeInv(orientation: NodeOrientation) {
 		return inv(orientation);
+	}
+
+	add(e) {
+		e.targetNode = this.node;
+		this.addEmitter.emit(e);
+	}
+
+	addPanel(e) {
+		console.log(e);
+
+		switch(e.dropInfo.direction) {
+			case CardinalDirection.Center:
+			console.log("Drop Center");
+			break;
+
+			case CardinalDirection.North:
+			case CardinalDirection.Northwestnorth:
+			case CardinalDirection.Northeastnorth:
+			console.log("Drop North");
+			break;
+
+			case CardinalDirection.South:
+			case CardinalDirection.Southwestsouth:
+			case CardinalDirection.Southeastsouth:
+			console.log("Drop South");
+			break;
+
+			case CardinalDirection.West:
+			case CardinalDirection.Westnorthwest:
+			case CardinalDirection.Westsouthwest:
+			this.addLeft(e);
+			break;
+
+			case CardinalDirection.East:
+			case CardinalDirection.Eastnortheast:
+			case CardinalDirection.Eastsoutheast:
+			console.log("Drop East");
+			break;
+
+			default: break;
+		}
+	}
+
+	addLeft(e) {
+		let i = this.node.branches.indexOf(e.targetNode);
+		this.node.branches.splice.apply(this.node.branches, [i, 0].concat([e.sourceNode]));
 	}
 
 	closePanel() {
