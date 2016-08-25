@@ -20,16 +20,28 @@
  */
 import { Component, Input } from '@angular/core';
 
+import { DropZoneComponent } from './dropzone.directive';
+import { DropIndicatorComponent } from './dropindicator.directive';
+import { DropInfo } from './dropinfo.model';
+
 @Component({
 	selector: 'ee-panel',
-	styles: [".ee-panel { padding: 4px;}"],
+	styles: [".ee-panel-data { padding: 4px;}"],
 	template: `
-		<div class="ee-panel flex">{{data}}</div>
-	`
+		<div class="ee-panel flex" [dropInfo]="dropInfo" dropZone>
+			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
+			<div class="ee-panel-data">{{data}}</div>
+		</div>
+	`,
+	directives: [DropZoneComponent, DropIndicatorComponent]
 })
 
 export class PanelComponent {
 	@Input() data: any;
 
-	constructor() {  }
+	dropInfo: DropInfo;
+
+	constructor() {
+		this.dropInfo = new DropInfo();
+	}
 }

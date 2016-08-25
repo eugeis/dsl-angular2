@@ -25,8 +25,6 @@ import { PanelHeaderComponent } from './ee-panel-header.component';
 import { SeparatorComponent } from './separator.component';
 import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
 
-import { DropZone } from './dropzone.directive';
-
 export interface Node {
 	branches: Node[],
 	data?: any;
@@ -44,14 +42,11 @@ export interface Node {
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container flex">
 				<ee-panel-header (close)="closePanel()"></ee-panel-header>
-				<div class="above"></div>
-				<div class="side"></div>
 				<ee-panel [data]="node.data"></ee-panel>
-				<div class="panel-hover" dropZone></div>
 			</div>
 		</div>
 	`,
-	directives: [NodeComponent, PanelComponent, SeparatorComponent, PanelHeaderComponent, DropZone]
+	directives: [NodeComponent, PanelComponent, SeparatorComponent, PanelHeaderComponent]
 })
 
 export class NodeComponent {

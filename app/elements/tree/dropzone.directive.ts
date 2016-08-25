@@ -1,18 +1,33 @@
 import { Directive, ElementRef, Input, HostListener, OnInit } from '@angular/core';
 
-enum CardinalDirection {
-	North, West, East, South, Center,
-	Northwestnorth, Northeastnorth,
-	Westnorthwest, Westsouthwest,
-	Eastnortheast, Eastsoutheast,
-	Southwestsouth, Southeastsouth
-}
+import { DropInfo } from './dropinfo.model';
+import { CardinalDirection } from './cardinaldirection.enum';
 
 @Directive({
 	selector: '[dropZone]'
 })
 
-export class DropZone implements OnInit{
+export class DropZoneComponent implements OnInit {
+	@Input() dropInfo: DropInfo;
+
+	@HostListener('dragover', ['$event']) onDragOver(e) {
+		this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
+		this.dropInfo.display = true;
+		e.preventDefault();
+	}
+
+	@HostListener('dragleave', ['$event']) onDragLeave(e) {
+		this.dropInfo.display = false;
+	}
+
+	@HostListener('drop') onDrop() {
+		this.dropInfo.display = false;
+	}
+
+	@HostListener('window:resize', ['$event']) onResize(event) {
+		this.ngOnInit();
+	}
+
 	el: any;
 	width: number;
 	height: number;
@@ -23,76 +38,8 @@ export class DropZone implements OnInit{
 	firstY: number;
 	secondY: number;
 
-	@HostListener('mousemove', ['$event']) onMouseMove(e) {
-		let x = e.offsetX;
-		let y = e.offsetY;
-
-		console.log();
-
-		switch(this.getCardinalDirection(x,y)) {
-			case CardinalDirection.Center:
-			this.el.style.background = "#fff";
-			break;
-
-			case CardinalDirection.North:
-			case CardinalDirection.Northwestnorth:
-			case CardinalDirection.Northeastnorth:
-			this.el.style.background = "#f00";
-			break;
-
-			case CardinalDirection.South:
-			case CardinalDirection.Southwestsouth:
-			case CardinalDirection.Southeastsouth:
-			this.el.style.background = "#000";
-			break;
-
-			case CardinalDirection.West:
-			case CardinalDirection.Westnorthwest:
-			case CardinalDirection.Westsouthwest:
-			this.el.style.background = "#0f0";
-			break;
-
-			case CardinalDirection.East:
-			case CardinalDirection.Eastnortheast:
-			case CardinalDirection.Eastsoutheast:
-			this.el.style.background = "#00f";
-			break;
-
-			default: throw "up";
-		}
-
-		/*
-		this.el.style.background = "rgba(255,255,255,1)";
-		this.el.style.background = "#00ffff";
-		this.el.style.background = "#ff00ff";
-		this.el.style.background = "#ffff00";
-		this.el.style.background = "#000000";
-		this.el.style.background = "#4dffb3";
-		this.el.style.background = "#b3ff4d";
-		this.el.style.background = "#36b3b3";
-		this.el.style.background = "#364d4d";
-		this.el.style.background = "#ff4db3";
-		this.el.style.background = "#ffb34d";
-		this.el.style.background = "#ff4db3";
-		this.el.style.background = "#ffb34d";
-		*/
-	}
-
-	@HostListener('mouseleave') onMouseLeave() {
-		this.highlight(null);
-	}
-
-	@HostListener('window:resize', ['$event']) onResize(event) {
-		this.ngOnInit();
-	}
-
-	private highlight(color: string) {
-		this.el.style.backgroundColor = color;
-	}
-
 	constructor(er: ElementRef) {
 		this.el = er.nativeElement;
-		this.el.style.display = "block";
 	}
 
 	ngOnInit() {
