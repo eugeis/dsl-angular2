@@ -69,16 +69,14 @@ export class NodeComponent {
 				branches: e.sourceNode.branches,
 				data: e.sourceNode.data
 			};
-			
+
 			this.addEmitter.emit(e);
 		}
 	}
 
 	addPanel(e) {
-		console.log("AddPanel");
 		switch(e.dropInfo.direction) {
 			case CardinalDirection.Center:
-			console.log("Drop Center");
 
 			case CardinalDirection.North:
 			case CardinalDirection.Northwestnorth:
@@ -109,9 +107,7 @@ export class NodeComponent {
 	}
 
 	addNorth(e) {
-		console.log("AddNorth");
 		let i = this.node.branches.indexOf(e.targetNode);
-		console.log(i);
 
 		if (this.orientation === NodeOrientation.Horizontal) {
 			this.node.branches.splice(i, 0, e.sourceNode);
@@ -123,11 +119,9 @@ export class NodeComponent {
 			let removed: Node = this.node.branches.splice(i, 1, n)[0];
 			n.branches = [e.sourceNode, removed];
 		}
-		console.log("<<<<<<");
 	}
 
 	addSouth(e) {
-		console.log("AddSouth");
 		let i = this.node.branches.indexOf(e.targetNode);
 
 		if (this.orientation === NodeOrientation.Horizontal) {
@@ -140,18 +134,13 @@ export class NodeComponent {
 			let removed: Node = this.node.branches.splice(i, 1, n)[0];
 			n.branches = [removed, e.sourceNode];
 		}
-		console.log("<<<<<<");
 	}
 
 	addWest(e) {
-		console.log("AddWest");
 		let i = this.node.branches.indexOf(e.targetNode);
 
 		if (this.orientation === NodeOrientation.Vertical) {
-			console.log("Splicing at: " + i);
-			console.log(this.printNodes(this.node.branches));
 			this.node.branches.splice(i, 0, e.sourceNode);
-			console.log(this.printNodes(this.node.branches));
 		} else {
 			let n: Node = {
 				branches: []
@@ -163,7 +152,6 @@ export class NodeComponent {
 				data: e.sourceNode.data
 			}, removed];
 		}
-		console.log("<<<<<<");
 	}
 
 	printNodes(e) {
@@ -180,7 +168,6 @@ export class NodeComponent {
 	}
 
 	addEast(e) {
-		console.log("AddEast");
 		let i = this.node.branches.indexOf(e.targetNode);
 
 		if (this.orientation === NodeOrientation.Vertical) {
@@ -193,16 +180,13 @@ export class NodeComponent {
 			let removed: Node = this.node.branches.splice(i, 1, n)[0];
 			n.branches = [removed, e.sourceNode];
 		}
-		console.log("<<<<<<");
 	}
 
 	closePanel() {
-		console.log("ClosePanel");
 		this.closeEmitter.emit(this.node);
 	}
 
 	deletePanel(childNode) {
-		console.log("DeletePanel");
 		let i = this.node.branches.indexOf(childNode);
 		if (0 <= i && i < this.node.branches.length) {
 			this.node.branches.splice(i, 1);
@@ -214,7 +198,6 @@ export class NodeComponent {
 	}
 
 	promotePanel(childNode) {
-		console.log("PromotePanel");
 		let i = this.node.branches.indexOf(childNode);
 		if (0 <= i && i < this.node.branches.length && childNode.branches.length == 1) {
 			if (childNode.branches[0].branches.length <= 1) {

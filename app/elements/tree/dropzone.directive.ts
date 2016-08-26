@@ -25,7 +25,6 @@ export class DropZone implements OnInit {
 	}
 
 	@HostListener('drop') onDrop() {
-		console.log("Drop");
 		this.dropInfo.display = false;
 		this.rearrange.emit(this.dragService.getNode());
 

@@ -15,8 +15,6 @@ export class DragStart {
 	}
 
 	@HostListener('dragstart') onDragStart() {
-		console.log(">>>>>>");
-		console.log("DragStart");
 		this.dragService.setDragInfo({
 			closeEmitter: this.closeEmitter,
 			node: this.node
@@ -24,7 +22,6 @@ export class DragStart {
 	}
 
 	@HostListener('dragend') onDragEnd() {
-		console.log("DragEnd");
 		this.dragService.setDragInfo(undefined);
 	}
 }
