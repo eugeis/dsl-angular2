@@ -65,13 +65,17 @@ export class NodeComponent {
 	add(e) {
 		e.targetNode = this.node;
 		if (e.targetNode !== e.sourceNode) {
+			e.sourceNode = {
+				branches: e.sourceNode.branches,
+				data: e.sourceNode.data
+			};
+			
 			this.addEmitter.emit(e);
 		}
 	}
 
 	addPanel(e) {
 		console.log("AddPanel");
-		console.log(this.node);
 		switch(e.dropInfo.direction) {
 			case CardinalDirection.Center:
 			console.log("Drop Center");
@@ -144,17 +148,35 @@ export class NodeComponent {
 		let i = this.node.branches.indexOf(e.targetNode);
 
 		if (this.orientation === NodeOrientation.Vertical) {
+			console.log("Splicing at: " + i);
+			console.log(this.printNodes(this.node.branches));
 			this.node.branches.splice(i, 0, e.sourceNode);
-			console.log(this.node.branches);
+			console.log(this.printNodes(this.node.branches));
 		} else {
 			let n: Node = {
 				branches: []
 			};
 
 			let removed: Node = this.node.branches.splice(i, 1, n)[0];
-			n.branches = [e.sourceNode, removed];
+			n.branches = [{
+				branches: e.sourceNode.branches,
+				data: e.sourceNode.data
+			}, removed];
 		}
 		console.log("<<<<<<");
+	}
+
+	printNodes(e) {
+		let ret = "";
+		e.forEach(function(d) {
+			if (d.data) {
+				ret += d.data + " | ";
+			} else {
+				ret += " | ";
+			}
+		});
+
+		return ret;
 	}
 
 	addEast(e) {
