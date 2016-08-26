@@ -13,9 +13,11 @@ export class DropZone implements OnInit {
 	@Output() rearrange = new EventEmitter();
 
 	@HostListener('dragover', ['$event']) onDragOver(e) {
-		this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
-		this.dropInfo.display = true;
-		e.preventDefault();
+		if (this.dragService.hasDragObject()) {
+			this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
+			this.dropInfo.display = true;
+			e.preventDefault();
+		}
 	}
 
 	@HostListener('dragleave', ['$event']) onDragLeave(e) {
@@ -23,9 +25,12 @@ export class DropZone implements OnInit {
 	}
 
 	@HostListener('drop') onDrop() {
+		console.log("Drop");
 		this.dropInfo.display = false;
-		this.dragService.close();
 		this.rearrange.emit(this.dragService.getNode());
+
+		//TODO: Only close, when promise is received
+		this.dragService.close();
 	}
 
 	@HostListener('window:resize', ['$event']) onResize(event) {

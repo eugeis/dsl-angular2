@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Injectable } from '@angular/core';
 
 import { PanelComponent } from './panel.component';
 import { PanelHeaderComponent } from './ee-panel-header.component';
@@ -64,56 +64,124 @@ export class NodeComponent {
 
 	add(e) {
 		e.targetNode = this.node;
-		this.addEmitter.emit(e);
+		if (e.targetNode !== e.sourceNode) {
+			this.addEmitter.emit(e);
+		}
 	}
 
 	addPanel(e) {
-		console.log(e);
-
+		console.log("AddPanel");
+		console.log(this.node);
 		switch(e.dropInfo.direction) {
 			case CardinalDirection.Center:
 			console.log("Drop Center");
-			break;
 
 			case CardinalDirection.North:
 			case CardinalDirection.Northwestnorth:
 			case CardinalDirection.Northeastnorth:
-			console.log("Drop North");
+			this.addNorth(e);
 			break;
 
 			case CardinalDirection.South:
 			case CardinalDirection.Southwestsouth:
 			case CardinalDirection.Southeastsouth:
-			console.log("Drop South");
+			this.addSouth(e);
 			break;
 
 			case CardinalDirection.West:
 			case CardinalDirection.Westnorthwest:
 			case CardinalDirection.Westsouthwest:
-			this.addLeft(e);
+			this.addWest(e);
 			break;
 
 			case CardinalDirection.East:
 			case CardinalDirection.Eastnortheast:
 			case CardinalDirection.Eastsoutheast:
-			console.log("Drop East");
+			this.addEast(e);
 			break;
 
 			default: break;
 		}
 	}
 
-	addLeft(e) {
+	addNorth(e) {
+		console.log("AddNorth");
 		let i = this.node.branches.indexOf(e.targetNode);
-		this.node.branches.splice.apply(this.node.branches, [i, 0].concat([e.sourceNode]));
+		console.log(i);
+
+		if (this.orientation === NodeOrientation.Horizontal) {
+			this.node.branches.splice(i, 0, e.sourceNode);
+		} else {
+			let n: Node = {
+				branches: []
+			};
+
+			let removed: Node = this.node.branches.splice(i, 1, n)[0];
+			n.branches = [e.sourceNode, removed];
+		}
+		console.log("<<<<<<");
+	}
+
+	addSouth(e) {
+		console.log("AddSouth");
+		let i = this.node.branches.indexOf(e.targetNode);
+
+		if (this.orientation === NodeOrientation.Horizontal) {
+			this.node.branches.splice(i+1, 0, e.sourceNode);
+		} else {
+			let n: Node = {
+				branches: []
+			};
+
+			let removed: Node = this.node.branches.splice(i, 1, n)[0];
+			n.branches = [removed, e.sourceNode];
+		}
+		console.log("<<<<<<");
+	}
+
+	addWest(e) {
+		console.log("AddWest");
+		let i = this.node.branches.indexOf(e.targetNode);
+
+		if (this.orientation === NodeOrientation.Vertical) {
+			this.node.branches.splice(i, 0, e.sourceNode);
+			console.log(this.node.branches);
+		} else {
+			let n: Node = {
+				branches: []
+			};
+
+			let removed: Node = this.node.branches.splice(i, 1, n)[0];
+			n.branches = [e.sourceNode, removed];
+		}
+		console.log("<<<<<<");
+	}
+
+	addEast(e) {
+		console.log("AddEast");
+		let i = this.node.branches.indexOf(e.targetNode);
+
+		if (this.orientation === NodeOrientation.Vertical) {
+			this.node.branches.splice(i+1, 0, e.sourceNode);
+		} else {
+			let n: Node = {
+				branches: []
+			};
+
+			let removed: Node = this.node.branches.splice(i, 1, n)[0];
+			n.branches = [removed, e.sourceNode];
+		}
+		console.log("<<<<<<");
 	}
 
 	closePanel() {
+		console.log("ClosePanel");
 		this.closeEmitter.emit(this.node);
 	}
 
-	deletePanel($event) {
-		let i = this.node.branches.indexOf($event);
+	deletePanel(childNode) {
+		console.log("DeletePanel");
+		let i = this.node.branches.indexOf(childNode);
 		if (0 <= i && i < this.node.branches.length) {
 			this.node.branches.splice(i, 1);
 		}
@@ -123,17 +191,18 @@ export class NodeComponent {
 		}
 	}
 
-	promotePanel($event) {
-		let i = this.node.branches.indexOf($event);
-		if (0 <= i && i < this.node.branches.length && $event.branches.length == 1) {
-			if ($event.branches[0].branches.length <= 1) {
-				this.node.branches[i] = $event.branches[0];
+	promotePanel(childNode) {
+		console.log("PromotePanel");
+		let i = this.node.branches.indexOf(childNode);
+		if (0 <= i && i < this.node.branches.length && childNode.branches.length == 1) {
+			if (childNode.branches[0].branches.length <= 1) {
+				this.node.branches[i] = childNode.branches[0];
 			} else {
 				this.node.branches.splice(i, 1);
-				this.node.branches.splice.apply(this.node.branches, [i, 0].concat($event.branches[0].branches));
+				this.node.branches.splice.apply(this.node.branches, [i, 0].concat(childNode.branches[0].branches));
 			}
 		}
 	}
 
-	constructor() {  }
+	constructor() { }
 }

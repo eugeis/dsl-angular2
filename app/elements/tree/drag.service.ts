@@ -16,5 +16,10 @@ export class DragService {
 		this.info.closeEmitter.emit();
 	}
 
+	//TODO set string as parameter to enable "bag"-dragging
+	hasDragObject() {
+		return this.info != undefined;
+	}
+
 	constructor() { }
 }
