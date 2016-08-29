@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input, Output, EventEmitter, Injectable, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { Node, cloneNodeShallow } from './ee-node.interface';
 import { NodeOrientation, inv, getClass } from './ee-nodeorientation.enum';

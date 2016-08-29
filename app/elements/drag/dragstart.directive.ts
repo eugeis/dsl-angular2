@@ -7,6 +7,7 @@ import { DragService } from './drag.service';
 	selector: '[dragStart]'
 })
 export class DragStart {
+	@Input("dragStart") type: string;
 	@Input() node: any;	//Node
 	@Input("close") closeEmitter: any;
 
@@ -17,7 +18,8 @@ export class DragStart {
 	@HostListener('dragstart') onDragStart() {
 		this.dragService.setDragInfo({
 			closeEmitter: this.closeEmitter,
-			node: this.node
+			node: this.node,
+			type: this.type
 		});
 	}
 

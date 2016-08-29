@@ -28,7 +28,7 @@ import { DropInfo } from '../../drag/dropinfo.model';
 	selector: 'ee-panel',
 	styles: [".ee-panel-data { padding: 4px;}"],
 	template: `
-		<div class="ee-panel flex" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone>
+		<div class="ee-panel flex" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone="'panel'">
 			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
 			<div class="ee-panel-data">{{data}}</div>
 		</div>

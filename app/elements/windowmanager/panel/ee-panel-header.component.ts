@@ -55,7 +55,7 @@ import { DragStart } from '../../drag/dragstart.directive';
 			background: gainsboro;
 		}`],
 	template: `
-		<div class="panel-header flex" [close]="closeEmitter" [node]="node" dragStart>
+		<div class="panel-header flex" [close]="closeEmitter" [node]="node" dragStart="'panel'">
 			<div class="panel-space flex"></div>
 			<!--<div class="panel-icon flex"><span (click)="minimize()">_</span></div>-->
 			<div class="panel-icon flex"><span (click)="close()">x</span></div>

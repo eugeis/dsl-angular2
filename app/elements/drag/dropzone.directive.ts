@@ -9,11 +9,12 @@ import { DragService } from './drag.service';
 })
 
 export class DropZone implements OnInit {
+	@Input("dropZone") type: string;
 	@Input() dropInfo: DropInfo;
 	@Output() rearrange = new EventEmitter();
 
 	@HostListener('dragover', ['$event']) onDragOver(e) {
-		if (this.dragService.hasDragObject()) {
+		if (this.dragService.hasDragObject(this.type)) {
 			this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
 			this.dropInfo.display = true;
 			e.preventDefault();

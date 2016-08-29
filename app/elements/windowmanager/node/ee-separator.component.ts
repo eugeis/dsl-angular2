@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 
 import { NodeOrientation, getClass } from './ee-nodeorientation.enum';
 
@@ -44,7 +44,7 @@ import { NodeOrientation, getClass } from './ee-nodeorientation.enum';
 		}
 	`],
 	template: `
-		<div class="ee-separator flex" [ngClass]="sepClass(orientation)" draggable="true"></div>
+		<div class="ee-separator flex" [ngClass]="sepClass(orientation)"></div>
 	`
 })
 
@@ -55,5 +55,7 @@ export class SeparatorComponent {
 		return getClass(orientation);
 	}
 
-	constructor() {  }
+	constructor(private er: ElementRef) {
+		er.nativeElement.draggable = true;
+	}
 }

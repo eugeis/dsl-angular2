@@ -20,7 +20,6 @@ export class DropIndicator {
 			if (this.dropInfo.direction !== this.oldDropInfo.direction) {
 				switch(this.dropInfo.direction) {
 					case CardinalDirection.Center:
-					//this.el.style.background = "#fff";
 					this.el.style.width = "100%";
 					this.el.style.height = "100%";
 					this.el.style.top = "0";
@@ -30,7 +29,6 @@ export class DropIndicator {
 					case CardinalDirection.North:
 					case CardinalDirection.Northwestnorth:
 					case CardinalDirection.Northeastnorth:
-					//this.el.style.background = "#f00";
 					this.el.style.width = "100%";
 					this.el.style.height = "50%";
 					this.el.style.top = "0";
@@ -40,7 +38,6 @@ export class DropIndicator {
 					case CardinalDirection.South:
 					case CardinalDirection.Southwestsouth:
 					case CardinalDirection.Southeastsouth:
-					//this.el.style.background = "#000";
 					this.el.style.width = "100%";
 					this.el.style.height = "50%";
 					this.el.style.top = "50%";
@@ -50,7 +47,6 @@ export class DropIndicator {
 					case CardinalDirection.West:
 					case CardinalDirection.Westnorthwest:
 					case CardinalDirection.Westsouthwest:
-					//this.el.style.background = "#0f0";
 					this.el.style.width = "50%";
 					this.el.style.height = "100%";
 					this.el.style.top = "0";
@@ -60,7 +56,6 @@ export class DropIndicator {
 					case CardinalDirection.East:
 					case CardinalDirection.Eastnortheast:
 					case CardinalDirection.Eastsoutheast:
-					//this.el.style.background = "#00f";
 					this.el.style.width = "50%";
 					this.el.style.height = "100%";
 					this.el.style.top = "0";
