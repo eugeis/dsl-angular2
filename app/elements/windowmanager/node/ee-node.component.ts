@@ -201,9 +201,13 @@ export class NodeComponent implements OnInit {
 		let i = this.node.branches.indexOf(childNode);
 		if (0 <= i && i < this.node.branches.length && childNode.branches.length == 1) {
 			if (childNode.branches[0].branches.length <= 1) {
+				childNode.branches[0].size = this.node.branches[i].size;
 				this.node.branches[i] = childNode.branches[0];
 			} else {
-				this.node.branches.splice(i, 1);
+				let removed = this.node.branches.splice(i, 1)[0];
+				childNode.branches[0].branches.forEach(function(d) {
+					d.size = removed.size / childNode.branches[0].branches.length;
+				});
 				this.node.branches.splice.apply(this.node.branches, [i, 0].concat(childNode.branches[0].branches));
 			}
 		}
