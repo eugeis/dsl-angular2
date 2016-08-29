@@ -20,7 +20,6 @@
  */
 import { Component, Input } from '@angular/core';
 
-import { TreeView } from './ee-treeview.component';
 import { TreeHeaderComponent } from './ee-tree-header.component';
 import { Node } from '../node/ee-node.interface';
 import { NodeComponent } from '../node/ee-node.component';
@@ -36,10 +35,9 @@ export interface Tree extends Node {
 		<div *ngIf="tree && tree.orientation" class="ee-tree">
 			<ee-tree-header></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
-			<ee-tree-view [tree]="tree"></ee-tree-view>
 		</div>
 	`,
-	directives: [TreeHeaderComponent, NodeComponent, TreeView]
+	directives: [TreeHeaderComponent, NodeComponent]
 })
 
 export class TreeComponent {
