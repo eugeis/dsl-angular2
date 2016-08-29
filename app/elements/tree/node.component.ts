@@ -18,21 +18,21 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input, Output, EventEmitter, Injectable } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Injectable, OnInit } from '@angular/core';
 
 import { PanelComponent } from './panel.component';
 import { PanelHeaderComponent } from './ee-panel-header.component';
 import { SeparatorComponent } from './separator.component';
 import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
-import { Node } from './node.interface';
+import { Node, cloneNodeShallow } from './node.interface';
 import { CardinalDirection } from './cardinaldirection.enum';
 
 @Component({
 	selector: 'ee-node',
 	template: `
 		<div *ngIf="node && orientation" class="ee-node flex" [ngClass]="nodeClass(orientation)">
-			<div *ngIf="node.branches && node.branches.length > 0 " class="flex">
-				<div *ngFor="let branch of node.branches" class="flex">
+			<div *ngIf="node.branches && node.branches.length > 0 " class="flex" >
+				<div *ngFor="let branch of node.branches" class="flex" [style.flex-grow]="branch.size">
 					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (addPanel)="addPanel($event)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
 					<ee-separator [orientation]="orientation"></ee-separator>
 				</div>
@@ -46,13 +46,19 @@ import { CardinalDirection } from './cardinaldirection.enum';
 	directives: [NodeComponent, PanelComponent, SeparatorComponent, PanelHeaderComponent]
 })
 
-export class NodeComponent {
+export class NodeComponent implements OnInit {
 	@Input() node: any;	//Node
 	@Input() orientation: NodeOrientation;
 
 	@Output("addPanel") addEmitter = new EventEmitter();
 	@Output("promotePanel") promoteEmitter = new EventEmitter();
 	@Output("closePanel") closeEmitter = new EventEmitter();
+
+	ngOnInit() {
+		this.node.branches.forEach(function(d) {
+			d.size = 1;
+		});
+	}
 
 	nodeClass(orientation: NodeOrientation) {
 		return getClass(orientation);
@@ -65,10 +71,7 @@ export class NodeComponent {
 	add(e) {
 		e.targetNode = this.node;
 		if (e.targetNode !== e.sourceNode) {
-			e.sourceNode = {
-				branches: e.sourceNode.branches,
-				data: e.sourceNode.data
-			};
+			e.sourceNode = cloneNodeShallow(e.sourceNode);
 
 			this.addEmitter.emit(e);
 		}
@@ -147,10 +150,7 @@ export class NodeComponent {
 			};
 
 			let removed: Node = this.node.branches.splice(i, 1, n)[0];
-			n.branches = [{
-				branches: e.sourceNode.branches,
-				data: e.sourceNode.data
-			}, removed];
+			n.branches = [e.sourceNode, removed];
 		}
 	}
 
