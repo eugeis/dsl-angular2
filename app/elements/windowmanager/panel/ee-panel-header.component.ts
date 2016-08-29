@@ -20,8 +20,8 @@
  */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Node } from './node.interface';
-import { DragStart } from './dragstart.directive';
+import { Node } from '../node/ee-node.interface';
+import { DragStart } from '../../drag/dragstart.directive';
 
 @Component({
 	selector: 'ee-panel-header',

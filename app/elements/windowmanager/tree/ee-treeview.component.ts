@@ -36,7 +36,7 @@ import { Component, Input, OnInit } from '@angular/core';
 	`
 })
 
-export class TreeView implements OnInit{
+export class TreeView implements OnInit {
 	@Input("tree") node: Node;
 	@Input() depth: number = 0;
 

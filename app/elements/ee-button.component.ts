@@ -34,7 +34,7 @@ import { Component, Input, OnInit } from '@angular/core';
 	`,
 })
 
-export class EEButton implements OnInit{
+export class Button implements OnInit{
 	@Input() value: string;
 	@Input() buttonType: string;
 

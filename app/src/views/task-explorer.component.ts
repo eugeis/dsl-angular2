@@ -23,7 +23,7 @@ import { Component } from '@angular/core';
 import { TaskExplorer_ } from '../../src-gen/views/task-explorer.component';
 import { Entity } from '../../src-gen/entities/entity.model';
 import { TaskLoader } from '../../src-gen/services/taskloader.service';
-import { EE_Table } from '../../elements/ee-table.component';
+import { Table } from '../../elements/ee-table.component';
 
 @Component({
 	selector: 'task-explorer',
@@ -31,7 +31,7 @@ import { EE_Table } from '../../elements/ee-table.component';
 		<h2>TaskExplorer</h2>
 		<ee-table [entities]="entities" (selected)="selected($event)"></ee-table>
 	`,
-	directives: [EE_Table],
+	directives: [Table],
 	providers: [TaskLoader]
 })
 

@@ -20,8 +20,8 @@
  */
 import { Component } from '@angular/core';
 
-import { TreeComponent } from './elements/tree/tree.component';
-import { DragService } from './elements/tree/drag.service';
+import { TreeComponent } from './elements/windowmanager/tree/ee-tree.component';
+import { DragService } from './elements/drag/drag.service';
 
 @Component({
 	selector: 'ee-app',

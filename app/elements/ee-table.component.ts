@@ -38,7 +38,7 @@ import { Entity } from '../src-gen/entities/entity.model';
 	`,
 })
 
-export class EE_Table {
+export class Table {
 	@Input() id: string = "default";
 	@Input() entities: Entity[];
 

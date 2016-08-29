@@ -20,7 +20,7 @@
  */
 import { Component, Input } from '@angular/core';
 
-import { NodeOrientation, getClass } from './nodeorientation.enum';
+import { NodeOrientation, getClass } from './ee-nodeorientation.enum';
 
 @Component({
 	selector: 'ee-separator',

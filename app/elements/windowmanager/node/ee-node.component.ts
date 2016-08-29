@@ -20,12 +20,12 @@
  */
 import { Component, Input, Output, EventEmitter, Injectable, OnInit } from '@angular/core';
 
-import { PanelComponent } from './panel.component';
-import { PanelHeaderComponent } from './ee-panel-header.component';
-import { SeparatorComponent } from './separator.component';
-import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
-import { Node, cloneNodeShallow } from './node.interface';
-import { CardinalDirection } from './cardinaldirection.enum';
+import { Node, cloneNodeShallow } from './ee-node.interface';
+import { NodeOrientation, inv, getClass } from './ee-nodeorientation.enum';
+import { SeparatorComponent } from './ee-separator.component';
+import { CardinalDirection } from '../../drag/cardinaldirection.enum';
+import { PanelComponent } from '../panel/ee-panel.component';
+import { PanelHeaderComponent } from '../panel/ee-panel-header.component';
 
 @Component({
 	selector: 'ee-node',

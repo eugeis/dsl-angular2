@@ -20,11 +20,11 @@
  */
 import { Component, Input } from '@angular/core';
 
+import { TreeView } from './ee-treeview.component';
 import { TreeHeaderComponent } from './ee-tree-header.component';
-import { NodeComponent } from './node.component';
-import { TreeView } from './treeview.component';
-import { NodeOrientation } from './nodeorientation.enum';
-import { Node } from './node.interface';
+import { Node } from '../node/ee-node.interface';
+import { NodeComponent } from '../node/ee-node.component';
+import { NodeOrientation } from '../node/ee-nodeorientation.enum';
 
 export interface Tree extends Node {
 	orientation: NodeOrientation

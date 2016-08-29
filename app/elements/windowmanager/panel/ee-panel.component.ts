@@ -20,9 +20,9 @@
  */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { DropZone } from './dropzone.directive';
-import { DropIndicator } from './dropindicator.directive';
-import { DropInfo } from './dropinfo.model';
+import { DropZone } from '../../drag/dropzone.directive';
+import { DropIndicator } from '../../drag/dropindicator.directive';
+import { DropInfo } from '../../drag/dropinfo.model';
 
 @Component({
 	selector: 'ee-panel',
