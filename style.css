@@ -39,6 +39,12 @@ ee-node, ee-panel {
 	flex: 1;
 }
 
+.ee-panel > .ee-panel-data {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
 .ee-node.flex.hor, .ee-separator.flex.hor {
 	flex-direction: column;
 }

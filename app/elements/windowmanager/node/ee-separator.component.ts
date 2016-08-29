@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
 
 import { NodeOrientation, getClass } from './ee-nodeorientation.enum';
 
@@ -48,8 +48,89 @@ import { NodeOrientation, getClass } from './ee-nodeorientation.enum';
 	`
 })
 
-export class SeparatorComponent {
+export class SeparatorComponent implements OnInit {
 	@Input() orientation: NodeOrientation;
+	@Input() left: any;
+	@Input() right: any;
+
+	prevEl: any;
+	nextEl: any;
+
+	pos: number[];
+
+	@HostListener('dragstart', ['$event']) onDragStart(e) {
+		this.pos = [e.clientX, e.clientY];
+	}
+
+	@HostListener('drag', ['$event']) onDrag(e) {
+		if (e.clientX != 0 && e.clientY != 0) {
+			let ratio = 0.5;
+
+			switch (this.orientation) {
+				case NodeOrientation.Horizontal:
+					ratio = this.calcHor(e);
+					break;
+				case NodeOrientation. Vertical:
+					ratio = this.calcVert(e);
+					break;
+				default:
+				throw "up";
+			}
+
+			let sum = this.left.size + this.right.size;
+
+			if (0 <= ratio && ratio <= 1) {
+				this.left.size = sum * (1 - ratio);
+				this.right.size = sum * ratio;
+			}
+		}
+	}
+
+	calcVert(e) {
+		let y = this.pos[1]
+		let c = y - e.clientY;
+
+		let leftSize: number;
+		let rightSize: number;
+
+		if (c >= 0) {
+			leftSize = this.prevEl.offsetHeight + c;
+			rightSize = this.nextEl.offsetHeight - c;
+		} else {
+			leftSize = this.prevEl.offsetHeight + c;
+			rightSize = this.nextEl.offsetHeight - c;
+		}
+
+		return leftSize / (leftSize + rightSize);
+	}
+
+	calcHor(e) {
+		let x = this.pos[0]
+		let c = x - e.clientX;
+
+		let leftSize: number;
+		let rightSize: number;
+
+		if (c >= 0) {
+			leftSize = this.prevEl.offsetWidth + c;
+			rightSize = this.nextEl.offsetWidth - c;
+		} else {
+			leftSize = this.prevEl.offsetWidth + c;
+			rightSize = this.nextEl.offsetWidth - c;
+		}
+
+		return leftSize / (leftSize + rightSize);
+	}
+
+	@HostListener('dragend') onDragEnd() {
+		console.log("Dragend");
+
+	}
+
+	ngOnInit() {
+		this.prevEl = this.er.nativeElement.parentElement;
+		this.nextEl = this.prevEl.nextElementSibling;
+	}
 
 	sepClass(orientation: NodeOrientation) {
 		return getClass(orientation);

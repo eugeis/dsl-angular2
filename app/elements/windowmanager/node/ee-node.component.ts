@@ -32,9 +32,9 @@ import { PanelHeaderComponent } from '../panel/ee-panel-header.component';
 	template: `
 		<div *ngIf="node && orientation" class="ee-node flex" [ngClass]="nodeClass(orientation)">
 			<div *ngIf="node.branches && node.branches.length > 0 " class="flex" >
-				<div *ngFor="let branch of node.branches" class="flex" [style.flex-grow]="branch.size">
+				<div *ngFor="let branch of node.branches; let i = index" class="flex" [style.flex-grow]="branch.size">
 					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (addPanel)="addPanel($event)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
-					<ee-separator [orientation]="orientation"></ee-separator>
+					<ee-separator *ngIf="node.branches[i+1]" [left]="branch" [right]="node.branches[i+1]" [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container flex">
@@ -56,7 +56,7 @@ export class NodeComponent implements OnInit {
 
 	ngOnInit() {
 		this.node.branches.forEach(function(d) {
-			d.size = 1;
+			d.size = d.size || 1;
 		});
 	}
 
