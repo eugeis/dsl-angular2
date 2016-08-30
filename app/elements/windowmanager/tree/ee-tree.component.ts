@@ -46,43 +46,13 @@ export class TreeComponent {
 		orientation: NodeOrientation.Vertical,
 		branches: [{
 			branches: [],
-			data: "a"
-		}, {
-			branches: [{
-				branches: [],
-				data: "b"
-			},{
-				branches: [{
-					branches: [],
-					data: "c"
-				}, {
-					branches: [{
-						branches: [],
-						data: "d"
-					},{
-						branches: [],
-						data: "e"
-					}]
-				}, {
-					branches: [],
-					data: "f"
-				}, {
-					branches: [],
-					data: "g"
-				}, {
-					branches: [],
-					data: "h"
-				}]
-			}]
-		}, {
+			data: "TaskExplorer"
+		},{
 			branches: [],
-			data: "i"
-		}, {
+			data: "TaskDetails"
+		},{
 			branches: [],
-			data: "j"
-		}, {
-			branches: [],
-			data: "k"
+			data: "TaskDetails"
 		}]
 	};
 

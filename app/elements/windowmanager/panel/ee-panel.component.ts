@@ -18,7 +18,8 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { ComponentOutlet } from 'angular2-component-outlet';
 
 import { DropZone } from '../../drag/dropzone.directive';
 import { DropIndicator } from '../../drag/dropindicator.directive';
@@ -32,20 +33,30 @@ import NodeInterface = require('../node/ee-treenode.interface');
 	template: `
 		<div class="ee-panel flex" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone="'panel'">
 			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
-			<div class="ee-panel-data">{{data}}</div>
+			<div class="ee-panel-data" *componentOutlet="html; context:self; selector:'ee-panel-data'">{{data}}</div>
 		</div>
 	`,
-	directives: [DropZone, DropIndicator]
+	directives: [DropZone, DropIndicator, ComponentOutlet]
 })
 
-export class PanelComponent {
+export class PanelComponent implements OnInit {
 	@Input() data: any;
 	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
+
+	html: string;
+	self: this;
 
 	dropInfo: DropInfo;
 
 	constructor() {
 		this.dropInfo = new DropInfo();
+	}
+
+	ngOnInit() {
+		switch(this.data) {
+			case "TaskExplorer": this.html = "<task-explorer></task-explorer>"; break;
+			case "TaskDetails": this.html = "<task-details></task-details>"; break;
+		}
 	}
 
 	rearrange(node: NodeInterface.TreeNode) {

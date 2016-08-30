@@ -19,19 +19,21 @@
  * @author Jonas Möller
  */
 import { Component } from '@angular/core';
+import { Directive, Input, ComponentMetadata, ViewContainerRef, Compiler, ReflectiveInjector, ComponentMetadataFactory } from '@angular/core';
 
 import { TreeComponent } from './elements/windowmanager/tree/ee-tree.component';
 import { DragService } from './elements/drag/drag.service';
+
+import { TaskDetails } from './src/views/task-details.component';
+import { TaskExplorer } from './src/views/task-explorer.component';
 
 @Component({
 	selector: 'ee-app',
 	template: `
 		<ee-tree></ee-tree>
 	`,
-	directives: [TreeComponent],
+	directives: [TreeComponent, TaskDetails, TaskExplorer],
 	providers: [DragService]
 })
 
-export class AppComponent {
-	title: string = "Tracker"
-}
+export class AppComponent { }
