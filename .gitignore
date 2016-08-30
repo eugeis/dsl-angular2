@@ -2,6 +2,8 @@
 /**/*.js
 /**/*.js.map
 
+!systemjs.config.js
+
 # Logs
 logs
 *.log
