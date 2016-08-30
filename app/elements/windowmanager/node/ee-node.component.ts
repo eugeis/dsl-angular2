@@ -78,56 +78,14 @@ export class NodeComponent implements OnInit {
 	}
 
 	addPanel(e) {
-		switch(e.dropInfo.direction) {
-			case CardinalDirection.Center:
-
-			case CardinalDirection.North:
-			case CardinalDirection.Northwestnorth:
-			case CardinalDirection.Northeastnorth:
-			this.addNorth(e);
-			break;
-
-			case CardinalDirection.South:
-			case CardinalDirection.Southwestsouth:
-			case CardinalDirection.Southeastsouth:
-			this.addSouth(e);
-			break;
-
-			case CardinalDirection.West:
-			case CardinalDirection.Westnorthwest:
-			case CardinalDirection.Westsouthwest:
-			this.addWest(e);
-			break;
-
-			case CardinalDirection.East:
-			case CardinalDirection.Eastnortheast:
-			case CardinalDirection.Eastsoutheast:
-			this.addEast(e);
-			break;
-
-			default: break;
-		}
-	}
-
-	addNorth(e) {
 		let i = this.node.branches.indexOf(e.targetNode);
+		let dir = e.dropInfo.direction;
 
-		if (this.orientation === NodeOrientation.Horizontal) {
+		if (dir === CardinalDirection.North && this.orientation === NodeOrientation.Horizontal
+		 || dir === CardinalDirection.West && this.orientation === NodeOrientation.Vertical) {
 			this.node.branches.splice(i, 0, e.sourceNode);
-		} else {
-			let n: Node = {
-				branches: []
-			};
-
-			let removed: Node = this.node.branches.splice(i, 1, n)[0];
-			n.branches = [e.sourceNode, removed];
-		}
-	}
-
-	addSouth(e) {
-		let i = this.node.branches.indexOf(e.targetNode);
-
-		if (this.orientation === NodeOrientation.Horizontal) {
+		} else if (dir === CardinalDirection.South && this.orientation === NodeOrientation.Horizontal
+		 || dir === CardinalDirection.East && this.orientation === NodeOrientation.Vertical) {
 			this.node.branches.splice(i+1, 0, e.sourceNode);
 		} else {
 			let n: Node = {
@@ -135,50 +93,12 @@ export class NodeComponent implements OnInit {
 			};
 
 			let removed: Node = this.node.branches.splice(i, 1, n)[0];
-			n.branches = [removed, e.sourceNode];
-		}
-	}
 
-	addWest(e) {
-		let i = this.node.branches.indexOf(e.targetNode);
-
-		if (this.orientation === NodeOrientation.Vertical) {
-			this.node.branches.splice(i, 0, e.sourceNode);
-		} else {
-			let n: Node = {
-				branches: []
-			};
-
-			let removed: Node = this.node.branches.splice(i, 1, n)[0];
-			n.branches = [e.sourceNode, removed];
-		}
-	}
-
-	printNodes(e) {
-		let ret = "";
-		e.forEach(function(d) {
-			if (d.data) {
-				ret += d.data + " | ";
+			if (dir === CardinalDirection.North || dir === CardinalDirection.West) {
+				n.branches = [e.sourceNode, removed];
 			} else {
-				ret += " | ";
+				n.branches = [removed, e.sourceNode];
 			}
-		});
-
-		return ret;
-	}
-
-	addEast(e) {
-		let i = this.node.branches.indexOf(e.targetNode);
-
-		if (this.orientation === NodeOrientation.Vertical) {
-			this.node.branches.splice(i+1, 0, e.sourceNode);
-		} else {
-			let n: Node = {
-				branches: []
-			};
-
-			let removed: Node = this.node.branches.splice(i, 1, n)[0];
-			n.branches = [removed, e.sourceNode];
 		}
 	}
 

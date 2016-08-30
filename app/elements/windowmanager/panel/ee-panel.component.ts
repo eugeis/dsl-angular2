@@ -23,6 +23,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DropZone } from '../../drag/dropzone.directive';
 import { DropIndicator } from '../../drag/dropindicator.directive';
 import { DropInfo } from '../../drag/dropinfo.model';
+import { CardinalDirection } from '../../drag/cardinaldirection.enum';
 
 @Component({
 	selector: 'ee-panel',
@@ -47,6 +48,38 @@ export class PanelComponent {
 	}
 
 	rearrange(node) {
+		switch(this.dropInfo.direction) {
+			case CardinalDirection.Center:
+			this.dropInfo.direction = CardinalDirection.Center;
+			break;
+
+			case CardinalDirection.North:
+			case CardinalDirection.Northwestnorth:
+			case CardinalDirection.Northeastnorth:
+			this.dropInfo.direction = CardinalDirection.North;
+			break;
+
+			case CardinalDirection.South:
+			case CardinalDirection.Southwestsouth:
+			case CardinalDirection.Southeastsouth:
+			this.dropInfo.direction = CardinalDirection.South;
+			break;
+
+			case CardinalDirection.West:
+			case CardinalDirection.Westnorthwest:
+			case CardinalDirection.Westsouthwest:
+			this.dropInfo.direction = CardinalDirection.West;
+			break;
+
+			case CardinalDirection.East:
+			case CardinalDirection.Eastnortheast:
+			case CardinalDirection.Eastsoutheast:
+			this.dropInfo.direction = CardinalDirection.East;
+			break;
+
+			default: break;
+		}
+
 		this.addEmitter.emit({
 			dropInfo: this.dropInfo,
 			sourceNode: node
