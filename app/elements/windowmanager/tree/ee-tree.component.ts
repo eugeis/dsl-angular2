@@ -36,21 +36,44 @@ export interface Tree extends NodeInterface.TreeNode {
 @Component({
 	selector: 'ee-tree',
 	styles: [`
-		.empty-window {
+		.add-window {
 			height: 100%;
 			width: 100%;
 			background: rgba(0,0,0,0.8);
 			position: relative;
 		}
 
-		.empty-window-wrapper {
+		.add-window .closer {
+			margin: 0px auto;
+			position: relative;
+			width: 450px;
+		}
+
+		.add-window .closer span {
+			position: absolute;
+			top: -40px;
+			right: -50px;
+			background: white;
+			padding: 6px 12px 6px 12px;
+			border-radius: 20px;
+			line-height: 20px;
+			font-weight: bold;
+			font-size: 12pt;
+			cursor: pointer;
+		}
+
+		.add-window .closer:hover span {
+			background: grey;
+		}
+
+		.add-window-wrapper {
 			display: block;
 			position: relative;
 			top: 18%;
 			text-align: center;
 		}
 
-		.empty-window-wrapper input {
+		.add-window-wrapper input {
 			width: 450px;
 			height: 45px;
 			font-size: 16pt;
@@ -59,17 +82,17 @@ export interface Tree extends NodeInterface.TreeNode {
 			outline: 0px !important;
 		}
 
-		.empty-window-wrapper input:before {
+		.add-window-wrapper input:before {
 			width: 20px;
 			height: 30px;
 			background: black;
 		}
 
-		.empty-window-gallery {
+		.add-window-gallery {
 			margin: 40px
 		}
 
-		.empty-window-gallery li {
+		.add-window-gallery li {
 			display: inline-flex;
 			background: white;
 			margin: 20px;
@@ -78,19 +101,20 @@ export interface Tree extends NodeInterface.TreeNode {
 			cursor: pointer;
 		}
 
-		.empty-window-gallery li:hover {
+		.add-window-gallery li:hover {
 			background: grey;
 		}
 	`],
 	template: `
-		<div [hidden]="tree.branches.length == 0 || adding" class="ee-tree">
-			<ee-tree-header (click)="showAdd()"></ee-tree-header>
+		<div [hidden]="tree.branches.length == 0 || addWindow" class="ee-tree">
+			<ee-tree-header (click)="showAddWindow()"></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
 		</div>
-		<div [hidden]="tree.branches.length > 0 && !adding" class="empty-window">
-			<div class="empty-window-wrapper">
+		<div [hidden]="tree.branches.length > 0 && !addWindow" class="add-window">
+			<div class="add-window-wrapper">
+				<div *ngIf="addWindow" class="closer" (click)="hideAddWindow()"><span>x</span></div>
 				<input type="text" [(ngModel)]="needle" placeholder="Type in the view you want to open..." autofocus>
-				<div class="empty-window-gallery">
+				<div class="add-window-gallery">
 					<ul>
 						<li *ngFor="let v of windows | LimitPipe:20 | StringFilterPipe:needle" (click)="add(v)">
 							{{v}}
@@ -107,7 +131,7 @@ export interface Tree extends NodeInterface.TreeNode {
 export class TreeComponent {
 	@Input() windows: string[];
 
-	adding: boolean = false;
+	addWindow: boolean = false;
 	needle: string = "";
 
 	tree: Tree = {
@@ -118,12 +142,12 @@ export class TreeComponent {
 	constructor() {
 	}
 
-	showAdd() {
-		this.adding = true;
+	showAddWindow() {
+		this.addWindow = true;
 	}
 
-	hideAdd() {
-		this.adding = false;
+	hideAddWindow() {
+		this.addWindow = false;
 	}
 
 	add(view: string) {
@@ -131,6 +155,6 @@ export class TreeComponent {
 			branches: [],
 			data: view
 		});
-		this.hideAdd();
+		this.hideAddWindow();
 	}
 }
