@@ -128,9 +128,9 @@ export class DropZone implements OnInit {
 		throw "up";
 	}
 
-	@HostListener('dragover', ['$event']) onDragOver(e) {
+	@HostListener('dragover', ['$event']) onDragOver(e: MouseEvent) {
 		if (this.dragService.hasDragObject(this.type)) {
-			this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
+			this.dropInfo.direction = this.getCardinalDirection(e.layerX,e.layerY);
 			this.dropInfo.display = true;
 			e.preventDefault();
 		}
