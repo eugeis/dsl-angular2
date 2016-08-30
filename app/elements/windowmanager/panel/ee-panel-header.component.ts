@@ -29,22 +29,6 @@ import NodeInterface = require('../node/ee-treenode.interface');
 		.panel-space {
 			margin-left: auto;
 		}
-		.panel-icon {
-			flex: 0 !important;
-			padding: 4px;
-		}
-		.panel-icon span {
-			font-weight: bold;
-			padding: 5px 12px 5px 12px;
-			border-radius: 4px;
-			cursor: pointer;
-			transition: background-color 50ms ease-in 0s;
-			border: 1px solid transparent;
-		}
-
-		.panel-icon span:hover {
-			border: 1px solid #aaa;
-		}
 
 		ee-panel-header {
 			display: flex;

@@ -39,38 +39,37 @@ export interface Tree extends NodeInterface.TreeNode {
 		.add-window {
 			height: 100%;
 			width: 100%;
-			background: rgba(0,0,0,0.8);
-			position: relative;
-		}
-
-		.add-window .closer {
-			margin: 0px auto;
-			position: relative;
-			width: 450px;
+			background: rgba(0,0,0,0.5);
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			pointer-events: none;
 		}
 
 		.add-window .closer span {
 			position: absolute;
-			top: -40px;
-			right: -50px;
-			background: white;
-			padding: 6px 12px 6px 12px;
-			border-radius: 20px;
-			line-height: 20px;
-			font-weight: bold;
-			font-size: 12pt;
-			cursor: pointer;
-		}
-
-		.add-window .closer:hover span {
-			background: grey;
+			top: 0px;
+			right: 0px;
+			line-height: 8px;
+			border-top: 0px;
+			border-right: 0px;
+			border-top-left-radius: 0px;
+			border-bottom-right-radius: 0px;
+			padding: 16px 16px 16px 16px;
 		}
 
 		.add-window-wrapper {
 			display: block;
-			position: relative;
-			top: 18%;
+			top: 15%;
 			text-align: center;
+			margin: 0px auto;
+			position: relative;
+			width: 650px;
+			padding-top: 50px;
+			padding-bottom: 20px;
+			background: white;
+			border-radius: 20px;
+			pointer-events: all;
 		}
 
 		.add-window-wrapper input {
@@ -82,42 +81,39 @@ export interface Tree extends NodeInterface.TreeNode {
 			outline: 0px !important;
 		}
 
-		.add-window-wrapper input:before {
-			width: 20px;
-			height: 30px;
-			background: black;
-		}
-
 		.add-window-gallery {
 			margin: 40px
 		}
 
 		.add-window-gallery li {
 			display: inline-flex;
-			background: white;
 			margin: 20px;
-			padding: 15px 20px 15px 20px;
-			border-radius: 10px;
-			cursor: pointer;
+			margin-bottom: 0px;
 		}
 
-		.add-window-gallery li:hover {
-			background: grey;
+		.add-window-gallery li a {
+			display: inline-flex;
+			/* background: white; */
+			/* padding: 15px 20px 15px 20px; */
+			border-radius: 10px;
+			cursor: pointer;
+			text-decoration: none;
+			color: black;
 		}
 	`],
 	template: `
-		<div [hidden]="tree.branches.length == 0 || addWindow" class="ee-tree">
-			<ee-tree-header (click)="showAddWindow()"></ee-tree-header>
+		<div class="ee-tree" (click)="hideAddWindow()">
+			<ee-tree-header (click)="showAddWindow($event)"></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
 		</div>
 		<div [hidden]="tree.branches.length > 0 && !addWindow" class="add-window">
 			<div class="add-window-wrapper">
-				<div *ngIf="addWindow" class="closer" (click)="hideAddWindow()"><span>x</span></div>
-				<input type="text" [(ngModel)]="needle" placeholder="Type in the view you want to open..." autofocus>
+				<div *ngIf="addWindow" class="closer panel-icon" (click)="hideAddWindow()"><span>x</span></div>
+				<input type="text" [(ngModel)]="needle" placeholder="Type in the view you want to open..." tabindex="1" autofocus>
 				<div class="add-window-gallery">
 					<ul>
-						<li *ngFor="let v of windows | LimitPipe:20 | StringFilterPipe:needle" (click)="add(v)">
-							{{v}}
+						<li *ngFor="let v of windows | LimitPipe:20 | StringFilterPipe:needle; let i = index" (click)="add(v)">
+							<a class="btn btn-default" [attr.tabindex]="i+1" (keydown)="keyDown($event, v)">{{v}}</a>
 						</li>
 					</ul>
 				</div>
@@ -142,8 +138,9 @@ export class TreeComponent {
 	constructor() {
 	}
 
-	showAddWindow() {
+	showAddWindow(e: MouseEvent) {
 		this.addWindow = true;
+		e.stopPropagation();
 	}
 
 	hideAddWindow() {
@@ -156,5 +153,15 @@ export class TreeComponent {
 			data: view
 		});
 		this.hideAddWindow();
+	}
+
+	keyDown(e: KeyboardEvent, view: string) {
+		if (e.key === "Enter") {
+			this.add(view);
+		}
+
+		if (e.key === "Escape") {
+			this.hideAddWindow();
+		}
 	}
 }
