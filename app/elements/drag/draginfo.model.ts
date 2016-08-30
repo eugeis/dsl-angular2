@@ -19,9 +19,10 @@
  * @author Jonas Möller
  */
 import { EventEmitter } from '@angular/core';
+import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 export interface DragInfo {
-	node: Node,
+	node: NodeInterface.TreeNode,
 	closeEmitter: EventEmitter<void>,
 	type: string
 }

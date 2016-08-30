@@ -19,8 +19,11 @@
  * @author Jonas Möller
  */
 import { CardinalDirection } from './cardinaldirection.enum';
+import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 export class DropInfo {
 	direction: CardinalDirection;
 	display: boolean;
+	sourceNode: NodeInterface.TreeNode;
+	targetNode: NodeInterface.TreeNode;
 }

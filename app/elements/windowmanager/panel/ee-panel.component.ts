@@ -24,6 +24,7 @@ import { DropZone } from '../../drag/dropzone.directive';
 import { DropIndicator } from '../../drag/dropindicator.directive';
 import { DropInfo } from '../../drag/dropinfo.model';
 import { CardinalDirection } from '../../drag/cardinaldirection.enum';
+import NodeInterface = require('../node/ee-treenode.interface');
 
 @Component({
 	selector: 'ee-panel',
@@ -39,7 +40,7 @@ import { CardinalDirection } from '../../drag/cardinaldirection.enum';
 
 export class PanelComponent {
 	@Input() data: any;
-	@Output("add") addEmitter = new EventEmitter();
+	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 
 	dropInfo: DropInfo;
 
@@ -47,7 +48,7 @@ export class PanelComponent {
 		this.dropInfo = new DropInfo();
 	}
 
-	rearrange(node) {
+	rearrange(node: NodeInterface.TreeNode) {
 		switch(this.dropInfo.direction) {
 			case CardinalDirection.Center:
 			this.dropInfo.direction = CardinalDirection.Center;
@@ -80,9 +81,7 @@ export class PanelComponent {
 			default: break;
 		}
 
-		this.addEmitter.emit({
-			dropInfo: this.dropInfo,
-			sourceNode: node
-		});
+		this.dropInfo.sourceNode = node;
+		this.addEmitter.emit(this.dropInfo);
 	}
 }

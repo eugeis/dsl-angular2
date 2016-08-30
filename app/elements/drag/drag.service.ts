@@ -21,16 +21,17 @@
 import { Injectable } from '@angular/core';
 
 import { DragInfo } from './draginfo.model';
+import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 @Injectable()
 export class DragService {
 	private info: DragInfo;
 
-	setDragInfo(i) {
+	setDragInfo(i: DragInfo): void {
 		this.info = i;
 	}
 
-	getNode() {
+	getNode(): NodeInterface.TreeNode {
 		if (!this.info) {
 			throw "Tried 'getNode' while draginfo is not set.";
 		}
@@ -38,7 +39,7 @@ export class DragService {
 		return this.info.node;
 	}
 
-	close() {
+	close(): void {
 		if (!this.info) {
 			throw "Tried 'close' while draginfo is not set.";
 		}
@@ -50,7 +51,7 @@ export class DragService {
 		this.info.closeEmitter.emit();
 	}
 
-	hasDragObject(type: string) {
+	hasDragObject(type: string): boolean {
 		if (!this.info) {
 			return false;
 		}

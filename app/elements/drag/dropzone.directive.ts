@@ -23,6 +23,7 @@ import { Directive, ElementRef, Input, Output, HostListener, OnInit, EventEmitte
 import { DropInfo } from './dropinfo.model';
 import { CardinalDirection } from './cardinaldirection.enum';
 import { DragService } from './drag.service';
+import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 @Directive({
 	selector: '[dropZone]'
@@ -31,31 +32,7 @@ import { DragService } from './drag.service';
 export class DropZone implements OnInit {
 	@Input("dropZone") type: string;
 	@Input() dropInfo: DropInfo;
-	@Output() rearrange = new EventEmitter();
-
-	@HostListener('dragover', ['$event']) onDragOver(e) {
-		if (this.dragService.hasDragObject(this.type)) {
-			this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
-			this.dropInfo.display = true;
-			e.preventDefault();
-		}
-	}
-
-	@HostListener('dragleave', ['$event']) onDragLeave(e) {
-		this.dropInfo.display = false;
-	}
-
-	@HostListener('drop') onDrop() {
-		this.dropInfo.display = false;
-		this.rearrange.emit(this.dragService.getNode());
-
-		//TODO: Only close, when promise is received
-		this.dragService.close();
-	}
-
-	@HostListener('window:resize', ['$event']) onResize(event) {
-		this.ngOnInit();
-	}
+	@Output() rearrange: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
 
 	el: any;
 	width: number;
@@ -85,7 +62,7 @@ export class DropZone implements OnInit {
 		this.secondY = this.height / (1 + goldenRatio + 1) * (goldenRatio + 1);
 	}
 
-	getCardinalDirection(x,y) {
+	getCardinalDirection(x,y): CardinalDirection {
 		if (this.firstX <= x && x <= this.secondX) {
 			if (this.firstY <= y && y <= this.secondY) {
 				return CardinalDirection.Center;
@@ -147,5 +124,31 @@ export class DropZone implements OnInit {
 				return CardinalDirection.Westsouthwest;
 			}
 		}
+
+		throw "up";
+	}
+
+	@HostListener('dragover', ['$event']) onDragOver(e) {
+		if (this.dragService.hasDragObject(this.type)) {
+			this.dropInfo.direction = this.getCardinalDirection(e.offsetX,e.offsetY);
+			this.dropInfo.display = true;
+			e.preventDefault();
+		}
+	}
+
+	@HostListener('dragleave', ['$event']) onDragLeave(e) {
+		this.dropInfo.display = false;
+	}
+
+	@HostListener('drop') onDrop() {
+		this.dropInfo.display = false;
+		this.rearrange.emit(this.dragService.getNode());
+
+		//TODO: Only close, when promise is received
+		this.dragService.close();
+	}
+
+	@HostListener('window:resize', ['$event']) onResize(event) {
+		this.ngOnInit();
 	}
 }

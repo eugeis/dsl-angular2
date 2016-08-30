@@ -20,6 +20,8 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 
+import NodeInterface = require('../node/ee-treenode.interface');
+
 @Component({
 	selector: 'ee-tree-view',
 	template: `
@@ -37,7 +39,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class TreeView implements OnInit {
-	@Input("tree") node: Node;
+	@Input("tree") node: NodeInterface.TreeNode;
 	@Input() depth: number = 0;
 
 	arr: number[] = [];

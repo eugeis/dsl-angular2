@@ -23,10 +23,10 @@ export enum NodeOrientation {
 	Vertical = 2
 }
 
-export function inv(orientation: NodeOrientation) {
+export function inv(orientation: NodeOrientation): NodeOrientation {
 	return (orientation == NodeOrientation.Horizontal) ? NodeOrientation.Vertical : NodeOrientation.Horizontal;
 }
 
-export function getClass(orientation: NodeOrientation) {
+export function getClass(orientation: NodeOrientation): string {
 	return (orientation == NodeOrientation.Horizontal) ? "hor" : "vert";
 }

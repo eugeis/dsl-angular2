@@ -58,11 +58,11 @@ export class SeparatorComponent implements OnInit {
 
 	pos: number[];
 
-	@HostListener('dragstart', ['$event']) onDragStart(e) {
+	@HostListener('dragstart', ['$event']) onDragStart(e: MouseEvent) {
 		this.pos = [e.clientX, e.clientY];
 	}
 
-	@HostListener('drag', ['$event']) onDrag(e) {
+	@HostListener('drag', ['$event']) onDrag(e: MouseEvent) {
 		if (e.clientX != 0 && e.clientY != 0) {
 			let ratio = 0.5;
 
@@ -86,7 +86,7 @@ export class SeparatorComponent implements OnInit {
 		}
 	}
 
-	calcVert(e) {
+	calcVert(e: MouseEvent): number {
 		let y = this.pos[1]
 		let c = y - e.clientY;
 
@@ -104,7 +104,7 @@ export class SeparatorComponent implements OnInit {
 		return leftSize / (leftSize + rightSize);
 	}
 
-	calcHor(e) {
+	calcHor(e: MouseEvent): number {
 		let x = this.pos[0]
 		let c = x - e.clientX;
 

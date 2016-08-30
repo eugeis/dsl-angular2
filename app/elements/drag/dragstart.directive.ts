@@ -18,18 +18,18 @@
  *
  * @author Jonas Möller
  */
-import { Directive, Input, ElementRef, HostListener } from '@angular/core';
+import { Directive, Input, ElementRef, HostListener, EventEmitter } from '@angular/core';
 
 import { DragService } from './drag.service';
-//import { Node } from './node.interface';
+import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 @Directive({
 	selector: '[dragStart]'
 })
 export class DragStart {
 	@Input("dragStart") type: string;
-	@Input() node: any;	//Node
-	@Input("close") closeEmitter: any;
+	@Input() node: NodeInterface.TreeNode;
+	@Input("close") closeEmitter: EventEmitter<void>;
 
 	constructor(private er: ElementRef, private dragService: DragService) {
 		er.nativeElement.draggable = true;

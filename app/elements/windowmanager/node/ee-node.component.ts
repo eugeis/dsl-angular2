@@ -20,12 +20,14 @@
  */
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { Node, cloneNodeShallow } from './ee-node.interface';
+import { DropInfo } from '../../drag/dropinfo.model';
 import { NodeOrientation, inv, getClass } from './ee-nodeorientation.enum';
 import { SeparatorComponent } from './ee-separator.component';
 import { CardinalDirection } from '../../drag/cardinaldirection.enum';
 import { PanelComponent } from '../panel/ee-panel.component';
 import { PanelHeaderComponent } from '../panel/ee-panel-header.component';
+
+import NodeInterface = require('./ee-treenode.interface');
 
 @Component({
 	selector: 'ee-node',
@@ -47,12 +49,12 @@ import { PanelHeaderComponent } from '../panel/ee-panel-header.component';
 })
 
 export class NodeComponent implements OnInit {
-	@Input() node: any;	//Node
+	@Input() node: NodeInterface.TreeNode;
 	@Input() orientation: NodeOrientation;
 
-	@Output("addPanel") addEmitter = new EventEmitter();
-	@Output("promotePanel") promoteEmitter = new EventEmitter();
-	@Output("closePanel") closeEmitter = new EventEmitter();
+	@Output("addPanel") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
+	@Output("promotePanel") promoteEmitter: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
+	@Output("closePanel") closeEmitter: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
 
 	ngOnInit() {
 		this.node.branches.forEach(function(d) {
@@ -60,53 +62,55 @@ export class NodeComponent implements OnInit {
 		});
 	}
 
-	nodeClass(orientation: NodeOrientation) {
+	nodeClass(orientation: NodeOrientation): string {
 		return getClass(orientation);
 	}
 
-	nodeInv(orientation: NodeOrientation) {
+	nodeInv(orientation: NodeOrientation): NodeOrientation {
 		return inv(orientation);
 	}
 
-	add(e) {
-		e.targetNode = this.node;
-		if (e.targetNode !== e.sourceNode) {
-			e.sourceNode = cloneNodeShallow(e.sourceNode);
+	add(dropInfo: DropInfo): void {
+		dropInfo.targetNode = this.node;
+		if (dropInfo.targetNode !== dropInfo.sourceNode) {
+			dropInfo.sourceNode = NodeInterface.cloneNodeShallow(dropInfo.sourceNode);
 
-			this.addEmitter.emit(e);
+			this.addEmitter.emit(dropInfo);
 		}
 	}
 
-	addPanel(e) {
-		let i = this.node.branches.indexOf(e.targetNode);
-		let dir = e.dropInfo.direction;
+	addPanel(d: DropInfo): void {
+		let i = this.node.branches.indexOf(d.targetNode);
+		let dir: CardinalDirection = d.direction;
+		let orientation: NodeOrientation = this.orientation;
+		let branches: NodeInterface.TreeNode[] = this.node.branches;
 
-		if (dir === CardinalDirection.North && this.orientation === NodeOrientation.Horizontal
-		 || dir === CardinalDirection.West && this.orientation === NodeOrientation.Vertical) {
-			this.node.branches.splice(i, 0, e.sourceNode);
-		} else if (dir === CardinalDirection.South && this.orientation === NodeOrientation.Horizontal
-		 || dir === CardinalDirection.East && this.orientation === NodeOrientation.Vertical) {
-			this.node.branches.splice(i+1, 0, e.sourceNode);
+		if (dir === CardinalDirection.North && orientation === NodeOrientation.Horizontal
+		 || dir === CardinalDirection.West && orientation === NodeOrientation.Vertical) {
+			branches.splice(i, 0, d.sourceNode);
+		} else if (dir === CardinalDirection.South && orientation === NodeOrientation.Horizontal
+		 || dir === CardinalDirection.East && orientation === NodeOrientation.Vertical) {
+			branches.splice(i+1, 0, d.sourceNode);
 		} else {
-			let n: Node = {
+			let n: NodeInterface.TreeNode = {
 				branches: []
 			};
 
-			let removed: Node = this.node.branches.splice(i, 1, n)[0];
+			let removed: NodeInterface.TreeNode = branches.splice(i, 1, n)[0];
 
 			if (dir === CardinalDirection.North || dir === CardinalDirection.West) {
-				n.branches = [e.sourceNode, removed];
+				n.branches = [d.sourceNode, removed];
 			} else {
-				n.branches = [removed, e.sourceNode];
+				n.branches = [removed, d.sourceNode];
 			}
 		}
 	}
 
-	closePanel() {
+	closePanel(): void {
 		this.closeEmitter.emit(this.node);
 	}
 
-	deletePanel(childNode) {
+	deletePanel(childNode: NodeInterface.TreeNode): void {
 		let i = this.node.branches.indexOf(childNode);
 		if (0 <= i && i < this.node.branches.length) {
 			this.node.branches.splice(i, 1);
@@ -117,18 +121,18 @@ export class NodeComponent implements OnInit {
 		}
 	}
 
-	promotePanel(childNode) {
+	promotePanel(childNode: NodeInterface.TreeNode): void {
 		let i = this.node.branches.indexOf(childNode);
 		if (0 <= i && i < this.node.branches.length && childNode.branches.length == 1) {
 			if (childNode.branches[0].branches.length <= 1) {
 				childNode.branches[0].size = this.node.branches[i].size;
 				this.node.branches[i] = childNode.branches[0];
 			} else {
-				let removed = this.node.branches.splice(i, 1)[0];
+				let removed: NodeInterface.TreeNode = this.node.branches.splice(i, 1)[0];
 				childNode.branches[0].branches.forEach(function(d) {
 					d.size = removed.size / childNode.branches[0].branches.length;
 				});
-				this.node.branches.splice.apply(this.node.branches, [i, 0].concat(childNode.branches[0].branches));
+				this.node.branches.splice.apply(this.node.branches, [<any>i, 0].concat(childNode.branches[0].branches));
 			}
 		}
 	}

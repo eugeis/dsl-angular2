@@ -20,8 +20,8 @@
  */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Node } from '../node/ee-node.interface';
 import { DragStart } from '../../drag/dragstart.directive';
+import NodeInterface = require('../node/ee-treenode.interface');
 
 @Component({
 	selector: 'ee-panel-header',
@@ -65,12 +65,12 @@ import { DragStart } from '../../drag/dragstart.directive';
 })
 
 export class PanelHeaderComponent {
-	@Input() node: any;	//Node
-	@Output("close") closeEmitter = new EventEmitter();
+	@Input() node: NodeInterface.TreeNode;
+	@Output("close") closeEmitter: EventEmitter<void> = new EventEmitter<void>();
 
 	constructor() { }
 
-	close() {
+	close(): void {
 		this.closeEmitter.emit();
 	}
 }

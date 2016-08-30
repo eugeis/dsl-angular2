@@ -18,13 +18,13 @@
  *
  * @author Jonas Möller
  */
-export interface Node {
-	branches: Node[],
+export interface TreeNode {
+	branches: TreeNode[],
 	data?: any,
 	size?: number
 }
 
-export function cloneNodeShallow(n: Node) {
+export function cloneNodeShallow(n: TreeNode): TreeNode {
 	return {
 		branches: n.branches,
 		data: n.data,
