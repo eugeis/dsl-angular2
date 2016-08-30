@@ -25,8 +25,10 @@ import { TaskActionLoader } from '../../src-gen/services/taskactionloader.servic
 import { CommentLoader } from '../../src-gen/services/commentloader.service';
 import { Entity } from '../../src-gen/entities/entity.model';
 
+export const TaskDetailsSelector: string = 'task-details';
+
 @Component({
-	selector: 'task-details',
+	selector: TaskDetailsSelector,
 	template: `
 		<h2>TaskDetails</h2>
 		<ee-table [entities]="cEntities"></ee-table>

@@ -25,6 +25,7 @@ import { DropZone } from '../../drag/dropzone.directive';
 import { DropIndicator } from '../../drag/dropindicator.directive';
 import { DropInfo } from '../../drag/dropinfo.model';
 import { CardinalDirection } from '../../drag/cardinaldirection.enum';
+import { mapViewToHtmlElement } from '../../../src/views/viewbarrel.model';
 import NodeInterface = require('../node/ee-treenode.interface');
 
 @Component({
@@ -53,9 +54,8 @@ export class PanelComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		switch(this.data) {
-			case "TaskExplorer": this.html = "<task-explorer></task-explorer>"; break;
-			case "TaskDetails": this.html = "<task-details></task-details>"; break;
+		if (this.data) {
+			this.html = mapViewToHtmlElement(this.data);
 		}
 	}
 

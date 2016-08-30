@@ -22,8 +22,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { TaskSearch_ } from '../../src-gen/views/task-search.component';
 
+export const TaskSearchSelector:string = 'task-search';
+
 @Component({
-	selector: 'task-search',
+	selector: TaskSearchSelector,
 	template: `
 		<h2>TaskSearch</h2>
 	`

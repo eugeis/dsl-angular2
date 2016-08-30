@@ -3,7 +3,7 @@
 	padding: 0px;
 }
 
-html, body, task-explorer, task-details, task-search {
+html, body, task-editor, task-explorer, task-details, task-search {
 	width: 100%;
 	height: 100%;
 }

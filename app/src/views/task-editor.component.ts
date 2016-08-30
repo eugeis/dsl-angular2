@@ -21,23 +21,20 @@
 import { Component } from '@angular/core';
 
 import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
-import { TaskExplorer } from './task-explorer.component';
-import { TaskDetails } from './task-details.component';
-import { TaskSearch } from './task-search.component';
+import { Tree, TreeComponent } from '../../elements/windowmanager/tree/ee-tree.component';
+import { NodeOrientation } from '../../elements/windowmanager/node/ee-nodeorientation.enum';
+import { ViewBarrel, ViewBarrelStrings } from './viewbarrel.model';
 
 @Component({
 	selector: 'task-editor',
 	template: `
-		<h1>TaskEditor</h1>
-		<div>
-			<task-explorer [viewModel]="viewModel"></task-explorer>
-			<task-details [viewModel]="viewModel"></task-details>
-			<task-search [viewModel]="viewModel"></task-search>
-		</div>
+		<ee-tree [windows]="windows"></ee-tree>
 	`,
-	directives: [TaskExplorer, TaskDetails, TaskSearch]
+	directives: [<any>TreeComponent].concat(ViewBarrel)
 })
 
 export class TaskEditor extends TaskEditor_ {
 	constructor() { super(); }
+
+	windows: string[] = ViewBarrelStrings.slice();
 }

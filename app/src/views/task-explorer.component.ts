@@ -25,8 +25,10 @@ import { Entity } from '../../src-gen/entities/entity.model';
 import { TaskLoader } from '../../src-gen/services/taskloader.service';
 import { Table } from '../../elements/ee-table.component';
 
+export const TaskExplorerSelector: string = 'task-explorer';
+
 @Component({
-	selector: 'task-explorer',
+	selector: TaskExplorerSelector,
 	template: `
 		<h2>TaskExplorer</h2>
 		<ee-table [entities]="entities" (selected)="selected($event)"></ee-table>
