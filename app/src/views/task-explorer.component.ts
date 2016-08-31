@@ -30,7 +30,6 @@ export const TaskExplorerSelector: string = 'task-explorer';
 @Component({
 	selector: TaskExplorerSelector,
 	template: `
-		<h2>TaskExplorer</h2>
 		<input type="button" class="btn btn-default" (click)="onAction('add')" value="Add">
 		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
 		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
@@ -44,8 +43,6 @@ export class TaskExplorer extends TaskExplorer_ {
 
 	constructor(public loader: TaskLoader) {
 		super();
-		this.onActionEmitter = new EventEmitter<any>();
-		this.onSelectEmitter = new EventEmitter<any>();
 	}
 
 	ngOnInit() {

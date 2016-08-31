@@ -32,14 +32,14 @@ import NodeInterface = require('./ee-treenode.interface');
 @Component({
 	selector: 'ee-node',
 	template: `
-		<div *ngIf="node && orientation" class="ee-node flex" [ngClass]="nodeClass(orientation)">
-			<div *ngIf="node.branches && node.branches.length > 0 " class="flex" >
-				<div *ngFor="let branch of node.branches; let i = index" class="flex" [style.flex-grow]="branch.size">
+		<div *ngIf="node && orientation" class="ee-node">
+			<div *ngIf="node.branches && node.branches.length > 0" [ngClass]="nodeClass(orientation)" class="ee-node-direction">
+				<div *ngFor="let branch of node.branches; let i = index" class="ee-node-resizer" [style.flex-grow]="branch.size">
 					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (addPanel)="addPanel($event)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
 					<ee-separator *ngIf="node.branches[i+1]" [left]="branch" [right]="node.branches[i+1]" [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
-			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container flex">
+			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
 				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
 				<ee-panel [data]="node.data" (add)="add($event)"></ee-panel>
 			</div>

@@ -26,9 +26,7 @@ export const TaskSearchSelector:string = 'task-search';
 
 @Component({
 	selector: TaskSearchSelector,
-	template: `
-		<h2>TaskSearch</h2>
-	`
+	template: ``
 })
 
 export class TaskSearch extends TaskSearch_ {

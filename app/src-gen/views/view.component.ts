@@ -22,8 +22,8 @@ import { OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class View implements OnInit {
 	@Input("item") item: any;
-	@Output("onAction") onActionEmitter: EventEmitter<any>;
-	@Output("onSelect") onSelectEmitter: EventEmitter<any>;
+	@Output("onAction") onActionEmitter: EventEmitter<any> = new EventEmitter<any>();
+	@Output("onSelect") onSelectEmitter: EventEmitter<any> = new EventEmitter<any>();
 
 	ngOnInit() { }
 }

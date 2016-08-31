@@ -103,19 +103,21 @@ export interface Tree extends NodeInterface.TreeNode {
 	`],
 	template: `
 		<div class="ee-tree" *ngIf="tree.branches.length > 0" (click)="hideAddWindow()">
-			<ee-tree-header (click)="showAddWindow($event)"></ee-tree-header>
+			<ee-tree-header (add)="showAddWindow($event)"></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
 		</div>
-		<div [hidden]="tree.branches.length > 0 && !addWindow" class="add-window">
-			<div class="add-window-wrapper">
-				<div *ngIf="addWindow" class="closer panel-icon" (click)="hideAddWindow()"><span>x</span></div>
-				<input type="text" [(ngModel)]="needle" placeholder="Type in the view you want to open..." tabindex="1" autofocus>
-				<div class="add-window-gallery">
-					<ul>
-						<li *ngFor="let v of windows | LimitPipe:20 | StringFilterPipe:needle; let i = index" (click)="add(v)">
-							<a class="btn btn-default" [attr.tabindex]="i+1" (keydown)="keyDown($event, v)">{{v}}</a>
-						</li>
-					</ul>
+		<div [hidden]="tree.branches.length > 0 && !addWindow">
+			<div class="add-window">
+				<div class="add-window-wrapper">
+					<div *ngIf="addWindow" class="closer ee-icon" (click)="hideAddWindow()"><span>x</span></div>
+					<input type="text" [(ngModel)]="needle" placeholder="Type in the view you want to open..." tabindex="1" autofocus>
+					<div class="add-window-gallery">
+						<ul>
+							<li *ngFor="let v of windows | LimitPipe:20 | StringFilterPipe:needle; let i = index" (click)="add(v)">
+								<a class="btn btn-default" [attr.tabindex]="i+1" (keydown)="keyDown($event, v)">{{v}}</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -132,7 +134,10 @@ export class TreeComponent implements OnInit {
 
 	tree: Tree = {
 		orientation: NodeOrientation.Vertical,
-		branches: []
+		branches: [{
+			branches: [],
+			data: "TaskDetails"
+		}]
 	};
 
 	constructor() {

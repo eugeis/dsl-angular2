@@ -39,9 +39,19 @@ interface ViewReactor {
 
 @Component({
 	selector: 'ee-panel',
-	styles: [".ee-panel-data { padding: 4px;}"],
+	styles: [`
+		.ee-panel-hover {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: black;
+			opacity: 0.3;
+			z-index: 100;
+			pointer-events: none;
+		}
+	`],
 	template: `
-		<div class="ee-panel flex" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone="'panel'">
+		<div class="ee-panel" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone="'panel'">
 			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
 			<div class="ee-panel-data" *componentOutlet="html; context:self; selector:'ee-panel-data'">{{data}}</div>
 		</div>

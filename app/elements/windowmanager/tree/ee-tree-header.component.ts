@@ -18,29 +18,41 @@
  *
  * @author Jonas Möller
  */
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'ee-tree-header',
 	styles: [`
-	ee-tree-header {
-		display: flex;
-	}
-	.tree-header {
-		width: 100%;
-		background: linear-gradient(to bottom, rgba(244,244,244,1) 0%,rgba(247,247,247,1) 100%);
-		height: 35px;
-		border-bottom: 1px solid gainsboro;
-		margin-bottom: 3px;
-	}
+		.navbar {
+			border-radius: 0px !important;
+		}
 	`],
 	template: `
-		<div class="tree-header flex"></div>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">DSL</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">TaskEditor</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li (click)="add($event)"><a href="#"><span class="glyphicon glyphicon-plus"></span> Add</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		</nav>
 	`,
 	directives: []
 })
 
 export class TreeHeaderComponent {
-	constructor() {
+	@Output("add") addEmitter: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+
+	constructor() { }
+
+	add(e: MouseEvent): void {
+		this.addEmitter.emit(e);
 	}
 }

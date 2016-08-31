@@ -30,7 +30,6 @@ export const TaskDetailsSelector: string = 'task-details';
 @Component({
 	selector: TaskDetailsSelector,
 	template: `
-		<h2>TaskDetails</h2>
 		<ee-table (onSelect)="onSelect($event)" [entities]="cEntities"></ee-table>
 		<ee-table (onSelect)="onSelect($event)" [entities]="tEntities"></ee-table>
 	`,
@@ -43,8 +42,6 @@ export class TaskDetails extends TaskDetails_ {
 
 	constructor(public tloader: TaskActionLoader, public cloader: CommentLoader) {
 		super();
-		this.onActionEmitter = new EventEmitter<any>();
-		this.onSelectEmitter = new EventEmitter<any>();
 	}
 
 	ngOnInit() {

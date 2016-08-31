@@ -44,7 +44,7 @@ import { NodeOrientation, getClass } from './ee-nodeorientation.enum';
 		}
 	`],
 	template: `
-		<div class="ee-separator flex" [ngClass]="sepClass(orientation)"></div>
+		<div class="ee-separator" [ngClass]="sepClass(orientation)"></div>
 	`
 })
 

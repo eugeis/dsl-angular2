@@ -26,23 +26,35 @@ import NodeInterface = require('../node/ee-treenode.interface');
 @Component({
 	selector: 'ee-panel-header',
 	styles: [`
-		.panel-space {
-			margin-left: auto;
-		}
-
-		ee-panel-header {
+		.ee-panel-header, .ee-panel-header-space, .ee-icon {
 			display: flex;
 		}
 
-		.panel-header {
+		.ee-panel-header-heading {
+			font-size: 18px;
+			font-weight: 500;
+			padding: 8px;
+			margin-left: 5px;
+		}
+
+		.ee-panel-header-space {
+			margin-left: auto;
+		}
+
+		.ee-panel-header {
 			width: 100%;
-			background: gainsboro;
-		}`],
+			background: #f5f5f5;
+			border-bottom: 1px solid transparent;
+			border-color: #ddd;
+			margin-bottom: 10px;
+		}
+	`],
 	template: `
-		<div class="panel-header flex" [close]="closeEmitter" [node]="node" dragStart="'panel'">
-			<div class="panel-space flex"></div>
-			<!--<div class="panel-icon flex"><span (click)="minimize()">_</span></div>-->
-			<div class="panel-icon flex"><span (click)="close()">x</span></div>
+		<div class="ee-panel-header" [close]="closeEmitter" [node]="node" dragStart="'panel'">
+			<div class="ee-panel-header-heading">{{node?.data}}</div>
+			<div class="ee-panel-header-space"></div>
+			<!--<div class="ee-icon flex"><span (click)="minimize()">_</span></div>-->
+			<div class="ee-icon"><span (click)="close()">x</span></div>
 		</div>
 	`,
 	directives: [DragStart]
