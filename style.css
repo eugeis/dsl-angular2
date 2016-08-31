@@ -39,6 +39,14 @@ ee-node, ee-panel, ee-panel-data {
 	flex: 1;
 }
 
+ee-panel-data {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
 .ee-panel {
 	padding-left: 6px;
 	padding-right: 6px;
