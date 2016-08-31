@@ -102,7 +102,7 @@ export interface Tree extends NodeInterface.TreeNode {
 		}
 	`],
 	template: `
-		<div class="ee-tree" (click)="hideAddWindow()">
+		<div class="ee-tree" *ngIf="tree.branches.length > 0" (click)="hideAddWindow()">
 			<ee-tree-header (click)="showAddWindow($event)"></ee-tree-header>
 			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
 		</div>
@@ -139,6 +139,7 @@ export class TreeComponent {
 	}
 
 	showAddWindow(e: MouseEvent) {
+		this.needle = "";
 		this.addWindow = true;
 		e.stopPropagation();
 	}

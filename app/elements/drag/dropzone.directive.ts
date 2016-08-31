@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Directive, ElementRef, Input, Output, HostListener, OnInit, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Input, Output, HostListener, EventEmitter } from '@angular/core';
 
 import { DropInfo } from './dropinfo.model';
 import { CardinalDirection } from './cardinaldirection.enum';
@@ -29,96 +29,86 @@ import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 	selector: '[dropZone]'
 })
 
-export class DropZone implements OnInit {
+export class DropZone {
 	@Input("dropZone") type: string;
 	@Input() dropInfo: DropInfo;
 	@Output() rearrange: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
 
 	el: any;
-	width: number;
-	height: number;
-
-	firstX: number;
-	secondX: number;
-
-	firstY: number;
-	secondY: number;
 
 	constructor(er: ElementRef, private dragService: DragService) {
 		this.el = er.nativeElement;
 		this.dragService = dragService;
 	}
 
-	ngOnInit() {
-		let goldenRatio = 1.618;
-
-		this.width = this.el.clientWidth;
-		this.height = this.el.clientHeight;
-
-		this.firstX = this.width / (1 + goldenRatio + 1);
-		this.secondX = this.width / (1 + goldenRatio + 1) * (goldenRatio + 1);
-
-		this.firstY = this.height / (1 + goldenRatio + 1);
-		this.secondY = this.height / (1 + goldenRatio + 1) * (goldenRatio + 1);
-	}
-
 	getCardinalDirection(x,y): CardinalDirection {
-		if (this.firstX <= x && x <= this.secondX) {
-			if (this.firstY <= y && y <= this.secondY) {
+
+		let goldenRatio = 1.618;
+		let width = this.el.clientWidth;
+		let height = this.el.clientHeight;
+
+		let firstX = width / (1 + goldenRatio + 1);
+		let secondX = width / (1 + goldenRatio + 1) * (goldenRatio + 1);
+
+		let firstY = height / (1 + goldenRatio + 1);
+		let secondY = height / (1 + goldenRatio + 1) * (goldenRatio + 1);
+
+		if (firstX <= x && x <= secondX) {
+			if (firstY <= y && y <= secondY) {
 				return CardinalDirection.Center;
 			}
 		}
 
-		if (y < this.firstY) {
-			if (this.firstX <= x && x <= this.secondX) {
+		if (y < firstY) {
+			if (firstX <= x && x <= secondX) {
 				return CardinalDirection.North;
 			}
 		}
 
-		if (this.secondY < y) {
-			if (this.firstX <= x && x <= this.secondX) {
+		if (secondY < y) {
+			if (firstX <= x && x <= secondX) {
 				return CardinalDirection.South;
 			}
 		}
 
-		if (x < this.firstX) {
-			if (this.firstY <= y && y <= this.secondY) {
+		if (x < firstX) {
+			if (firstY <= y && y <= secondY) {
 				return CardinalDirection.West;
 			}
 		}
 
-		if (this.secondX < x) {
-			if (this.firstY <= y && y <= this.secondY) {
+		if (secondX < x) {
+			if (firstY <= y && y <= secondY) {
 				return CardinalDirection.East;
 			}
 		}
 
-		if (x < this.firstX && y < this.firstY) {
-			if (y / x < this.firstY / this.firstX) {
+		if (x < firstX && y < firstY) {
+			if (y / x < firstY / firstX) {
 				return CardinalDirection.Northwestnorth;
 			} else {
 				return CardinalDirection.Westnorthwest;
 			}
 		}
 
-		if (this.secondX < x && y < this.firstY) {
-			if (y / (this.width - x) < this.firstY / (this.width - this.secondX)) {
+		if (secondX < x && y < firstY) {
+			if (y / (width - x) < firstY / (width - secondX)) {
 				return CardinalDirection.Northeastnorth;
 			} else {
 				return CardinalDirection.Eastnortheast;
 			}
 		}
 
-		if (this.secondX < x && this.secondY < y) {
-			if ((this.height - y) / (this.width - x) < (this.height - this.secondY) / (this.width - this.secondX)) {
+		if (secondX < x && secondY < y) {
+			if ((height - y) / (width - x) < (height - secondY) / (width - secondX)) {
 				return CardinalDirection.Southeastsouth;
 			} else {
 				return CardinalDirection.Eastsoutheast;
 			}
 		}
 
-		if (x < this.firstX && this.secondY < y) {
-			if ((this.height - y) / x < (this.height - this.secondY) / this.firstX) {
+		if (x < firstX && secondY < y) {
+			if ((height - y) / x < (height - secondY) / firstX) {
 				return CardinalDirection.Southwestsouth;
 			} else {
 				return CardinalDirection.Westsouthwest;
@@ -133,6 +123,7 @@ export class DropZone implements OnInit {
 			this.dropInfo.direction = this.getCardinalDirection(e.layerX,e.layerY);
 			this.dropInfo.display = true;
 			e.preventDefault();
+			e.stopPropagation();
 		}
 	}
 
@@ -146,9 +137,5 @@ export class DropZone implements OnInit {
 
 		//TODO: Only close, when promise is received
 		this.dragService.close();
-	}
-
-	@HostListener('window:resize', ['$event']) onResize(event) {
-		this.ngOnInit();
 	}
 }
