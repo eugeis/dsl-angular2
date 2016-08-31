@@ -28,6 +28,15 @@ import { CardinalDirection } from '../../drag/cardinaldirection.enum';
 import { mapViewToHtmlElement } from '../../../src/views/viewbarrel.model';
 import NodeInterface = require('../node/ee-treenode.interface');
 
+interface ViewEvent {
+
+}
+
+interface ViewReactor {
+	onSelect(ViewEvent): void;
+	onAction(ViewEvent): void;
+}
+
 @Component({
 	selector: 'ee-panel',
 	styles: [".ee-panel-data { padding: 4px;}"],
@@ -40,12 +49,12 @@ import NodeInterface = require('../node/ee-treenode.interface');
 	directives: [DropZone, DropIndicator, ComponentOutlet]
 })
 
-export class PanelComponent implements OnInit {
+export class PanelComponent implements OnInit, ViewReactor {
 	@Input() data: any;
 	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 
 	html: string;
-	self: this;
+	self: PanelComponent = this;
 
 	dropInfo: DropInfo;
 
@@ -57,6 +66,14 @@ export class PanelComponent implements OnInit {
 		if (this.data) {
 			this.html = mapViewToHtmlElement(this.data);
 		}
+	}
+
+	onSelect(v: ViewEvent) {
+		console.log(v);
+	}
+
+	onAction(v: ViewEvent) {
+		console.log(v);
 	}
 
 	rearrange(node: NodeInterface.TreeNode) {

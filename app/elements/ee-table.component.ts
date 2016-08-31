@@ -22,6 +22,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Entity } from '../src-gen/entities/entity.model';
 
+interface TableOutput {
+	entity: Entity;
+	prop: string;
+}
+
 @Component({
 	selector: 'ee-table',
 	template: `
@@ -39,13 +44,12 @@ import { Entity } from '../src-gen/entities/entity.model';
 })
 
 export class Table {
-	@Input() id: string = "default";
 	@Input() entities: Entity[];
 
-	@Output() selected = new EventEmitter();
+	@Output("onSelect") selectEmitter: EventEmitter<TableOutput> = new EventEmitter<TableOutput>();
 
-	click(entity, prop) {
-		this.selected.emit({
+	click(entity: Entity, prop: string) {
+		this.selectEmitter.emit({
 			entity: entity,
 			prop: prop
 		});

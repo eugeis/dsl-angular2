@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 
 import { TaskDetails_ } from '../../src-gen/views/task-details.component';
 import { TaskActionLoader } from '../../src-gen/services/taskactionloader.service';
@@ -31,8 +31,8 @@ export const TaskDetailsSelector: string = 'task-details';
 	selector: TaskDetailsSelector,
 	template: `
 		<h2>TaskDetails</h2>
-		<ee-table [entities]="cEntities"></ee-table>
-		<ee-table [entities]="tEntities"></ee-table>
+		<ee-table (onSelect)="onSelect($event)" [entities]="cEntities"></ee-table>
+		<ee-table (onSelect)="onSelect($event)" [entities]="tEntities"></ee-table>
 	`,
 	providers: [TaskActionLoader, CommentLoader]
 })
@@ -41,11 +41,19 @@ export class TaskDetails extends TaskDetails_ {
 	cEntities: Entity[] = [];
 	tEntities: Entity[] = [];
 
-	constructor(public tloader: TaskActionLoader, public cloader: CommentLoader) { super(); }
+	constructor(public tloader: TaskActionLoader, public cloader: CommentLoader) {
+		super();
+		this.onActionEmitter = new EventEmitter<any>();
+		this.onSelectEmitter = new EventEmitter<any>();
+	}
 
 	ngOnInit() {
 		super.ngOnInit();
 		this.cloader.getComments().then((entities) => this.cEntities = entities);
 		this.tloader.getTaskActions().then((entities) => this.tEntities = entities);
+	}
+
+	onSelect(e) {
+		this.onSelectEmitter.emit(e);
 	}
 }

@@ -18,16 +18,12 @@
  *
  * @author Jonas Möller
  */
-import { OnInit, Input } from '@angular/core';
-
-import { ViewModel } from './viewmodel.component';
+import { OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class View implements OnInit {
-	@Input() viewModel: ViewModel;
+	@Input("item") item: any;
+	@Output("onAction") onActionEmitter: EventEmitter<any>;
+	@Output("onSelect") onSelectEmitter: EventEmitter<any>;
 
-	ngOnInit() {
-		if (!this.viewModel) {
-			this.viewModel = new ViewModel();
-		}
-	}
+	ngOnInit() { }
 }

@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 
 import { TaskExplorer_ } from '../../src-gen/views/task-explorer.component';
 import { Entity } from '../../src-gen/entities/entity.model';
@@ -31,7 +31,9 @@ export const TaskExplorerSelector: string = 'task-explorer';
 	selector: TaskExplorerSelector,
 	template: `
 		<h2>TaskExplorer</h2>
-		<ee-table [entities]="entities" (selected)="selected($event)"></ee-table>
+		<input type="button" class="btn btn-default" (click)="onAction('add')" value="Add">
+		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
+		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 	`,
 	directives: [Table],
 	providers: [TaskLoader]
@@ -40,14 +42,22 @@ export const TaskExplorerSelector: string = 'task-explorer';
 export class TaskExplorer extends TaskExplorer_ {
 	entities: Entity[] = [];
 
-	constructor(public loader: TaskLoader) { super(); }
+	constructor(public loader: TaskLoader) {
+		super();
+		this.onActionEmitter = new EventEmitter<any>();
+		this.onSelectEmitter = new EventEmitter<any>();
+	}
 
 	ngOnInit() {
 		super.ngOnInit();
 		this.loader.getTasks().then((entities) => this.entities = entities);
 	}
 
-	selected($event) {
-		this.viewModel["a"] = $event.entity[$event.prop];
+	onSelect(e) {
+		this.onSelectEmitter.emit(e);
+	}
+
+	onAction(e) {
+		this.onActionEmitter.emit(e);
 	}
 }
