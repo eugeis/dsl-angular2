@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { TreeHeaderComponent } from './ee-tree-header.component';
 import { NodeComponent } from '../node/ee-node.component';
@@ -124,7 +124,7 @@ export interface Tree extends NodeInterface.TreeNode {
 	pipes: [StringFilterPipe, LimitPipe]
 })
 
-export class TreeComponent {
+export class TreeComponent implements OnInit {
 	@Input() windows: string[];
 
 	addWindow: boolean = false;
@@ -137,6 +137,8 @@ export class TreeComponent {
 
 	constructor() {
 	}
+
+	ngOnInit() { }
 
 	showAddWindow(e: MouseEvent) {
 		this.needle = "";

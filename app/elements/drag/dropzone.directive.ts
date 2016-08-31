@@ -123,7 +123,6 @@ export class DropZone {
 			this.dropInfo.direction = this.getCardinalDirection(e.layerX,e.layerY);
 			this.dropInfo.display = true;
 			e.preventDefault();
-			e.stopPropagation();
 		}
 	}
 
@@ -131,11 +130,12 @@ export class DropZone {
 		this.dropInfo.display = false;
 	}
 
-	@HostListener('drop') onDrop() {
+	@HostListener('drop', ['$event']) onDrop(e) {
 		this.dropInfo.display = false;
 		this.rearrange.emit(this.dragService.getNode());
 
 		//TODO: Only close, when promise is received
 		this.dragService.close();
+		this.dragService.setDragInfo(undefined);
 	}
 }

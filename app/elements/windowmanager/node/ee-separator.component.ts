@@ -123,8 +123,6 @@ export class SeparatorComponent implements OnInit {
 	}
 
 	@HostListener('dragend') onDragEnd() {
-		console.log("Dragend");
-
 	}
 
 	ngOnInit() {
