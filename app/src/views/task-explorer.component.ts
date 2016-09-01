@@ -34,7 +34,6 @@ export const TaskExplorerSelector: string = 'task-explorer';
 		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
 		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 	`,
-	directives: [Table],
 	providers: [TaskLoader]
 })
 

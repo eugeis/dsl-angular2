@@ -24,9 +24,7 @@ import { TreeHeaderComponent } from './ee-tree-header.component';
 import { NodeComponent } from '../node/ee-node.component';
 import { NodeOrientation } from '../node/ee-nodeorientation.enum';
 
-import { StringFilterPipe } from './stringfilter.pipe';
-import { LimitPipe } from './limit.pipe';
-
+import DataMapper = require('./datamapper.function');
 import NodeInterface = require('../node/ee-treenode.interface');
 
 export interface Tree extends NodeInterface.TreeNode {
@@ -104,7 +102,7 @@ export interface Tree extends NodeInterface.TreeNode {
 	template: `
 		<div class="ee-tree" *ngIf="tree.branches.length > 0" (click)="hideAddWindow()">
 			<ee-tree-header (add)="showAddWindow($event)"></ee-tree-header>
-			<ee-node [node]="tree" [orientation]="tree.orientation"></ee-node>
+			<ee-node [node]="tree" [orientation]="tree.orientation" [dataMapper]="dataMapper"></ee-node>
 		</div>
 		<div [hidden]="tree.branches.length > 0 && !addWindow">
 			<div class="add-window">
@@ -121,13 +119,12 @@ export interface Tree extends NodeInterface.TreeNode {
 				</div>
 			</div>
 		</div>
-	`,
-	directives: [TreeHeaderComponent, NodeComponent],
-	pipes: [StringFilterPipe, LimitPipe]
+	`
 })
 
 export class TreeComponent implements OnInit {
-	@Input() windows: string[];
+	@Input() windows: string[] = [];
+	@Input() dataMapper: DataMapper.DataMapper;
 
 	addWindow: boolean = false;
 	needle: string = "";

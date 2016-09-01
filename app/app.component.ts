@@ -20,16 +20,9 @@
  */
 import { Component } from '@angular/core';
 
-import { DragService } from './elements/drag/drag.service';
-import { TaskEditor } from './src/views/task-editor.component';
-
 @Component({
 	selector: 'ee-app',
-	template: `
-		<task-editor></task-editor>
-	`,
-	directives: [TaskEditor],
-	providers: [DragService]
+	template: `<task-editor></task-editor>`
 })
 
 export class AppComponent { }

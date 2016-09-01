@@ -18,12 +18,10 @@
  *
  * @author Jonas Möller
  */
-import { CardinalDirection } from './cardinaldirection.enum';
-import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
+import { EventEmitter } from '@angular/core';
 
-export class DropInfo {
-	direction: CardinalDirection;
-	display: boolean;
-	sourceNode: NodeInterface.TreeNode;
-	targetNode: NodeInterface.TreeNode;
+export interface DragInfo {
+	node: any,
+	dropEmitter: EventEmitter<void>,
+	type: string
 }

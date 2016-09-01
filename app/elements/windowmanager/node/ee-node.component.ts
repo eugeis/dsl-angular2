@@ -20,13 +20,14 @@
  */
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { DropInfo } from '../../drag/dropinfo.model';
+import { DropInfo } from '../drag/dropinfo.model';
 import { NodeOrientation, inv, getClass } from './ee-nodeorientation.enum';
 import { SeparatorComponent } from './ee-separator.component';
-import { CardinalDirection } from '../../drag/cardinaldirection.enum';
+import { CardinalDirection } from '../drag/cardinaldirection.enum';
 import { PanelComponent } from '../panel/ee-panel.component';
 import { PanelHeaderComponent } from '../panel/ee-panel-header.component';
 
+import DataMapper = require('../tree/datamapper.function');
 import NodeInterface = require('./ee-treenode.interface');
 
 @Component({
@@ -35,22 +36,28 @@ import NodeInterface = require('./ee-treenode.interface');
 		<div *ngIf="node && orientation" class="ee-node">
 			<div *ngIf="node.branches && node.branches.length > 0" [ngClass]="nodeClass(orientation)" class="ee-node-direction">
 				<div *ngFor="let branch of node.branches; let i = index" class="ee-node-resizer" [style.flex-grow]="branch.size">
-					<ee-node [node]="branch" [orientation]="nodeInv(orientation)" (addPanel)="addPanel($event)" (promotePanel)="promotePanel($event)" (closePanel)="deletePanel($event)"></ee-node>
+					<ee-node [node]="branch"
+						[orientation]="nodeInv(orientation)"
+						[dataMapper]="dataMapper"
+						(addPanel)="addPanel($event)"
+						(promotePanel)="promotePanel($event)"
+						(closePanel)="deletePanel($event)">
+					</ee-node>
 					<ee-separator *ngIf="node.branches[i+1]" [left]="branch" [right]="node.branches[i+1]" [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
 				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
-				<ee-panel [data]="node.data" (add)="add($event)"></ee-panel>
+				<ee-panel [data]="node.data" [dataMapper]="dataMapper" (add)="add($event)"></ee-panel>
 			</div>
 		</div>
-	`,
-	directives: [NodeComponent, PanelComponent, SeparatorComponent, PanelHeaderComponent]
+	`
 })
 
 export class NodeComponent implements OnInit {
 	@Input() node: NodeInterface.TreeNode;
 	@Input() orientation: NodeOrientation;
+	@Input() dataMapper: DataMapper.DataMapper;
 
 	@Output("addPanel") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 	@Output("promotePanel") promoteEmitter: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
@@ -71,26 +78,26 @@ export class NodeComponent implements OnInit {
 	}
 
 	add(dropInfo: DropInfo): void {
-		dropInfo.targetNode = this.node;
-		if (dropInfo.targetNode !== dropInfo.sourceNode) {
-			dropInfo.sourceNode = NodeInterface.cloneNodeShallow(dropInfo.sourceNode);
+		dropInfo.target = this.node;
+		if (dropInfo.target !== dropInfo.source) {
+			dropInfo.source = NodeInterface.cloneNodeShallow(dropInfo.source);
 
 			this.addEmitter.emit(dropInfo);
 		}
 	}
 
 	addPanel(d: DropInfo): void {
-		let i = this.node.branches.indexOf(d.targetNode);
+		let i = this.node.branches.indexOf(d.target);
 		let dir: CardinalDirection = d.direction;
 		let orientation: NodeOrientation = this.orientation;
 		let branches: NodeInterface.TreeNode[] = this.node.branches;
 
 		if (dir === CardinalDirection.North && orientation === NodeOrientation.Horizontal
 		 || dir === CardinalDirection.West && orientation === NodeOrientation.Vertical) {
-			branches.splice(i, 0, d.sourceNode);
+			branches.splice(i, 0, d.source);
 		} else if (dir === CardinalDirection.South && orientation === NodeOrientation.Horizontal
 		 || dir === CardinalDirection.East && orientation === NodeOrientation.Vertical) {
-			branches.splice(i+1, 0, d.sourceNode);
+			branches.splice(i+1, 0, d.source);
 		} else {
 			let n: NodeInterface.TreeNode = {
 				branches: []
@@ -99,9 +106,9 @@ export class NodeComponent implements OnInit {
 			let removed: NodeInterface.TreeNode = branches.splice(i, 1, n)[0];
 
 			if (dir === CardinalDirection.North || dir === CardinalDirection.West) {
-				n.branches = [d.sourceNode, removed];
+				n.branches = [d.source, removed];
 			} else {
-				n.branches = [removed, d.sourceNode];
+				n.branches = [removed, d.source];
 			}
 		}
 	}

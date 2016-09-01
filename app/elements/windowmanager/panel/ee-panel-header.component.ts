@@ -20,7 +20,7 @@
  */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { DragStart } from '../../drag/dragstart.directive';
+import { DragStart } from '../drag/dragstart.directive';
 import NodeInterface = require('../node/ee-treenode.interface');
 
 @Component({
@@ -50,14 +50,13 @@ import NodeInterface = require('../node/ee-treenode.interface');
 		}
 	`],
 	template: `
-		<div class="ee-panel-header" [close]="closeEmitter" [node]="node" dragStart="'panel'">
+		<div class="ee-panel-header" [drop]="closeEmitter" [node]="node" dragStart="'panel'">
 			<div class="ee-panel-header-heading">{{node?.data}}</div>
 			<div class="ee-panel-header-space"></div>
 			<!--<div class="ee-icon flex"><span (click)="minimize()">_</span></div>-->
 			<div class="ee-icon"><span (click)="close()">x</span></div>
 		</div>
-	`,
-	directives: [DragStart]
+	`
 })
 
 export class PanelHeaderComponent {

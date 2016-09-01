@@ -21,15 +21,14 @@
 import { Directive, Input, ElementRef, HostListener, EventEmitter } from '@angular/core';
 
 import { DragService } from './drag.service';
-import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 @Directive({
 	selector: '[dragStart]'
 })
 export class DragStart {
 	@Input("dragStart") type: string;
-	@Input() node: NodeInterface.TreeNode;
-	@Input("close") closeEmitter: EventEmitter<void>;
+	@Input() node: any;
+	@Input("drop") dropEmitter: EventEmitter<void>;
 
 	constructor(private er: ElementRef, private dragService: DragService) {
 		er.nativeElement.draggable = true;
@@ -37,13 +36,13 @@ export class DragStart {
 
 	@HostListener('dragstart') onDragStart() {
 		this.dragService.setDragInfo({
-			closeEmitter: this.closeEmitter,
+			dropEmitter: this.dropEmitter,
 			node: this.node,
 			type: this.type
 		});
 	}
 
 	@HostListener('dragend') onDragEnd() {
-		this.dragService.setDragInfo(undefined);
+		this.dragService.clear();
 	}
 }

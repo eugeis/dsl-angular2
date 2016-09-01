@@ -23,7 +23,6 @@ import { Directive, ElementRef, Input, Output, HostListener, EventEmitter } from
 import { DropInfo } from './dropinfo.model';
 import { CardinalDirection } from './cardinaldirection.enum';
 import { DragService } from './drag.service';
-import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 
 @Directive({
 	selector: '[dropZone]'
@@ -32,7 +31,7 @@ import NodeInterface = require('../windowmanager/node/ee-treenode.interface');
 export class DropZone {
 	@Input("dropZone") type: string;
 	@Input() dropInfo: DropInfo;
-	@Output() rearrange: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
+	@Output() rearrange: EventEmitter<any> = new EventEmitter<any>();
 
 	el: any;
 
@@ -135,7 +134,7 @@ export class DropZone {
 		this.rearrange.emit(this.dragService.getNode());
 
 		//TODO: Only close, when promise is received
-		this.dragService.close();
-		this.dragService.setDragInfo(undefined);
+		this.dragService.emitDrop();
+		this.dragService.clear();
 	}
 }

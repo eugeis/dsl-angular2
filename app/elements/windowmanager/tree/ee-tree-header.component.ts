@@ -43,8 +43,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 				</ul>
 			</div>
 		</nav>
-	`,
-	directives: []
+	`
 })
 
 export class TreeHeaderComponent {

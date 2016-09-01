@@ -19,13 +19,13 @@
  * @author Jonas Möller
  */
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { ComponentOutlet } from 'angular2-component-outlet';
 
-import { DropZone } from '../../drag/dropzone.directive';
-import { DropIndicator } from '../../drag/dropindicator.directive';
-import { DropInfo } from '../../drag/dropinfo.model';
-import { CardinalDirection } from '../../drag/cardinaldirection.enum';
-import { mapViewToHtmlElement } from '../../../src/views/viewbarrel.model';
+import { DropZone } from '../drag/dropzone.directive';
+import { DropIndicator } from '../drag/dropindicator.directive';
+import { DropInfo } from '../drag/dropinfo.model';
+import { CardinalDirection } from '../drag/cardinaldirection.enum';
+
+import DataMapper = require('../tree/datamapper.function');
 import NodeInterface = require('../node/ee-treenode.interface');
 
 interface ViewEvent {
@@ -55,12 +55,12 @@ interface ViewReactor {
 			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
 			<div class="ee-panel-data" *componentOutlet="html; context:self; selector:'ee-panel-data'">{{data}}</div>
 		</div>
-	`,
-	directives: [DropZone, DropIndicator, ComponentOutlet]
+	`
 })
 
 export class PanelComponent implements OnInit, ViewReactor {
 	@Input() data: any;
+	@Input() dataMapper: DataMapper.DataMapper;
 	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 
 	html: string;
@@ -73,8 +73,8 @@ export class PanelComponent implements OnInit, ViewReactor {
 	}
 
 	ngOnInit() {
-		if (this.data) {
-			this.html = mapViewToHtmlElement(this.data);
+		if (this.data && this.dataMapper) {
+			this.html = this.dataMapper.callback(this.data);
 		}
 	}
 
@@ -119,7 +119,7 @@ export class PanelComponent implements OnInit, ViewReactor {
 			default: break;
 		}
 
-		this.dropInfo.sourceNode = node;
+		this.dropInfo.source = node;
 		this.addEmitter.emit(this.dropInfo);
 	}
 }
