@@ -20,15 +20,38 @@
  */
 import { Component, OnInit } from '@angular/core';
 
+import { TaskActionLoader } from '../../src-gen/services/taskactionloader.service';
 import { TaskSearch_ } from '../../src-gen/views/task-search.component';
+import { Entity } from '../../src-gen/entities/entity.model';
 
 export const TaskSearchSelector:string = 'task-search';
 
 @Component({
 	selector: TaskSearchSelector,
-	template: ``
+	template: `
+		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
+		<input type="button" class="btn btn-default" (click)="onAction('search')" value="Search">
+	`,
+	providers: [TaskActionLoader]
 })
 
 export class TaskSearch extends TaskSearch_ {
-	constructor() { super(); }
+	entities: Entity[] = [];
+
+	constructor(public tloader: TaskActionLoader) {
+		super();
+	}
+
+	ngOnInit() {
+		super.ngOnInit();
+		this.tloader.getTaskActions().then((entities) => this.entities = entities);
+	}
+
+	onSelect(e) {
+		this.onSelectEmitter.emit(e);
+	}
+
+	onAction(e) {
+		this.onActionEmitter.emit(e);
+	}
 }
