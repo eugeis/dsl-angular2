@@ -39,6 +39,7 @@ import NodeInterface = require('./ee-treenode.interface');
 					<ee-node [node]="branch"
 						[orientation]="nodeInv(orientation)"
 						[dataMapper]="dataMapper"
+						[panelModules]="panelModules"
 						(addPanel)="addPanel($event)"
 						(promotePanel)="promotePanel($event)"
 						(closePanel)="deletePanel($event)">
@@ -48,7 +49,7 @@ import NodeInterface = require('./ee-treenode.interface');
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
 				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
-				<ee-panel [data]="node.data" [dataMapper]="dataMapper" (add)="add($event)"></ee-panel>
+				<ee-panel [data]="node.data" [dataMapper]="dataMapper" [panelModules]="panelModules" (add)="add($event)"></ee-panel>
 			</div>
 		</div>
 	`
@@ -58,6 +59,7 @@ export class NodeComponent implements OnInit {
 	@Input() node: NodeInterface.TreeNode;
 	@Input() orientation: NodeOrientation;
 	@Input() dataMapper: DataMapper.DataMapper;
+	@Input() panelModules: any[];
 
 	@Output("addPanel") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 	@Output("promotePanel") promoteEmitter: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();

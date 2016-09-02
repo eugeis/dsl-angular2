@@ -53,7 +53,7 @@ interface ViewReactor {
 	template: `
 		<div class="ee-panel" [dropInfo]="dropInfo" (rearrange)="rearrange($event)" dropZone="'panel'">
 			<div class="ee-panel-hover" [dropInfo]="dropInfo" *ngIf="dropInfo.display" dropIndicator></div>
-			<div class="ee-panel-data" *componentOutlet="html; context:self; selector:'ee-panel-data'">{{data}}</div>
+			<div class="ee-panel-data" *componentOutlet="html; context:self; selector:'ee-panel-data'; imports:panelModules">{{data}}</div>
 		</div>
 	`
 })
@@ -61,6 +61,7 @@ interface ViewReactor {
 export class PanelComponent implements OnInit, ViewReactor {
 	@Input() data: any;
 	@Input() dataMapper: DataMapper.DataMapper;
+	@Input() panelModules: any[];
 	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 
 	html: string;

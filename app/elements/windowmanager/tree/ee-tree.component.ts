@@ -102,7 +102,7 @@ export interface Tree extends NodeInterface.TreeNode {
 	template: `
 		<div class="ee-tree" *ngIf="tree.branches.length > 0" (click)="hideAddWindow()">
 			<ee-tree-header (add)="showAddWindow($event)"></ee-tree-header>
-			<ee-node [node]="tree" [orientation]="tree.orientation" [dataMapper]="dataMapper"></ee-node>
+			<ee-node [node]="tree" [orientation]="tree.orientation" [dataMapper]="dataMapper" [panelModules]="panelModules"></ee-node>
 		</div>
 		<div [hidden]="tree.branches.length > 0 && !addWindow">
 			<div class="add-window">
@@ -125,6 +125,7 @@ export interface Tree extends NodeInterface.TreeNode {
 export class TreeComponent implements OnInit {
 	@Input() windows: string[] = [];
 	@Input() dataMapper: DataMapper.DataMapper;
+	@Input() panelModules: any[];
 
 	addWindow: boolean = false;
 	needle: string = "";
@@ -140,7 +141,9 @@ export class TreeComponent implements OnInit {
 	constructor() {
 	}
 
-	ngOnInit() { }
+	ngOnInit() {
+		
+	}
 
 	showAddWindow(e: MouseEvent) {
 		this.needle = "";

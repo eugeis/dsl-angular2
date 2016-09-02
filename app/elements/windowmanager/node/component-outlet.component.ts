@@ -3,8 +3,6 @@ import { NgModule, Component, ComponentFactory, ComponentMetadata, NgModuleMetad
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { ViewModule } from '../../../src/views/view.module';
-
 @Directive({
 	selector: '[componentOutlet]',
 })
@@ -12,10 +10,9 @@ export class ComponentOutlet {
 	@Input('componentOutlet') private template: string;
 	@Input('componentOutletSelector') private selector: string;
 	@Input('componentOutletContext') private context: Object;
+	@Input('componentOutletImports') private imports: any[] = [];
 
-	constructor(private vcRef: ViewContainerRef, private compiler: Compiler) {
-
-	}
+	constructor(private vcRef: ViewContainerRef, private compiler: Compiler) {}
 
 	private _createDynamicComponent() {
 		const metadata = new ComponentMetadata({
@@ -31,7 +28,7 @@ export class ComponentOutlet {
 		const mdClass = class _ { };
 		mdClass.prototype = {};
 		return NgModule({
-			imports: [BrowserModule, FormsModule, ViewModule],
+			imports: [BrowserModule, FormsModule].concat(this.imports),
 			declarations: [component],
 			exports: [component],
 			providers: []
@@ -46,11 +43,13 @@ export class ComponentOutlet {
 		.then(factory => {
 			const injector = ReflectiveInjector.fromResolvedProviders([], self.vcRef.parentInjector);
 
-			let component = factory.componentFactories.find((d) => {
-				if (d.selector === self.selector) {
-					return true;
+			let component;
+			for (let i = factory.componentFactories.length-1; i >= 0; i--) {
+				if (factory.componentFactories[i].selector === self.selector) {
+					component = factory.componentFactories[i];
+					break;
 				}
-			});
+			}
 
 			this.vcRef.createComponent(component, 0, injector);
 		});
