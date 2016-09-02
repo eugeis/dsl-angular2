@@ -31,4 +31,4 @@ npm start
 
 ### Documentation
 
-_soon available_
+[Documentation](https://github.com/j-moeller/dsl-angular2/blob/master/documentation/DOCUMENTATION.md)
