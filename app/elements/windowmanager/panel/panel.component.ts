@@ -26,7 +26,7 @@ import { DropInfo } from '../drag/dropinfo.model';
 import { CardinalDirection } from '../drag/cardinaldirection.enum';
 
 import DataMapper = require('../tree/datamapper.function');
-import NodeInterface = require('../node/ee-treenode.interface');
+import NodeInterface = require('../node/treenode.interface');
 
 interface ViewEvent {
 

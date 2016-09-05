@@ -21,14 +21,14 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { DropInfo } from '../drag/dropinfo.model';
-import { NodeOrientation, inv, getClass } from './ee-nodeorientation.enum';
-import { SeparatorComponent } from './ee-separator.component';
+import { NodeOrientation, inv, getClass } from './nodeorientation.enum';
+import { SeparatorComponent } from './separator.component';
 import { CardinalDirection } from '../drag/cardinaldirection.enum';
-import { PanelComponent } from '../panel/ee-panel.component';
-import { PanelHeaderComponent } from '../panel/ee-panel-header.component';
+import { PanelComponent } from '../panel/panel.component';
+import { PanelHeaderComponent } from '../panel/panel-header.component';
 
 import DataMapper = require('../tree/datamapper.function');
-import NodeInterface = require('./ee-treenode.interface');
+import NodeInterface = require('./treenode.interface');
 
 @Component({
 	selector: 'ee-node',

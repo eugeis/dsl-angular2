@@ -6,20 +6,20 @@ import { FormsModule } from '@angular/forms';
 import { DragModule } from './drag/drag.module';
 
 /* Node-Elements */
-import { NodeComponent } from './node/ee-node.component';
-import { SeparatorComponent } from './node/ee-separator.component';
+import { NodeComponent } from './node/node.component';
+import { SeparatorComponent } from './node/separator.component';
 
 /* Panel-Elements */
-import { PanelHeaderComponent } from './panel/ee-panel-header.component';
-import { PanelComponent } from './panel/ee-panel.component';
+import { PanelHeaderComponent } from './panel/panel-header.component';
+import { PanelComponent } from './panel/panel.component';
 
 /* Pipes */
 import { StringFilterPipe } from './pipes/stringfilter.pipe';
 import { LimitPipe } from './pipes/limit.pipe';
 
-/* Tree-Elements */
-import { TreeComponent } from './tree/ee-tree.component';
-import { TreeHeaderComponent } from './tree/ee-tree-header.component';
+/* TrElements */
+import { TreeComponent } from './tree/tree.component';
+import { TreeHeaderComponent } from './tree/tree-header.component';
 
 //import { ComponentOutlet } from 'angular2-component-outlet';
 import { ComponentOutlet } from './node/component-outlet.component';

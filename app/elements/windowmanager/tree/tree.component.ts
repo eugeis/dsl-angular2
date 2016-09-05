@@ -20,12 +20,12 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 
-import { TreeHeaderComponent } from './ee-tree-header.component';
-import { NodeComponent } from '../node/ee-node.component';
-import { NodeOrientation } from '../node/ee-nodeorientation.enum';
+import { TreeHeaderComponent } from './tree-header.component';
+import { NodeComponent } from '../node/node.component';
+import { NodeOrientation } from '../node/nodeorientation.enum';
 
 import DataMapper = require('./datamapper.function');
-import NodeInterface = require('../node/ee-treenode.interface');
+import NodeInterface = require('../node/treenode.interface');
 
 export interface Tree extends NodeInterface.TreeNode {
 	orientation: NodeOrientation
@@ -142,7 +142,7 @@ export class TreeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		
+
 	}
 
 	showAddWindow(e: MouseEvent) {

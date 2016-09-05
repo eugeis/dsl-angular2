@@ -20,7 +20,7 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 
-import NodeInterface = require('../node/ee-treenode.interface');
+import NodeInterface = require('../node/treenode.interface');
 
 @Component({
 	selector: 'ee-tree-view',
