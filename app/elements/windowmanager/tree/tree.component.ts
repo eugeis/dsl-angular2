@@ -24,7 +24,7 @@ import { TreeHeaderComponent } from './tree-header.component';
 import { NodeComponent } from '../node/node.component';
 import { NodeOrientation } from '../node/nodeorientation.enum';
 
-import DataMapper = require('./datamapper.function');
+import Map = require('./windowmapper.function');
 import NodeInterface = require('../node/treenode.interface');
 
 export interface Tree extends NodeInterface.TreeNode {
@@ -102,7 +102,7 @@ export interface Tree extends NodeInterface.TreeNode {
 	template: `
 		<div class="ee-tree" *ngIf="tree.branches.length > 0" (click)="hideAddWindow()">
 			<ee-tree-header (add)="showAddWindow($event)"></ee-tree-header>
-			<ee-node [node]="tree" [orientation]="tree.orientation" [dataMapper]="dataMapper" [panelModules]="panelModules"></ee-node>
+			<ee-node [node]="tree" [orientation]="tree.orientation" [map]="map" [panelModules]="panelModules"></ee-node>
 		</div>
 		<div [hidden]="tree.branches.length > 0 && !addWindow">
 			<div class="add-window">
@@ -124,7 +124,7 @@ export interface Tree extends NodeInterface.TreeNode {
 
 export class TreeComponent implements OnInit {
 	@Input() windows: string[] = [];
-	@Input() dataMapper: DataMapper.DataMapper;
+	@Input() map: Map.WindowMapper;
 	@Input() panelModules: any[];
 
 	addWindow: boolean = false;

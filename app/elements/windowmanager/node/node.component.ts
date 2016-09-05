@@ -27,7 +27,7 @@ import { CardinalDirection } from '../drag/cardinaldirection.enum';
 import { PanelComponent } from '../panel/panel.component';
 import { PanelHeaderComponent } from '../panel/panel-header.component';
 
-import DataMapper = require('../tree/datamapper.function');
+import Map = require('../tree/windowmapper.function');
 import NodeInterface = require('./treenode.interface');
 
 @Component({
@@ -38,7 +38,7 @@ import NodeInterface = require('./treenode.interface');
 				<div *ngFor="let branch of node.branches; let i = index" class="ee-node-resizer" [style.flex-grow]="branch.size">
 					<ee-node [node]="branch"
 						[orientation]="nodeInv(orientation)"
-						[dataMapper]="dataMapper"
+						[map]="map"
 						[panelModules]="panelModules"
 						(addPanel)="addPanel($event)"
 						(promotePanel)="promotePanel($event)"
@@ -49,7 +49,7 @@ import NodeInterface = require('./treenode.interface');
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
 				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
-				<ee-panel [data]="node.data" [dataMapper]="dataMapper" [panelModules]="panelModules" (add)="add($event)"></ee-panel>
+				<ee-panel [data]="node.data" [map]="map" [panelModules]="panelModules" (add)="add($event)"></ee-panel>
 			</div>
 		</div>
 	`
@@ -58,7 +58,7 @@ import NodeInterface = require('./treenode.interface');
 export class NodeComponent implements OnInit {
 	@Input() node: NodeInterface.TreeNode;
 	@Input() orientation: NodeOrientation;
-	@Input() dataMapper: DataMapper.DataMapper;
+	@Input() map: Map.WindowMapper;
 	@Input() panelModules: any[];
 
 	@Output("addPanel") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();

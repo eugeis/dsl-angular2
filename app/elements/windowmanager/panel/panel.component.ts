@@ -25,7 +25,7 @@ import { DropIndicator } from '../drag/dropindicator.directive';
 import { DropInfo } from '../drag/dropinfo.model';
 import { CardinalDirection } from '../drag/cardinaldirection.enum';
 
-import DataMapper = require('../tree/datamapper.function');
+import Map = require('../tree/windowmapper.function');
 import NodeInterface = require('../node/treenode.interface');
 
 interface ViewEvent {
@@ -60,7 +60,7 @@ interface ViewReactor {
 
 export class PanelComponent implements OnInit, ViewReactor {
 	@Input() data: any;
-	@Input() dataMapper: DataMapper.DataMapper;
+	@Input() map: Map.WindowMapper;
 	@Input() panelModules: any[];
 	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 
@@ -74,8 +74,8 @@ export class PanelComponent implements OnInit, ViewReactor {
 	}
 
 	ngOnInit() {
-		if (this.data && this.dataMapper) {
-			this.html = this.dataMapper.callback(this.data);
+		if (this.data && this.map) {
+			this.html = this.map.callback(this.data);
 		}
 	}
 

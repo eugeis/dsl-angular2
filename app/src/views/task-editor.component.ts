@@ -21,15 +21,15 @@
 import { Component } from '@angular/core';
 
 import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
-import { Tree, TreeComponent } from '../../elements/windowmanager/tree/ee-tree.component';
-import { NodeOrientation } from '../../elements/windowmanager/node/ee-nodeorientation.enum';
+import { Tree, TreeComponent } from '../../elements/windowmanager/tree/tree.component';
+import { NodeOrientation } from '../../elements/windowmanager/node/nodeorientation.enum';
 import { ViewBarrelStrings, mapViewToHtmlElement } from './viewbarrel.model';
 import { ViewModule } from './view.module';
 
 @Component({
 	selector: 'task-editor',
 	template: `
-		<ee-tree [windows]="windows" [dataMapper]="dataMapper" [panelModules]="viewModules"></ee-tree>
+		<ee-tree [windows]="windows" [map]="map" [panelModules]="viewModules"></ee-tree>
 	`
 })
 
@@ -38,7 +38,7 @@ export class TaskEditor extends TaskEditor_ {
 
 	viewModules: any = [ViewModule];
 
-	dataMapper = {
+	map = {
 		callback: mapViewToHtmlElement
 	};
 

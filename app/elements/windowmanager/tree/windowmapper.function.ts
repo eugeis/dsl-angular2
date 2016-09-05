@@ -1,3 +1,3 @@
-export interface DataMapper {
+export interface WindowMapper {
 	callback(data: any): string;
 }
