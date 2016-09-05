@@ -48,10 +48,16 @@ export class TaskSearch extends TaskSearch_ {
 	}
 
 	onSelect(e) {
-		this.onSelectEmitter.emit(e);
+		this.onEmitter.emit({
+			event: e,
+			type: "Select"
+		});
 	}
 
 	onAction(e) {
-		this.onActionEmitter.emit(e);
+		this.onEmitter.emit({
+			event: e,
+			type: "Action"
+		});
 	}
 }

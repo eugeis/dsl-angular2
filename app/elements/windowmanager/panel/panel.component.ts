@@ -28,13 +28,8 @@ import { CardinalDirection } from '../drag/cardinaldirection.enum';
 import Map = require('../tree/windowmapper.function');
 import NodeInterface = require('../node/treenode.interface');
 
-interface ViewEvent {
-
-}
-
-interface ViewReactor {
-	onSelect(ViewEvent): void;
-	onAction(ViewEvent): void;
+interface OnPanelAction {
+	onPanelAction(e): void;
 }
 
 @Component({
@@ -58,11 +53,12 @@ interface ViewReactor {
 	`
 })
 
-export class PanelComponent implements OnInit, ViewReactor {
+export class PanelComponent implements OnInit, OnPanelAction {
 	@Input() data: any;
 	@Input() map: Map.WindowMapper;
 	@Input() panelModules: any[];
 	@Output("add") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
+	@Output("on") onEmitter: EventEmitter<any> = new EventEmitter<any>();
 
 	html: string;
 	self: PanelComponent = this;
@@ -79,12 +75,8 @@ export class PanelComponent implements OnInit, ViewReactor {
 		}
 	}
 
-	onSelect(v: ViewEvent) {
-		console.log(v);
-	}
-
-	onAction(v: ViewEvent) {
-		console.log(v);
+	onPanelAction(e) {
+		this.onEmitter.emit(e);
 	}
 
 	rearrange(node: NodeInterface.TreeNode) {

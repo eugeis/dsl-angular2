@@ -50,10 +50,16 @@ export class TaskExplorer extends TaskExplorer_ {
 	}
 
 	onSelect(e) {
-		this.onSelectEmitter.emit(e);
+		this.onEmitter.emit({
+			event: e,
+			type: "Select"
+		});
 	}
 
 	onAction(e) {
-		this.onActionEmitter.emit(e);
+		this.onEmitter.emit({
+			event: e,
+			type: "Action"
+		});
 	}
 }

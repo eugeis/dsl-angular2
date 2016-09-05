@@ -29,7 +29,7 @@ import { ViewModule } from './view.module';
 @Component({
 	selector: 'task-editor',
 	template: `
-		<ee-tree [windows]="windows" [map]="map" [panelModules]="viewModules"></ee-tree>
+		<ee-tree [windows]="windows" [map]="map" [panelModules]="viewModules" (on)="on($event)"></ee-tree>
 	`
 })
 
@@ -43,4 +43,8 @@ export class TaskEditor extends TaskEditor_ {
 	};
 
 	windows: string[] = ViewBarrelStrings.slice();
+
+	on(e) {
+		console.log(e);
+	}
 }

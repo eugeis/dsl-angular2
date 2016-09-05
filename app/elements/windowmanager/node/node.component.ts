@@ -42,14 +42,20 @@ import NodeInterface = require('./treenode.interface');
 						[panelModules]="panelModules"
 						(addPanel)="addPanel($event)"
 						(promotePanel)="promotePanel($event)"
-						(closePanel)="deletePanel($event)">
+						(closePanel)="deletePanel($event)"
+						(on)="onPanelAction($event)">
 					</ee-node>
 					<ee-separator *ngIf="node.branches[i+1]" [left]="branch" [right]="node.branches[i+1]" [orientation]="orientation"></ee-separator>
 				</div>
 			</div>
 			<div *ngIf="!node.branches || node.branches.length == 0" class="ee-panel-container">
 				<ee-panel-header [node]="node" (close)="closePanel()"></ee-panel-header>
-				<ee-panel [data]="node.data" [map]="map" [panelModules]="panelModules" (add)="add($event)"></ee-panel>
+				<ee-panel
+					[data]="node.data"
+					[map]="map"
+					[panelModules]="panelModules"
+					(add)="add($event)"
+					(on)="onPanelAction($event)"></ee-panel>
 			</div>
 		</div>
 	`
@@ -64,6 +70,7 @@ export class NodeComponent implements OnInit {
 	@Output("addPanel") addEmitter: EventEmitter<DropInfo> = new EventEmitter<DropInfo>();
 	@Output("promotePanel") promoteEmitter: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
 	@Output("closePanel") closeEmitter: EventEmitter<NodeInterface.TreeNode> = new EventEmitter<NodeInterface.TreeNode>();
+	@Output("on") onEmitter: EventEmitter<any> = new EventEmitter<any>();
 
 	ngOnInit() {
 		this.node.branches.forEach(function(d) {
@@ -144,6 +151,10 @@ export class NodeComponent implements OnInit {
 				this.node.branches.splice.apply(this.node.branches, [<any>i, 0].concat(childNode.branches[0].branches));
 			}
 		}
+	}
+
+	onPanelAction(e) {
+		this.onEmitter.emit(e);
 	}
 
 	constructor() { }
