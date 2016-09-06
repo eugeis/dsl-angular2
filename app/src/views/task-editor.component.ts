@@ -19,10 +19,10 @@
  * @author Jonas Möller
  */
 import { Component } from '@angular/core';
+import { Tree, TreeComponent } from 'vindue';
+import { NodeOrientation } from 'vindue';
 
 import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
-import { Tree, TreeComponent } from '../../elements/windowmanager/tree/tree.component';
-import { NodeOrientation } from '../../elements/windowmanager/node/nodeorientation.enum';
 import { ViewBarrelStrings, mapViewToHtmlElement } from './viewbarrel.model';
 import { ViewModule } from './view.module';
 
