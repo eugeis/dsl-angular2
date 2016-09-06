@@ -22,9 +22,6 @@ import { Entity } from './entity.model';
 import { Task_ } from './task.model';
 
 export abstract class Comment_ extends Entity {
-	task: Task_;
-	newTask: Task_;
-
 	constructor(public id: number, public dateOfCreation: Date) {
 		super(["id", "task", "dateOfCreation", "newTask"]);
 	}

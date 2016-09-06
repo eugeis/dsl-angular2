@@ -20,11 +20,8 @@
  */
 import { Injectable } from '@angular/core';
 
+import { comments } from './server.mockup';
 import { Comment } from '../../src/entities/comment.model';
-
-const comments: Comment[] = [
-	new Comment(1, new Date()),
-	new Comment(2, new Date())];
 
 @Injectable()
 export class CommentLoader {

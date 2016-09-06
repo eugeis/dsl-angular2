@@ -19,8 +19,13 @@
  * @author Jonas Möller
  */
 import { Task_ } from '../../src-gen/entities/task.model';
+import { TaskAction } from './taskaction.model';
+import { Comment } from './comment.model';
 
 export class Task extends Task_ {
+	taskactions: TaskAction[];
+	comments: Comment[];
+
 	constructor(id: number, created: Date, closed: Date, size: number, order: number) {
 		super(id, created, closed, size, order);
 	}

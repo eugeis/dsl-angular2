@@ -46,7 +46,6 @@ export class TaskExplorer extends TaskExplorer_ {
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.loader.getTasks().then((entities) => this.entities = entities);
 	}
 
 	onSelect(e) {

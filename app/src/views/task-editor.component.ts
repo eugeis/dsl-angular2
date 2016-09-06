@@ -29,7 +29,12 @@ import { ViewModule } from './view.module';
 @Component({
 	selector: 'task-editor',
 	template: `
-		<ee-tree [windows]="windows" [map]="map" [panelModules]="viewModules" (on)="on($event)"></ee-tree>
+		<ee-tree
+			[windows]="windows"
+			[map]="map"
+			[panelModules]="viewModules"
+			(on)="on($event)">
+		</ee-tree>
 	`
 })
 

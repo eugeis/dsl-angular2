@@ -23,8 +23,6 @@ import { Comment_ } from './comment.model';
 import { Task_ } from './task.model';
 
 export abstract class TaskAction_ extends Entity {
-	task: Task_;
-
 	constructor(public id: number, public name: string) {
 		super(["id", "task", "name"]);
 	}

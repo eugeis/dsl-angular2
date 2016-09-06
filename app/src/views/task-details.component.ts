@@ -25,6 +25,8 @@ import { TaskActionLoader } from '../../src-gen/services/taskactionloader.servic
 import { CommentLoader } from '../../src-gen/services/commentloader.service';
 import { Entity } from '../../src-gen/entities/entity.model';
 
+import { tasks } from '../../src-gen/services/server.mockup';
+
 export const TaskDetailsSelector: string = 'task-details';
 
 @Component({
@@ -46,8 +48,21 @@ export class TaskDetails extends TaskDetails_ {
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.cloader.getComments().then((entities) => this.cEntities = entities);
-		this.tloader.getTaskActions().then((entities) => this.tEntities = entities);
+
+		this.viewModel.task = tasks[1];
+
+		if (this.viewModel.task) {
+			this.cloader.getComments().then((entities) => {
+				this.cEntities = entities.filter((element) => {
+					return element.task === this.viewModel.task;
+				});
+			});
+			this.tloader.getTaskActions().then((entities) => {
+				this.tEntities = entities.filter((element) => {
+					return element.task === this.viewModel.task;
+				});
+			});
+		}
 	}
 
 	onSelect(e) {

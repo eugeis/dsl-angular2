@@ -20,11 +20,8 @@
  */
 import { Injectable } from '@angular/core';
 
+import { taskactions } from './server.mockup';
 import { TaskAction } from '../../src/entities/taskaction.model';
-
-const taskactions: TaskAction[] = [
-	new TaskAction(1, "Hallo"),
-	new TaskAction(2, "No")];
 
 @Injectable()
 export class TaskActionLoader {

@@ -23,9 +23,6 @@ import { Comment_ } from './comment.model';
 import { TaskAction_ } from './taskaction.model';
 
 export abstract class Task_ extends Entity {
-	comments: Comment_;
-	actions: TaskAction_;
-
 	constructor(public id: number,
 		public created: Date,
 		public closed: Date,

@@ -19,8 +19,11 @@
  * @author Jonas Möller
  */
 import { TaskAction_ } from '../../src-gen/entities/taskaction.model';
+import { Task } from './task.model';
 
 export class TaskAction extends TaskAction_ {
+	task: Task;
+	
 	constructor(id: number, name: string) {
 		super(id, name);
 	}

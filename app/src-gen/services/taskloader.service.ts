@@ -20,11 +20,8 @@
  */
 import { Injectable } from '@angular/core';
 
+import { tasks } from './server.mockup';
 import { Task } from '../../src/entities/task.model';
-
-const tasks: Task[] = [
-	new Task(1, new Date(), new Date(), 10, 10),
-	new Task(1, new Date(), new Date(), 10, 10)];
 
 @Injectable()
 export class TaskLoader {
