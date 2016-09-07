@@ -32,7 +32,7 @@ import { ViewModule } from './view.module';
 		<ee-tree
 			[windows]="windows"
 			[map]="map"
-			[panelModules]="viewModules"
+			[modules]="modules"
 			[model]="model"
 			(on)="on($event)">
 		</ee-tree>
@@ -42,7 +42,7 @@ import { ViewModule } from './view.module';
 export class TaskEditor extends TaskEditor_ {
 	constructor() { super(); }
 
-	viewModules: any = [ViewModule];
+	modules: any = [ViewModule];
 
 	map = {
 		callback: mapViewToHtmlElement
