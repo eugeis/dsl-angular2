@@ -32,7 +32,7 @@ export const TaskExplorerSelector: string = 'task-explorer';
 	template: `
 		<input type="button" class="btn btn-default" (click)="onAction('add')" value="Add">
 		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
-		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
+		<ee-table [selected]="viewModel.task" [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 	`,
 	providers: [TaskLoader]
 })
@@ -42,6 +42,8 @@ export class TaskExplorer extends TaskExplorer_ {
 
 	constructor(public loader: TaskLoader) {
 		super();
+
+		loader.getTasks().then((tasks) => this.entities = tasks);
 	}
 
 	ngOnInit() {
@@ -49,6 +51,8 @@ export class TaskExplorer extends TaskExplorer_ {
 	}
 
 	onSelect(e) {
+		this.viewModel.task = e.entity;
+
 		this.onEmitter.emit({
 			event: e,
 			type: "Select"

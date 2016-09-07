@@ -47,9 +47,9 @@ comments[1].task = tasks[0];
 tasks[1].comments = [comments[2]];
 comments[2].task = tasks[1];
 
-tasks[0].taskactions = [taskactions[0], taskactions[1]];
+tasks[0].actions = [taskactions[0], taskactions[1]];
 taskactions[0].task = tasks[0];
 taskactions[1].task = tasks[0];
 
-tasks[1].taskactions = [taskactions[2]];
+tasks[1].actions = [taskactions[2]];
 taskactions[2].task = tasks[1];

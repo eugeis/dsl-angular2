@@ -23,7 +23,7 @@ import { TaskAction } from './taskaction.model';
 import { Comment } from './comment.model';
 
 export class Task extends Task_ {
-	taskactions: TaskAction[];
+	actions: TaskAction[];
 	comments: Comment[];
 
 	constructor(id: number, created: Date, closed: Date, size: number, order: number) {

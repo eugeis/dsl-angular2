@@ -42,26 +42,32 @@ export class TaskDetails extends TaskDetails_ {
 	cEntities: Entity[] = [];
 	tEntities: Entity[] = [];
 
+	oldTask: any;
+
 	constructor(public tloader: TaskActionLoader, public cloader: CommentLoader) {
 		super();
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
+	}
 
-		this.viewModel.task = tasks[1];
-
+	ngDoCheck() {
 		if (this.viewModel.task) {
-			this.cloader.getComments().then((entities) => {
-				this.cEntities = entities.filter((element) => {
-					return element.task === this.viewModel.task;
+			if (this.viewModel.task != this.oldTask) {
+				this.cloader.getComments().then((entities) => {
+					this.cEntities = entities.filter((element) => {
+						return element.task === this.viewModel.task;
+					});
 				});
-			});
-			this.tloader.getTaskActions().then((entities) => {
-				this.tEntities = entities.filter((element) => {
-					return element.task === this.viewModel.task;
+				this.tloader.getTaskActions().then((entities) => {
+					this.tEntities = entities.filter((element) => {
+						return element.task === this.viewModel.task;
+					});
 				});
-			});
+
+				this.oldTask = this.viewModel.task;
+			}
 		}
 	}
 

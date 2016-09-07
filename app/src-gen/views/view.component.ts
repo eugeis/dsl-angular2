@@ -18,14 +18,19 @@
  *
  * @author Jonas Möller
  */
-import { OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 
-export class View implements OnInit {
+export class View implements OnInit, DoCheck {
+	@Input("model") viewModel;
 	@Output("on") onEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-	viewModel: any;
-
 	ngOnInit() {
-		this.viewModel = {};
+		if (!this.viewModel) {
+			this.viewModel = {};
+		}
+	}
+
+	ngDoCheck() {
+
 	}
 }

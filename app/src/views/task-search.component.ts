@@ -38,13 +38,28 @@ export const TaskSearchSelector:string = 'task-search';
 export class TaskSearch extends TaskSearch_ {
 	entities: Entity[] = [];
 
+	oldTask: any;
+
 	constructor(public tloader: TaskActionLoader) {
 		super();
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.tloader.getTaskActions().then((entities) => this.entities = entities);
+	}
+
+	ngDoCheck() {
+		if (this.viewModel.task) {
+			if (this.viewModel.task != this.oldTask) {
+				this.tloader.getTaskActions().then((entities) => {
+					this.entities = entities.filter((element) => {
+						return element.task === this.viewModel.task;
+					});
+				});
+
+				this.oldTask = this.viewModel.task;
+			}
+		}
 	}
 
 	onSelect(e) {

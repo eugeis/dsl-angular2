@@ -35,7 +35,7 @@ interface TableOutput {
 				<tr *ngIf="entities[0] && entities[0].props">
 					<td *ngFor="let header of entities[0].props">{{header}}</td>
 				</tr>
-				<tr *ngFor="let entity of entities">
+				<tr *ngFor="let entity of entities" [ngClass]="{'active': selected === entity}">
 					<td *ngFor="let prop of entity.props" (click)="click(entity, prop)">{{entity[prop]}}</td>
 				</tr>
 			</table>
@@ -45,6 +45,7 @@ interface TableOutput {
 
 export class Table {
 	@Input() entities: Entity[];
+	@Input() selected;
 
 	@Output("onSelect") selectEmitter: EventEmitter<TableOutput> = new EventEmitter<TableOutput>();
 

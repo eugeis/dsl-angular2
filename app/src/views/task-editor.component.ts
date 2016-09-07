@@ -33,6 +33,7 @@ import { ViewModule } from './view.module';
 			[windows]="windows"
 			[map]="map"
 			[panelModules]="viewModules"
+			[model]="model"
 			(on)="on($event)">
 		</ee-tree>
 	`
@@ -48,6 +49,10 @@ export class TaskEditor extends TaskEditor_ {
 	};
 
 	windows: string[] = ViewBarrelStrings.slice();
+
+	model = {
+
+	}
 
 	on(e) {
 		console.log(e);
