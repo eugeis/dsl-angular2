@@ -8,86 +8,8 @@ html, body {
 	height: 100%;
 }
 
-body {
-	background: linear-gradient(to bottom, rgb(236, 236, 236) 0%,rgb(181, 181, 181) 100%) !important;
-}
-
-.ee-tree > ee-tree-view {
-	position: absolute;
-	bottom: 0;
-}
-
-.ee-tree, .ee-panel-container {
-	flex-direction: column !important;
-}
-
-ee-app, task-editor, task-explorer, task-details, task-search, ee-tree {
+ee-app, task-editor, task-explorer, task-details, task-search {
 	display: block;
 	width: inherit;
 	height: inherit;
-}
-
-.ee-tree, .ee-node, .ee-panel, .ee-node-direction, .ee-node-resizer, .ee-panel-container  {
-	display: flex;
-	flex: 1;
-	flex-direction: inherit;
-	position: relative;
-}
-
-.ee-panel {
-	overflow: auto;
-}
-
-.ee-tree {
-	height: 100%;
-}
-
-ee-node, ee-panel, ee-panel-data {
-	display: flex;
-	flex: 1;
-}
-
-ee-panel-data {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	padding: 5px;
-}
-
-.ee-node-direction.hor, .ee-separator.hor {
-	flex-direction: column;
-}
-
-.ee-node-direction.vert, .ee-separator.vert {
-	flex-direction: row;
-}
-
-.ee-node > div > div:last-child > ee-separator {
-	display: none;
-}
-
-.ee-panel-container {
-	background: white;
-	border-radius: 10px;
-	overflow: hidden;
-	margin: 1px;
-}
-
-.ee-icon {
-	flex: 0 !important;
-	padding: 4px;
-}
-
-.ee-icon span {
-	font-weight: bold;
-	padding: 5px 12px 5px 12px;
-	border-radius: 4px;
-	cursor: pointer;
-	border: 1px solid transparent;
-}
-
-.ee-icon span:hover {
-	border: 1px solid #aaa;
 }
