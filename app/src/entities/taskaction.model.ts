@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 the original author or authors.
+ * Copyright Siemens AG, 2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import { Task } from './task.model';
 
 export class TaskAction extends TaskAction_ {
 	task: Task;
-	
+
 	constructor(id: number, name: string) {
 		super(id, name);
 	}
