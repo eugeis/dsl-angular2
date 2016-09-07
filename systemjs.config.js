@@ -31,7 +31,6 @@
 
       // other libraries
       'rxjs': 'npm:rxjs',
-      'angular2-component-outlet':  'npm:angular2-component-outlet',
 	  'vindue': 'npm:vindue'
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -43,7 +42,6 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      'angular2-component-outlet': { main: 'index.js', defaultExtension: 'js' },
       'vindue': { main: 'index.js', defaultExtension: 'js' }
     }
   });
