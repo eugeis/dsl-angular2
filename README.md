@@ -2,6 +2,8 @@
 
 This project creates a frontend for the [ee-mdd-project](https://github.com/eugeis/ee-mdd) using Angular2.
 
+[Documentation](https://github.com/j-moeller/dsl-angular2/blob/master/documentation/DOCUMENTATION.md)
+
 ## Prerequisites
 
 Development is done using:
@@ -11,7 +13,7 @@ Development is done using:
 
 Additional tools
 
-* [Git](https://github.com/eugeis/ee-mdd)
+* [Git](https://www.git-scm.com/)
 * [Atom](https://atom.io/)
 
 ## Getting started
@@ -20,7 +22,7 @@ Additional tools
 
 ```
 git clone https://github.com/j-moeller/dsl-angular2
-npm install && npm run postinstall
+npm install
 ```
 
 ### Serving the website
@@ -28,7 +30,3 @@ npm install && npm run postinstall
 ```
 npm start
 ```
-
-### Documentation
-
-[Documentation](https://github.com/j-moeller/dsl-angular2/blob/master/documentation/DOCUMENTATION.md)
