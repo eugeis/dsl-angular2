@@ -44,7 +44,7 @@ export function mapViewToHtmlElement(view: string): string {
 
 function getElementFromSelector(selector: string): string {
 	return `<` + selector + `
-	[model]="self.model"
-	(on)="self.onPanelAction($event)"
+	[model]="context.model"
+	(on)="context.onPanelAction($event)"
 	></` + selector + `>`;
 }
