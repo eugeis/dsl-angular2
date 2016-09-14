@@ -36,7 +36,7 @@ export function mapViewToHtmlElement(view: string): string {
 		case "TaskDetails": selector = TaskDetailsSelector; break;
 		case "TaskExplorer": selector = TaskExplorerSelector; break;
 		case "TaskSearch": selector = TaskSearchSelector; break;
-		default: throw "up";
+		default: throw "No such view";
 	}
 
 	return getElementFromSelector(selector);
