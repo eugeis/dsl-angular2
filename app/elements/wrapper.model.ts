@@ -22,6 +22,6 @@
  * This class is used to enable call-by-reference
  * for primitives.
  */
-export class Wrapper {
-	constructor(public value: any) {}
+export class Wrapper<T> {
+	constructor(public value: T) {}
 }

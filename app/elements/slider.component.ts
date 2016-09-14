@@ -20,7 +20,7 @@
  */
 import { Component, Input } from '@angular/core';
 
-import { Wrapper } from '../wrapper.model';
+import { Wrapper } from './wrapper.model';
 
 @Component({
 	selector: 'slider',
@@ -72,5 +72,5 @@ import { Wrapper } from '../wrapper.model';
 
 export class Slider {
 	@Input() sliderWidth: number = 130;
-	@Input() value: Wrapper;
+	@Input() value: Wrapper<any>;
 }

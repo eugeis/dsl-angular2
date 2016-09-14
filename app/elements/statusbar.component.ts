@@ -20,7 +20,7 @@
  */
 import { Input, Component, OnChanges, DoCheck } from '@angular/core';
 
-import { Wrapper } from '../wrapper.model';
+import { Wrapper } from './wrapper.model';
 
 @Component({
 	selector: 'statusbar',
@@ -69,7 +69,7 @@ import { Wrapper } from '../wrapper.model';
 export class Statusbar implements DoCheck {
 	@Input() barWidth: number = 200;
 	@Input() barHeight: number = 20;
-	@Input() value: Wrapper;
+	@Input() value: Wrapper<number>;
 
 	backgroundStyle: string = "red";
 	oldValue: number = -1;
