@@ -29,6 +29,7 @@ export const TaskSearchSelector:string = 'task-search';
 @Component({
 	selector: TaskSearchSelector,
 	template: `
+		Hier: <h1>{{viewModel.value.nr}}</h1>
 		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 		<input type="button" class="btn btn-default" (click)="onAction('search')" value="Search">
 	`,
@@ -49,15 +50,15 @@ export class TaskSearch extends TaskSearch_ {
 	}
 
 	ngDoCheck() {
-		if (this.viewModel.task) {
-			if (this.viewModel.task != this.oldTask) {
+		if (this.viewModel.value.task) {
+			if (this.viewModel.value.task != this.oldTask) {
 				this.tloader.getTaskActions().then((entities) => {
 					this.entities = entities.filter((element) => {
-						return element.task === this.viewModel.task;
+						return element.task === this.viewModel.value.task;
 					});
 				});
 
-				this.oldTask = this.viewModel.task;
+				this.oldTask = this.viewModel.value.task;
 			}
 		}
 	}

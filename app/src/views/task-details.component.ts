@@ -32,6 +32,7 @@ export const TaskDetailsSelector: string = 'task-details';
 @Component({
 	selector: TaskDetailsSelector,
 	template: `
+		Hier: <h1>{{viewModel.value.nr}}</h1>
 		<ee-table (onSelect)="onSelect($event)" [entities]="cEntities"></ee-table>
 		<ee-table (onSelect)="onSelect($event)" [entities]="tEntities"></ee-table>
 	`,
@@ -53,20 +54,20 @@ export class TaskDetails extends TaskDetails_ {
 	}
 
 	ngDoCheck() {
-		if (this.viewModel.task) {
-			if (this.viewModel.task != this.oldTask) {
+		if (this.viewModel.value.task) {
+			if (this.viewModel.value.task != this.oldTask) {
 				this.cloader.getComments().then((entities) => {
 					this.cEntities = entities.filter((element) => {
-						return element.task === this.viewModel.task;
+						return element.task === this.viewModel.value.task;
 					});
 				});
 				this.tloader.getTaskActions().then((entities) => {
 					this.tEntities = entities.filter((element) => {
-						return element.task === this.viewModel.task;
+						return element.task === this.viewModel.value.task;
 					});
 				});
 
-				this.oldTask = this.viewModel.task;
+				this.oldTask = this.viewModel.value.task;
 			}
 		}
 	}

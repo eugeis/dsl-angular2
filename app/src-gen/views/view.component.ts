@@ -19,14 +19,21 @@
  * @author Jonas Möller
  */
 import { OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Wrapper } from 'vindue';
+
+var mynumber: number = 1;
 
 export class View implements OnInit, DoCheck {
-	@Input("model") viewModel;
+	@Input("model") viewModel: Wrapper<any>;
 	@Output("on") onEmitter: EventEmitter<any> = new EventEmitter<any>();
 
+	constructor() { }
+
 	ngOnInit() {
-		if (!this.viewModel) {
-			this.viewModel = {};
+		if (this.viewModel) {
+			if (!this.viewModel.value.nr) {
+				this.viewModel.value.nr = mynumber++;
+			}
 		}
 	}
 
