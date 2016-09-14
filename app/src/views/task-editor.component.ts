@@ -24,7 +24,6 @@ import { NodeOrientation } from 'vindue';
 
 import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
 import { ViewBarrelStrings, mapViewToHtmlElement } from './viewbarrel.model';
-import { ViewModule } from './view.module';
 
 @Component({
 	selector: 'task-editor',
@@ -32,7 +31,6 @@ import { ViewModule } from './view.module';
 		<ee-tree
 			[windows]="windows"
 			[map]="map"
-			[modules]="modules"
 			(on)="on($event)">
 		</ee-tree>
 	`
@@ -40,8 +38,6 @@ import { ViewModule } from './view.module';
 
 export class TaskEditor extends TaskEditor_ {
 	constructor() { super(); }
-
-	modules: any = [ViewModule];
 
 	map = {
 		callback: mapViewToHtmlElement

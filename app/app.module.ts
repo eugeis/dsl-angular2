@@ -24,10 +24,10 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
-import { ViewModule } from './src/views/view.module';
+import { MainViewModule } from './src/views/mainview.module';
 
 @NgModule({
-	imports: [BrowserModule, FormsModule, ViewModule],
+	imports: [BrowserModule, FormsModule, MainViewModule],
 	declarations: [AppComponent],
 	providers: [],
 	bootstrap: [AppComponent]

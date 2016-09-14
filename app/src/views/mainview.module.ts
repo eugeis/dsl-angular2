@@ -22,18 +22,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { provideComponentOutletModule } from 'angular2-component-outlet';
 import { WindowManagerModule } from 'vindue';
 
 import { TaskEditor } from './task-editor.component';
-import { ViewBarrel } from './viewbarrel.model';
+import { ViewsModule } from './views.module';
 
-import { Table } from '../../elements/ee-table.component';
 
 @NgModule({
 	imports: [CommonModule, FormsModule, WindowManagerModule],
-	declarations: [<any>Table, TaskEditor].concat(ViewBarrel),
-	exports: [<any>Table, TaskEditor].concat(ViewBarrel),
-	providers: []
+	declarations: [TaskEditor],
+	exports: [TaskEditor],
+	providers: [
+		provideComponentOutletModule({
+			imports: [ViewsModule]
+		}
+	)]
 })
 
-export class ViewModule { }
+export class MainViewModule { }
