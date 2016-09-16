@@ -8,8 +8,8 @@ This project creates a frontend for the [ee-mdd-project](https://github.com/euge
 
 Development is done using:
 
-* [nodejs](https://nodejs.org/en/) +3.10.7
-* [npm](https://www.npmjs.com/) +6.5.0
+* [nodejs](https://nodejs.org/en/) +6.5.0
+* [npm](https://www.npmjs.com/) +3.10.7
 
 Additional tools
 
@@ -22,6 +22,7 @@ Additional tools
 
 ```
 git clone https://github.com/j-moeller/dsl-angular2
+cd dsl-angular2
 npm install
 ```
 
