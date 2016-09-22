@@ -29,11 +29,46 @@ interface TableOutput {
 
 @Component({
 	selector: 'ee-table',
+	styles: [`
+		.table-header {
+			white-space: nowrap;
+			display: flex;;
+		}
+
+		.table-header span {
+			flex: 1;
+		}
+
+		.table-header .empty {
+			margin-left: auto;
+		}
+
+		.table-header .glyphicon {
+			flex: 0 !important;
+			padding: 3px;
+			padding-left: 6px;
+		}
+
+		.table-header .glyph-hidden {
+			visibility: hidden;
+		}
+	`],
 	template: `
 		<div *ngIf="entities && entities.length > 0">
-			<table class="table table-hover">
+			<table class="table table-hover table-condensed table-bordered">
 				<tr *ngIf="entities[0] && entities[0].props">
-					<td *ngFor="let header of entities[0].props">{{header}}</td>
+					<td *ngFor="let header of entities[0].props" (click)="sort(header)">
+						<span class="table-header">
+							<span>{{header}}</span>
+							<span class="empty"></span>
+							<span class="glyphicon"
+								[ngClass]="{
+									'glyph-hidden': header !== sortKey,
+									'glyphicon-triangle-top': asc,
+									'glyphicon-triangle-bottom': !asc}">
+							</span>
+						</span>
+					</td>
 				</tr>
 				<tr *ngFor="let entity of entities" [ngClass]="{'active': selected === entity}">
 					<td *ngFor="let prop of entity.props" (click)="click(entity, prop)">{{entity[prop]}}</td>
@@ -49,10 +84,35 @@ export class Table {
 
 	@Output("onSelect") selectEmitter: EventEmitter<TableOutput> = new EventEmitter<TableOutput>();
 
+	sortKey: string;
+	asc: boolean;
+
 	click(entity: Entity, prop: string) {
 		this.selectEmitter.emit({
 			entity: entity,
 			prop: prop
+		});
+	}
+
+	sort(header) {
+		if (this.sortKey === header) {
+			this.asc = !this.asc;
+		} else {
+			this.sortKey = header;
+			this.asc = true;
+		}
+
+
+		this.entities.sort((a,b) => {
+			let factor: number = ((this.asc) ? 1 : -1);
+
+			if (a[this.sortKey] < b[this.sortKey]) {
+				return -1 * factor;
+			} else if (a[this.sortKey] === b[this.sortKey]) {
+				return 0
+			} else {
+				return 1 * factor;
+			}
 		});
 	}
 }
