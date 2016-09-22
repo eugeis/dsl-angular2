@@ -26,6 +26,6 @@ import { Task } from '../../src/entities/task.model';
 @Injectable()
 export class TaskLoader {
 	getTasks() : Promise<Task[]> {
-		return Promise.resolve(tasks);
+		return Promise.resolve(tasks.slice(0));
 	}
 }

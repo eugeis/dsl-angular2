@@ -26,6 +26,6 @@ import { TaskAction } from '../../src/entities/taskaction.model';
 @Injectable()
 export class TaskActionLoader {
 	getTaskActions() : Promise<TaskAction[]> {
-		return Promise.resolve(taskactions);
+		return Promise.resolve(taskactions.slice(0));
 	}
 }

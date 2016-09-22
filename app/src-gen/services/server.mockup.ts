@@ -22,10 +22,13 @@ import { Task } from '../../src/entities/task.model';
 import { Comment } from '../../src/entities/comment.model';
 import { TaskAction } from '../../src/entities/taskaction.model';
 
+function randomDate(start, end) {
+	return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
 
 export const tasks: Task[] = [
-	new Task(1, new Date(), new Date(), 10, 10),
-	new Task(2, new Date(), new Date(), 20, 20)
+	new Task(1, randomDate(new Date(1970, 1, 1), new Date(1980, 1, 1)), randomDate(new Date(1980, 1, 1), new Date(1990, 1, 1)), 20, 60),
+	new Task(2, randomDate(new Date(1990, 1, 1), new Date(2000, 1, 1)), randomDate(new Date(2000, 1, 1), new Date(2010, 1, 1)), 40, 20)
 ];
 
 export const taskactions: TaskAction[] = [
@@ -35,9 +38,9 @@ export const taskactions: TaskAction[] = [
 ];
 
 export const comments: Comment[] = [
-	new Comment(1, new Date()),
-	new Comment(2, new Date()),
-	new Comment(3, new Date())
+	new Comment(1, randomDate(new Date(1970, 1, 1), new Date())),
+	new Comment(2, randomDate(new Date(1970, 1, 1), new Date())),
+	new Comment(3, randomDate(new Date(1970, 1, 1), new Date()))
 ];
 
 tasks[0].comments = [comments[0],comments[1]];

@@ -26,6 +26,6 @@ import { Comment } from '../../src/entities/comment.model';
 @Injectable()
 export class CommentLoader {
 	getComments() : Promise<Comment[]> {
-		return Promise.resolve(comments);
+		return Promise.resolve(comments.slice(0));
 	}
 }
