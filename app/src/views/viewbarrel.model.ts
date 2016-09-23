@@ -18,6 +18,8 @@
  *
  * @author Jonas Möller
  */
+import { Map } from 'vindue';
+
 import { TaskDetails, TaskDetailsSelector } from './task-details.component';
 import { TaskExplorer, TaskExplorerSelector } from './task-explorer.component';
 import { TaskSearch, TaskSearchSelector } from './task-search.component';
@@ -40,6 +42,24 @@ export function mapViewToHtmlElement(view: string): string {
 	}
 
 	return getElementFromSelector(selector);
+}
+
+export function mapViewToInputElement(view: string): string[] {
+	switch(view) {
+		case "TaskDetails": return ["Task"];
+		case "TaskExplorer": return ["Task[]"];
+		case "TaskSearch": return ["Task"];
+		default: throw "No such view";
+	}
+}
+
+export function mapViewToOutputElement(view: string): string[] {
+	switch(view) {
+		case "TaskDetails": return ["TaskAction", "Comment"];
+		case "TaskExplorer": return ["Task"];
+		case "TaskSearch": return ["TaskAction"];
+		default: throw "No such view";
+	}
 }
 
 function getElementFromSelector(selector: string): string {

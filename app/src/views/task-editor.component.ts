@@ -21,9 +21,10 @@
 import { Component } from '@angular/core';
 import { Tree, TreeComponent } from 'vindue';
 import { NodeOrientation } from 'vindue';
+import { Map } from 'vindue';
 
 import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
-import { ViewBarrelStrings, mapViewToHtmlElement } from './viewbarrel.model';
+import * as ViewBarrel from './viewbarrel.model';
 
 @Component({
 	selector: 'task-editor',
@@ -39,11 +40,13 @@ import { ViewBarrelStrings, mapViewToHtmlElement } from './viewbarrel.model';
 export class TaskEditor extends TaskEditor_ {
 	constructor() { super(); }
 
-	map = {
-		callback: mapViewToHtmlElement
+	map: Map.WindowMapper = {
+		viewToHtml: ViewBarrel.mapViewToHtmlElement,
+		viewToInputElement: ViewBarrel.mapViewToInputElement,
+		viewToOutputElement: ViewBarrel.mapViewToOutputElement
 	};
 
-	windows: string[] = ViewBarrelStrings.slice();
+	windows: string[] = ViewBarrel.ViewBarrelStrings.slice();
 
 	on(e) {
 		console.log(e);

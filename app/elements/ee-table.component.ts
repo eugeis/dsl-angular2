@@ -80,10 +80,10 @@ interface TableOutput {
 
 export class Table {
 	@Input() entities: Entity[];
-	@Input() selected;
 
 	@Output("onSelect") selectEmitter: EventEmitter<TableOutput> = new EventEmitter<TableOutput>();
 
+	selected: Entity;
 	sortKey: string;
 	asc: boolean;
 

@@ -33,7 +33,7 @@ export const TaskExplorerSelector: string = 'task-explorer';
 		Hier: <h1>{{viewModel.value.nr}}</h1>
 		<input type="button" class="btn btn-default" (click)="onAction('add')" value="Add">
 		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
-		<ee-table [selected]="viewModel.task" [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
+		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 	`,
 	providers: [TaskLoader]
 })
@@ -53,6 +53,7 @@ export class TaskExplorer extends TaskExplorer_ {
 
 	onSelect(e) {
 		this.viewModel.value.task = e.entity;
+
 
 		this.onEmitter.emit({
 			event: e,
