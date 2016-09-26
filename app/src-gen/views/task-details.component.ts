@@ -44,25 +44,21 @@ export namespace TaskDetails_ {
 		}
 
 		ngDoCheck() {
-			if (this.viewModel.value.inputs) {
-				if (this.viewModel.value.inputs.value) {
-					if (this.viewModel.value.inputs.value.task) {
-						if (this.viewModel.value.inputs.value.task != this.oldTask) {
-							this.cloader.getComments().then((entities) => {
-								this.cEntities = entities.filter((element) => {
-									return element.task === this.viewModel.value.inputs.value.task;
-								});
-							});
-							this.tloader.getTaskActions().then((entities) => {
-								this.tEntities = entities.filter((element) => {
-									return element.task === this.viewModel.value.inputs.value.task;
-								});
-							});
+			let viewModelTask = this.viewModel.getFromInput("task");
 
-							this.oldTask = this.viewModel.value.inputs.value.task;
-						}
-					}
-				}
+			if (viewModelTask != this.oldTask) {
+				this.cloader.getComments().then((entities) => {
+					this.cEntities = entities.filter((element) => {
+						return element.task === viewModelTask;
+					});
+				});
+				this.tloader.getTaskActions().then((entities) => {
+					this.tEntities = entities.filter((element) => {
+						return element.task === viewModelTask;
+					});
+				});
+
+				this.oldTask = this.viewModel.getFromInput("task");
 			}
 		}
 

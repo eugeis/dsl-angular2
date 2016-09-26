@@ -41,16 +41,15 @@ export namespace TaskSearch_ {
 		}
 
 		ngDoCheck() {
-			if (this.viewModel.value.task) {
-				if (this.viewModel.value.task != this.oldTask) {
-					this.tloader.getTaskActions().then((entities) => {
-						this.entities = entities.filter((element) => {
-							return element.task === this.viewModel.value.task;
-						});
+			let viewModelTask = this.viewModel.getFromInput("task");
+			if (viewModelTask != this.oldTask) {
+				this.tloader.getTaskActions().then((entities) => {
+					this.entities = entities.filter((element) => {
+						return element.task === viewModelTask;
 					});
+				});
 
-					this.oldTask = this.viewModel.value.task;
-				}
+				this.oldTask = viewModelTask;
 			}
 		}
 

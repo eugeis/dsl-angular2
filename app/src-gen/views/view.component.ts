@@ -19,10 +19,10 @@
  * @author Jonas Möller
  */
 import { OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
-import { Wrapper } from 'vindue';
+import { ModelPtr } from 'vindue';
 
 export class View implements OnInit, DoCheck {
-	@Input("model") viewModel: Wrapper<any>;
+	@Input("model") viewModel: ModelPtr;
 	@Output("on") onEmitter: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor() { }

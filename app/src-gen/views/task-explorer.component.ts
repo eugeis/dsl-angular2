@@ -43,8 +43,7 @@ export namespace TaskExplorer_ {
 		}
 
 		onSelect(e) {
-			this.viewModel.value.task = e.entity;
-
+			this.viewModel.set("task", e.entity);
 
 			this.onEmitter.emit({
 				event: e,
