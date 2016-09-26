@@ -31,7 +31,6 @@ export const TaskDetailsOutputs: string[] = TaskDetails_.outputs;
 @Component({
 	selector: TaskDetailsSelector,
 	template: `
-		Hier: <h1>{{viewModel.value.nr}}</h1>
 		<ee-table (onSelect)="onSelect($event)" [entities]="cEntities"></ee-table>
 		<ee-table (onSelect)="onSelect($event)" [entities]="tEntities"></ee-table>
 	`,

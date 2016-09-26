@@ -30,7 +30,6 @@ export const TaskExplorerOutputs: string[] = TaskExplorer_.outputs;
 @Component({
 	selector: TaskExplorerSelector,
 	template: `
-		Hier: <h1>{{viewModel.value.nr}}</h1>
 		<input type="button" class="btn btn-default" (click)="onAction('add')" value="Add">
 		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
 		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>

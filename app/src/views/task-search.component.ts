@@ -30,7 +30,6 @@ export const TaskSearchOutputs: string[] = TaskSearch_.outputs;
 @Component({
 	selector: TaskSearchSelector,
 	template: `
-		Hier: <h1>{{viewModel.value.nr}}</h1>
 		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 		<input type="button" class="btn btn-default" (click)="onAction('search')" value="Search">
 	`,
