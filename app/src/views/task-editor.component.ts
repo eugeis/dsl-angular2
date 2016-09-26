@@ -19,12 +19,8 @@
  * @author Jonas Möller
  */
 import { Component } from '@angular/core';
-import { Tree, TreeComponent } from 'vindue';
-import { NodeOrientation } from 'vindue';
-import { Map } from 'vindue';
 
 import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
-import * as ViewBarrel from './viewbarrel.model';
 
 @Component({
 	selector: 'task-editor',
@@ -37,18 +33,4 @@ import * as ViewBarrel from './viewbarrel.model';
 	`
 })
 
-export class TaskEditor extends TaskEditor_ {
-	constructor() { super(); }
-
-	map: Map.WindowMapper = {
-		viewToHtml: ViewBarrel.mapViewToHtmlElement,
-		viewToInputElement: ViewBarrel.mapViewToInputElement,
-		viewToOutputElement: ViewBarrel.mapViewToOutputElement
-	};
-
-	windows: string[] = ViewBarrel.ViewBarrelStrings.slice();
-
-	on(e) {
-		console.log(e);
-	}
-}
+export class TaskEditor extends TaskEditor_ { }

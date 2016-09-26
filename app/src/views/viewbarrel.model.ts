@@ -20,17 +20,11 @@
  */
 import { Map } from 'vindue';
 
-import { TaskDetails, TaskDetailsSelector } from './task-details.component';
-import { TaskExplorer, TaskExplorerSelector } from './task-explorer.component';
-import { TaskSearch, TaskSearchSelector } from './task-search.component';
+import { TaskDetailsSelector, TaskDetailsInputs, TaskDetailsOutputs } from './task-details.component';
+import { TaskExplorerSelector, TaskExplorerInputs, TaskExplorerOutputs } from './task-explorer.component';
+import { TaskSearchSelector, TaskSearchInputs, TaskSearchOutputs } from './task-search.component';
 
-export const ViewBarrelStrings = [
-	"TaskDetails", "TaskExplorer", "TaskSearch"
-];
-
-export const ViewBarrel = [
-	TaskDetails, TaskExplorer, TaskSearch
-];
+export const views: string[] = ["TaskDetails", "TaskExplorer", "TaskSearch"];
 
 export function mapViewToHtmlElement(view: string): string {
 	let selector = "";
@@ -46,22 +40,28 @@ export function mapViewToHtmlElement(view: string): string {
 
 export function mapViewToInputElement(view: string): string[] {
 	switch(view) {
-		case "TaskDetails": return ["Task"];
-		case "TaskExplorer": return ["Task[]"];
-		case "TaskSearch": return ["Task"];
+		case "TaskDetails": return TaskDetailsInputs;
+		case "TaskExplorer": return TaskExplorerInputs;
+		case "TaskSearch": return TaskSearchInputs;
 		default: throw "No such view";
 	}
 }
 
 export function mapViewToOutputElement(view: string): string[] {
 	switch(view) {
-		case "TaskDetails": return ["TaskAction", "Comment"];
-		case "TaskExplorer": return ["Task"];
-		case "TaskSearch": return ["TaskAction"];
+		case "TaskDetails": return TaskDetailsOutputs;
+		case "TaskExplorer": return TaskExplorerOutputs;
+		case "TaskSearch": return TaskSearchOutputs;
 		default: throw "No such view";
 	}
 }
 
+/**
+ * NEVER EVER let the user input the 'selector'-argument directly
+ *
+ * Instead, let the user choose predetermined values, which should match
+ * one of the angular2-selectors in your components.
+ */
 function getElementFromSelector(selector: string): string {
 	return `<` + selector + `
 	[model]="context.model"

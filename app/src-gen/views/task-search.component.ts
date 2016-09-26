@@ -20,5 +20,52 @@
  */
 import { View } from './view.component';
 
-export class TaskSearch_ extends View {
+import { TaskActionLoader } from '../../src/services/taskactionloader.service';
+
+import { Entity } from '../entities/entity.model';
+
+export namespace TaskSearch_ {
+	export const selector = 'task-search';
+	export const inputs: string[] = ["Task"];
+	export const outputs: string[] = ["TaskAction"];
+
+	export const providers = [];
+
+	export class Base extends View {
+		entities: Entity[] = [];
+
+		oldTask: any;
+
+		constructor(public tloader: TaskActionLoader) {
+			super();
+		}
+
+		ngDoCheck() {
+			if (this.viewModel.value.task) {
+				if (this.viewModel.value.task != this.oldTask) {
+					this.tloader.getTaskActions().then((entities) => {
+						this.entities = entities.filter((element) => {
+							return element.task === this.viewModel.value.task;
+						});
+					});
+
+					this.oldTask = this.viewModel.value.task;
+				}
+			}
+		}
+
+		onSelect(e) {
+			this.onEmitter.emit({
+				event: e,
+				type: "Select"
+			});
+		}
+
+		onAction(e) {
+			this.onEmitter.emit({
+				event: e,
+				type: "Action"
+			});
+		}
+	}
 }

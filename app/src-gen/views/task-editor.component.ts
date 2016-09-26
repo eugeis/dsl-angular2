@@ -20,5 +20,19 @@
  */
 import { View } from './view.component';
 
+import { Map } from 'vindue';
+import * as ViewBarrel from '../../src/views/viewbarrel.model';
+
 export class TaskEditor_ extends View {
+	map: Map.WindowMapper = {
+		viewToHtml: ViewBarrel.mapViewToHtmlElement,
+		viewToInputElement: ViewBarrel.mapViewToInputElement,
+		viewToOutputElement: ViewBarrel.mapViewToOutputElement
+	};
+
+	windows: string[] = ViewBarrel.views.slice();
+
+	on(e) {
+		console.log(e);
+	}
 }

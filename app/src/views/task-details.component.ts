@@ -21,13 +21,12 @@
 import { Component, EventEmitter, Input } from '@angular/core';
 
 import { TaskDetails_ } from '../../src-gen/views/task-details.component';
-import { TaskActionLoader } from '../../src-gen/services/taskactionloader.service';
-import { CommentLoader } from '../../src-gen/services/commentloader.service';
-import { Entity } from '../../src-gen/entities/entity.model';
+import { TaskActionLoader } from '../services/taskactionloader.service';
+import { CommentLoader } from '../services/commentloader.service';
 
-import { tasks } from '../../src-gen/services/server.mockup';
-
-export const TaskDetailsSelector: string = 'task-details';
+export const TaskDetailsSelector: string = TaskDetails_.selector;
+export const TaskDetailsInputs: string[] = TaskDetails_.inputs;
+export const TaskDetailsOutputs: string[] = TaskDetails_.outputs;
 
 @Component({
 	selector: TaskDetailsSelector,
@@ -39,47 +38,8 @@ export const TaskDetailsSelector: string = 'task-details';
 	providers: [TaskActionLoader, CommentLoader]
 })
 
-export class TaskDetails extends TaskDetails_ {
-	cEntities: Entity[] = [];
-	tEntities: Entity[] = [];
-
-	oldTask: any;
-
-	constructor(public tloader: TaskActionLoader, public cloader: CommentLoader) {
-		super();
-	}
-
-	ngOnInit() {
-		super.ngOnInit();
-	}
-
-	ngDoCheck() {
-		if (this.viewModel.value.inputs) {
-			if (this.viewModel.value.inputs.value) {
-				if (this.viewModel.value.inputs.value.task) {
-					if (this.viewModel.value.inputs.value.task != this.oldTask) {
-						this.cloader.getComments().then((entities) => {
-							this.cEntities = entities.filter((element) => {
-								return element.task === this.viewModel.value.inputs.value.task;
-							});
-						});
-						this.tloader.getTaskActions().then((entities) => {
-							this.tEntities = entities.filter((element) => {
-								return element.task === this.viewModel.value.inputs.value.task;
-							});
-						});
-
-						this.oldTask = this.viewModel.value.inputs.value.task;
-					}
-				}
-			}
-		}
-	}
-
-	onSelect(e) {
-		this.onEmitter.emit({
-			event: e,
-			type: "Select"
-		});
+export class TaskDetails extends TaskDetails_.Base {
+	constructor(tloader: TaskActionLoader, cloader: CommentLoader) {
+		super(tloader, cloader);
 	}
 }

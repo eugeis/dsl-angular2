@@ -18,10 +18,8 @@
  *
  * @author Jonas Möller
  */
-import { Task_ } from '../../src-gen/entities/task.model';
+import { Injectable } from '@angular/core';
+import { TaskActionLoader_ } from '../../src-gen/services/taskactionloader.service';
 
-export class Task extends Task_ {
-	constructor(id: number, created: Date, closed: Date, size: number, order: number) {
-		super(id, created, closed, size, order);
-	}
-}
+@Injectable()
+export class TaskActionLoader extends TaskActionLoader_ { }

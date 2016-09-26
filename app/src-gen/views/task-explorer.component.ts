@@ -20,5 +20,43 @@
  */
 import { View } from './view.component';
 
-export class TaskExplorer_ extends View {
+import { TaskLoader } from '../../src/services/taskloader.service';
+
+import { Entity } from '../entities/entity.model';
+import { tasks } from '../services/server.mockup';
+
+export namespace TaskExplorer_ {
+	export const selector: string = 'task-explorer';
+	export const inputs: string[] = ["Task[]"];
+	export const outputs: string[] = ["Task"];
+
+	export class Base extends View {
+		entities: Entity[] = [];
+
+		constructor(public loader: TaskLoader) {
+			super();
+			loader.getTasks().then((tasks) => this.entities = tasks);
+		}
+
+		ngOnInit() {
+			super.ngOnInit();
+		}
+
+		onSelect(e) {
+			this.viewModel.value.task = e.entity;
+
+
+			this.onEmitter.emit({
+				event: e,
+				type: "Select"
+			});
+		}
+
+		onAction(e) {
+			this.onEmitter.emit({
+				event: e,
+				type: "Action"
+			});
+		}
+	}
 }

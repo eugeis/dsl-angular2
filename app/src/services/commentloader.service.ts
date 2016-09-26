@@ -18,10 +18,8 @@
  *
  * @author Jonas Möller
  */
-import { Task_ } from '../../src-gen/entities/task.model';
+import { Injectable } from '@angular/core';
+import { CommentLoader_ } from '../../src-gen/services/commentloader.service';
 
-export class Task extends Task_ {
-	constructor(id: number, created: Date, closed: Date, size: number, order: number) {
-		super(id, created, closed, size, order);
-	}
-}
+@Injectable()
+export class CommentLoader extends CommentLoader_ { }

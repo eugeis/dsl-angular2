@@ -21,16 +21,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'
 
-import { AppComponent } from './app.component';
+import { TaskDetails } from '../../src/views/task-details.component';
+import { TaskExplorer } from '../../src/views/task-explorer.component';
+import { TaskSearch } from '../../src/views/task-search.component';
 
-import { MainViewModule } from './src-gen/view-modules/mainview.module';
+import { Table } from '../../elements/ee-table.component';
 
 @NgModule({
-	imports: [BrowserModule, FormsModule, MainViewModule],
-	declarations: [AppComponent],
+	imports: [BrowserModule, FormsModule, CommonModule],
+	declarations: [Table, TaskDetails, TaskExplorer, TaskSearch],
 	providers: [],
-	bootstrap: [AppComponent]
+	exports: [TaskDetails, TaskExplorer, TaskSearch]
 })
 
-export class AppModule { }
+export class ViewsModule { }

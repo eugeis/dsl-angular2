@@ -19,21 +19,25 @@
  * @author Jonas Möller
  */
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'
 
-import { TaskDetails } from './task-details.component';
-import { TaskExplorer } from './task-explorer.component';
-import { TaskSearch } from './task-search.component';
+import { provideComponentOutletModule } from 'angular2-component-outlet';
+import { WindowManagerModule } from 'vindue';
 
-import { Table } from '../../elements/ee-table.component';
+import { TaskEditor } from '../../src/views/task-editor.component';
+import { ViewsModule } from './views.module';
+
 
 @NgModule({
-	imports: [BrowserModule, FormsModule, CommonModule],
-	declarations: [Table, TaskDetails, TaskExplorer, TaskSearch],
-	providers: [],
-	exports: [TaskDetails, TaskExplorer, TaskSearch]
+	imports: [CommonModule, FormsModule, WindowManagerModule],
+	declarations: [TaskEditor],
+	exports: [TaskEditor],
+	providers: [
+		provideComponentOutletModule({
+			imports: [ViewsModule]
+		}
+	)]
 })
 
-export class ViewsModule { }
+export class MainViewModule { }

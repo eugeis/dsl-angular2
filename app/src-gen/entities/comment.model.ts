@@ -19,10 +19,17 @@
  * @author Jonas Möller
  */
 import { Entity } from './entity.model';
-import { Task_ } from './task.model';
+import { Task } from '../../src/entities/task.model';
 
 export abstract class Comment_ extends Entity {
+	task: Task;
+	newTask: Task;
+
 	constructor(public id: number, public dateOfCreation: Date) {
 		super(["id", "task", "dateOfCreation", "newTask"]);
+	}
+
+	getType(): string {
+		return "Comment";
 	}
 }

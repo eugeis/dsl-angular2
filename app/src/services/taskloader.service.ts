@@ -18,26 +18,8 @@
  *
  * @author Jonas Möller
  */
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Injectable } from '@angular/core';
+import { TaskLoader_ } from '../../src-gen/services/taskloader.service';
 
-import { provideComponentOutletModule } from 'angular2-component-outlet';
-import { WindowManagerModule } from 'vindue';
-
-import { TaskEditor } from './task-editor.component';
-import { ViewsModule } from './views.module';
-
-
-@NgModule({
-	imports: [CommonModule, FormsModule, WindowManagerModule],
-	declarations: [TaskEditor],
-	exports: [TaskEditor],
-	providers: [
-		provideComponentOutletModule({
-			imports: [ViewsModule]
-		}
-	)]
-})
-
-export class MainViewModule { }
+@Injectable()
+export class TaskLoader extends TaskLoader_ { }

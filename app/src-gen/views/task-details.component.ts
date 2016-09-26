@@ -20,5 +20,57 @@
  */
 import { View } from './view.component';
 
-export class TaskDetails_ extends View {
+import { TaskActionLoader } from '../../src/services/taskactionloader.service';
+import { CommentLoader } from '../../src/services/commentloader.service';
+
+import { Entity } from '../entities/entity.model';
+import { tasks } from '../services/server.mockup';
+
+export namespace TaskDetails_ {
+	export const selector: string = 'task-details';
+	export const inputs: string[] = ["Task"];
+	export const outputs: string[] = ["TaskAction", "Comment"];
+
+	export const providers = [TaskActionLoader, CommentLoader]
+
+	export class Base extends View {
+		cEntities: Entity[] = [];
+		tEntities: Entity[] = [];
+
+		oldTask: any;
+
+		constructor(public tloader: TaskActionLoader, public cloader: CommentLoader) {
+			super();
+		}
+
+		ngDoCheck() {
+			if (this.viewModel.value.inputs) {
+				if (this.viewModel.value.inputs.value) {
+					if (this.viewModel.value.inputs.value.task) {
+						if (this.viewModel.value.inputs.value.task != this.oldTask) {
+							this.cloader.getComments().then((entities) => {
+								this.cEntities = entities.filter((element) => {
+									return element.task === this.viewModel.value.inputs.value.task;
+								});
+							});
+							this.tloader.getTaskActions().then((entities) => {
+								this.tEntities = entities.filter((element) => {
+									return element.task === this.viewModel.value.inputs.value.task;
+								});
+							});
+
+							this.oldTask = this.viewModel.value.inputs.value.task;
+						}
+					}
+				}
+			}
+		}
+
+		onSelect(e) {
+			this.onEmitter.emit({
+				event: e,
+				type: "Select"
+			});
+		}
+	}
 }

@@ -18,13 +18,10 @@
  *
  * @author Jonas Möller
  */
-import { Injectable } from '@angular/core';
-
-import { tasks } from './server.mockup';
 import { Task } from '../../src/entities/task.model';
+import { tasks } from './server.mockup';
 
-@Injectable()
-export class TaskLoader {
+export class TaskLoader_ {
 	getTasks() : Promise<Task[]> {
 		return Promise.resolve(tasks.slice(0));
 	}

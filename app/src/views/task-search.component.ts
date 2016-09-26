@@ -20,11 +20,12 @@
  */
 import { Component, OnInit } from '@angular/core';
 
-import { TaskActionLoader } from '../../src-gen/services/taskactionloader.service';
+import { TaskActionLoader } from '../services/taskactionloader.service';
 import { TaskSearch_ } from '../../src-gen/views/task-search.component';
-import { Entity } from '../../src-gen/entities/entity.model';
 
-export const TaskSearchSelector:string = 'task-search';
+export const TaskSearchSelector:string = TaskSearch_.selector;
+export const TaskSearchInputs: string[] = TaskSearch_.inputs;
+export const TaskSearchOutputs: string[] = TaskSearch_.outputs;
 
 @Component({
 	selector: TaskSearchSelector,
@@ -36,44 +37,8 @@ export const TaskSearchSelector:string = 'task-search';
 	providers: [TaskActionLoader]
 })
 
-export class TaskSearch extends TaskSearch_ {
-	entities: Entity[] = [];
-
-	oldTask: any;
-
-	constructor(public tloader: TaskActionLoader) {
-		super();
-	}
-
-	ngOnInit() {
-		super.ngOnInit();
-	}
-
-	ngDoCheck() {
-		if (this.viewModel.value.task) {
-			if (this.viewModel.value.task != this.oldTask) {
-				this.tloader.getTaskActions().then((entities) => {
-					this.entities = entities.filter((element) => {
-						return element.task === this.viewModel.value.task;
-					});
-				});
-
-				this.oldTask = this.viewModel.value.task;
-			}
-		}
-	}
-
-	onSelect(e) {
-		this.onEmitter.emit({
-			event: e,
-			type: "Select"
-		});
-	}
-
-	onAction(e) {
-		this.onEmitter.emit({
-			event: e,
-			type: "Action"
-		});
+export class TaskSearch extends TaskSearch_.Base {
+	constructor(tloader: TaskActionLoader) {
+		super(tloader);
 	}
 }

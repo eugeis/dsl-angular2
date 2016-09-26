@@ -19,17 +19,9 @@
  * @author Jonas Möller
  */
 import { Comment_ } from '../../src-gen/entities/comment.model';
-import { Task } from './task.model';
 
 export class Comment extends Comment_ {
-	task: Task;
-	newTask: Task;
-
 	constructor(id: number, dateOfCreation: Date) {
 		super(id, dateOfCreation);
-	}
-
-	getType(): string {
-		return "Comment";
 	}
 }

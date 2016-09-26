@@ -21,11 +21,11 @@
 import { Component, EventEmitter } from '@angular/core';
 
 import { TaskExplorer_ } from '../../src-gen/views/task-explorer.component';
-import { Entity } from '../../src-gen/entities/entity.model';
-import { TaskLoader } from '../../src-gen/services/taskloader.service';
-import { Table } from '../../elements/ee-table.component';
+import { TaskLoader } from '../services/taskloader.service';
 
-export const TaskExplorerSelector: string = 'task-explorer';
+export const TaskExplorerSelector: string = TaskExplorer_.selector;
+export const TaskExplorerInputs: string[] = TaskExplorer_.inputs;
+export const TaskExplorerOutputs: string[] = TaskExplorer_.outputs;
 
 @Component({
 	selector: TaskExplorerSelector,
@@ -38,33 +38,8 @@ export const TaskExplorerSelector: string = 'task-explorer';
 	providers: [TaskLoader]
 })
 
-export class TaskExplorer extends TaskExplorer_ {
-	entities: Entity[] = [];
-
-	constructor(public loader: TaskLoader) {
-		super();
-
-		loader.getTasks().then((tasks) => this.entities = tasks);
-	}
-
-	ngOnInit() {
-		super.ngOnInit();
-	}
-
-	onSelect(e) {
-		this.viewModel.value.task = e.entity;
-
-
-		this.onEmitter.emit({
-			event: e,
-			type: "Select"
-		});
-	}
-
-	onAction(e) {
-		this.onEmitter.emit({
-			event: e,
-			type: "Action"
-		});
+export class TaskExplorer extends TaskExplorer_.Base {
+	constructor(loader: TaskLoader) {
+		super(loader);
 	}
 }

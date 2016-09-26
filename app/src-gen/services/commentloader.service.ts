@@ -18,13 +18,10 @@
  *
  * @author Jonas Möller
  */
-import { Injectable } from '@angular/core';
-
-import { comments } from './server.mockup';
 import { Comment } from '../../src/entities/comment.model';
+import { comments } from './server.mockup';
 
-@Injectable()
-export class CommentLoader {
+export class CommentLoader_ {
 	getComments() : Promise<Comment[]> {
 		return Promise.resolve(comments.slice(0));
 	}
