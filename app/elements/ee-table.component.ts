@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 import { Entity } from '../src-gen/entities/entity.model';
 
@@ -57,7 +57,7 @@ interface TableOutput {
 		<div *ngIf="entities && entities.length > 0">
 			<table class="table table-hover table-condensed table-bordered">
 				<tr *ngIf="entities[0] && entities[0].props">
-					<td *ngFor="let header of entities[0].props" (click)="sort(header)">
+					<td *ngFor="let header of entities[0].props" (click)="changeSorting(header)">
 						<span class="table-header">
 							<span>{{header}}</span>
 							<span class="empty"></span>
@@ -78,7 +78,7 @@ interface TableOutput {
 	`,
 })
 
-export class Table {
+export class Table implements OnChanges {
 	@Input() entities: Entity[];
 
 	@Output("onSelect") selectEmitter: EventEmitter<TableOutput> = new EventEmitter<TableOutput>();
@@ -94,7 +94,7 @@ export class Table {
 		});
 	}
 
-	sort(header) {
+	changeSorting(header) {
 		if (this.sortKey === header) {
 			this.asc = !this.asc;
 		} else {
@@ -102,7 +102,10 @@ export class Table {
 			this.asc = true;
 		}
 
+		this.sort();
+	}
 
+	sort() {
 		this.entities.sort((a,b) => {
 			let factor: number = ((this.asc) ? 1 : -1);
 
@@ -114,5 +117,9 @@ export class Table {
 				return 1 * factor;
 			}
 		});
+	}
+
+	ngOnChanges() {
+		this.sort();
 	}
 }
