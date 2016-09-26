@@ -23,8 +23,9 @@ import { Map } from 'vindue';
 import { TaskDetailsSelector, TaskDetailsInputs, TaskDetailsOutputs } from './task-details.component';
 import { TaskExplorerSelector, TaskExplorerInputs, TaskExplorerOutputs } from './task-explorer.component';
 import { TaskSearchSelector, TaskSearchInputs, TaskSearchOutputs } from './task-search.component';
+import { TaskVisualSelector, TaskVisualInputs, TaskVisualOutputs } from './task-visual.component';
 
-export const views: string[] = ["TaskDetails", "TaskExplorer", "TaskSearch"];
+export const views: string[] = ["TaskDetails", "TaskExplorer", "TaskSearch", "TaskVisual"];
 
 export function mapViewToHtmlElement(view: string): string {
 	let selector = "";
@@ -32,6 +33,7 @@ export function mapViewToHtmlElement(view: string): string {
 		case "TaskDetails": selector = TaskDetailsSelector; break;
 		case "TaskExplorer": selector = TaskExplorerSelector; break;
 		case "TaskSearch": selector = TaskSearchSelector; break;
+		case "TaskVisual": selector = TaskVisualSelector; break;
 		default: throw "No such view";
 	}
 
@@ -43,6 +45,7 @@ export function mapViewToInputElement(view: string): string[] {
 		case "TaskDetails": return TaskDetailsInputs;
 		case "TaskExplorer": return TaskExplorerInputs;
 		case "TaskSearch": return TaskSearchInputs;
+		case "TaskVisual": return TaskVisualInputs;
 		default: throw "No such view";
 	}
 }
@@ -52,6 +55,7 @@ export function mapViewToOutputElement(view: string): string[] {
 		case "TaskDetails": return TaskDetailsOutputs;
 		case "TaskExplorer": return TaskExplorerOutputs;
 		case "TaskSearch": return TaskSearchOutputs;
+		case "TaskVisual": return TaskVisualOutputs;
 		default: throw "No such view";
 	}
 }

@@ -26,14 +26,15 @@ import { CommonModule } from '@angular/common'
 import { TaskDetails } from '../../src/views/task-details.component';
 import { TaskExplorer } from '../../src/views/task-explorer.component';
 import { TaskSearch } from '../../src/views/task-search.component';
+import { TaskVisual } from '../../src/views/task-visual.component';
 
-import { Table } from '../../elements/ee-table.component';
+import { ElementsModule } from '../../elements/elements.module';
 
 @NgModule({
-	imports: [BrowserModule, FormsModule, CommonModule],
-	declarations: [Table, TaskDetails, TaskExplorer, TaskSearch],
+	imports: [BrowserModule, FormsModule, CommonModule, ElementsModule],
+	declarations: [TaskDetails, TaskExplorer, TaskSearch, TaskVisual],
 	providers: [],
-	exports: [TaskDetails, TaskExplorer, TaskSearch]
+	exports: [TaskDetails, TaskExplorer, TaskSearch, TaskVisual]
 })
 
 export class ViewsModule { }
