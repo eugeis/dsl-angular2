@@ -1,12 +1,6 @@
 # Generated JS
-/**/*.js
-/**/*.js.map
-
+dist/
 karma_html/
-
-!systemjs.config.js
-!karma-test-shim.js
-!karma.conf.js
 
 # Logs
 logs

@@ -33,7 +33,7 @@ module.exports = function (config) {
 
 			// Our built application code
 			{ pattern: 'index.js', included: false, watched: true },
-			{ pattern: 'app/**/*.js', included: false, watched: true },
+			{ pattern: 'dist/**/*.js', included: false, watched: true },
 
 			// paths to support debugging with source maps in dev tools
 			{ pattern: 'app/**/*.ts', included: false, watched: false },
