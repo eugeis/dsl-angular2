@@ -1,4 +1,7 @@
 # Generated JS
+
+app/**/*.js
+app/**/*.js.map
 dist/
 karma_html/
 
