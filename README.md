@@ -28,6 +28,14 @@ npm install
 
 ### Serving the website
 
+#### Development mode
+
 ```
 npm start
+```
+
+#### Production mode
+
+```
+npm run prod
 ```
