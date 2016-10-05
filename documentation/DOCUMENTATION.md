@@ -43,7 +43,7 @@ entity('TaskAction') {
 
 The DSL-model above declares three entites (_Task_, _Comment_, _TaskAction_), which can be represented by the following ER model.
 
-![Er model](https://github.com/j-moeller/dsl-angular2/blob/8a2e86b7bba9c0746cc02cd6e3e880761e8ad913/documentation/assets/er-diagram.png)
+![Er model](/documentation/assets/er-diagram.png)
 
 
 <a name="View-Definition" />
@@ -84,10 +84,10 @@ Each view is bound to an entity, which is determined by the controls' types. The
 
 There are currently four modules in the application:
 
-1. The root-module "AppComponent", which is used for bootstrapping the application (*app/app.module*)
-2. The main-view-module "MainViewModule", which loads the [main-view](#View-Definition)-components (*app/src-gen/view-modules/mainview.module*)
-3. The views-module "ViewsModule", which loads the referenced views-module (*app/src-gen/view-modules*)
-4. The elements-module "ElementsModule", which loads the control-elements such as tables and buttons (*app/elements/elements.module*)
+1. The root-module "AppComponent", which is used for bootstrapping the application (*[app/app.module](/app/app.module.ts)*)
+2. The main-view-module "MainViewModule", which loads the [main-view](#View-Definition)-components (*[app/src-gen/view-modules/mainview.module](/app/src-gen/view-modules/mainview.module.ts)*)
+3. The views-module "ViewsModule", which loads the referenced views-module (*[app/src-gen/view-modules/views.module](/app/src-gen/view-modules/views.module.ts)*)
+4. The elements-module "ElementsModule", which loads the control-elements such as tables and buttons (*[app/elements/elements.module](/app/elements/elements.module.ts)*)
 
 <a name="Views" />
 ## Views
@@ -102,9 +102,9 @@ Every view has four values:
 
 - **providers** is an array of services used by the view to load content
 
-- **Base-class** extends the View-class defined in *app/src-gen/views/view.component* and provides basic functionality
+- **Base-class** extends the View-class defined in *[app/src-gen/views/view.component](/app/src-gen/views/view.component.ts)* and provides basic functionality
 
 <a name="Entities" />
 ## Entities
 
-Every entity inherits from the Entity-class (*app/src-gen/entities/entity.model*) and therfore has a set of properties. Each property has a name (e.g. 'id'), a type (e.g. 'number') and a value (e.g. '3').
+Every entity inherits from the Entity-class (*[app/src-gen/entities/entity.model](/app/src-gen/entities/entity.model.ts)*) and therfore has a set of properties. Each property has a name (e.g. 'id'), a type (e.g. 'number') and a value (e.g. '3').
