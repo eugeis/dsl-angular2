@@ -2,6 +2,7 @@
   "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
+    "clean": "gulp clean",
     "start": "gulp && lite-server",
     "prod": "gulp --production && lite-server",
     "postinstall": "typings install",
