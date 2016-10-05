@@ -60,23 +60,23 @@
 
 Contains the application's source-code
 
-**app/app.component**
+**[app/app.component](/app/app.component.ts)**
 
 Defines the application's main component, which is used in the app/app.module
 
-**app/app.module**
+**[app/app.module](/app/app.module.ts)**
 
 Defines the application's main module, which is used for bootstrapping
 
 **app/main**
 
-This file is generated from *templates/main.ts.template* and bootstraps the application. The bootstrapping is either done in production mode or development mode.
+This file is generated from [templates/main.ts.template](/templates/main.ts.template) and bootstraps the application. The bootstrapping is either done in production mode or development mode.
 
 ## app/elements/
 
 Contains the control-elements used in the views (such as tables, buttons)
 
-**app/elements/ee-button.component**
+**[app/elements/ee-button.component](/app/elements/ee-button.component.ts)**
 
 A button, which is used in accordance with the dsl-defintions of a button .
 
@@ -85,7 +85,7 @@ A button, which is used in accordance with the dsl-defintions of a button .
 @Input buttonType: The type of the button (accept, decline, add, delete, search)
 ```
 
-**app/elements/ee-table.component**
+**[app/elements/ee-table.component](/app/elements/ee-table.component.ts)**
 
 A table, which is used to display dsl-entities.
 
@@ -99,19 +99,19 @@ format:
 }
 ```
 
-![Table example](https://github.com/j-moeller/dsl-angular2/blob/master/documentation/assets/table.png)
+![Table example](/documentation/assets/table.png)
 
-**app/elements/elements.module**
+**[app/elements/elements.module](/app/elements/elements.module.ts)**
 
-A module containing all elements defined in *app/elements*
+A module containing all elements defined in *[app/elements](/app/elements)*
 
 ## app/src-gen
 
-Contains the generated classes of the application, which provide basic functionality. The base classes are not directly instantiated, rather the *app/src*-classes inherit from the base classes and extend their functionality. The complete *app/src-gen*-Folder may be overwritten by the dsl-generator when regenerating.
+Contains the generated classes of the application, which provide basic functionality. The base classes are not directly instantiated, rather the *[app/src](/app/src)*-classes inherit from the base classes and extend their functionality. The complete *[app/src-gen](/app/src-gen)*-Folder may be overwritten by the dsl-generator when regenerating.
 
 ## app/src-gen/entities/
 
-This directory contains all the entities used throughout the application. Each entity inherits from the base class defined in *app/src-gen/entities/entity.model*.
+This directory contains all the entities used throughout the application. Each entity inherits from the base class defined in *[app/src-gen/entities/entity.model](/app/src-gen/entities/entity.model.ts)*.
 
 ## app/src-gen/services/
 
@@ -121,17 +121,17 @@ This directory contains the services (e.g. a services for loading some entity).
 
 This directory contains the views defined in the dsl.
 
-For more information about the view, [see the documentation](https://github.com/j-moeller/dsl-angular2/blob/master/DOCUMENTATION.md#Views).
+For more information about the view, [see the documentation](/documentation/DOCUMENTATION.md#Views).
 
 ## app/src
 
-Contains mostly classes, which are used in the application and inherit from the classes generated to *app/src-gen*. This allows the programmer to easily extend the base functionality of the generated classes. These extension will _not_ be overwritten by the dsl-generator.
+Contains mostly classes, which are used in the application and inherit from the classes generated to *[app/src-gen](/app/src-gen)*. This allows the programmer to easily extend the base functionality of the generated classes. These extension will _not_ be overwritten by the dsl-generator.
 
 ## app/src/entities/ && app/src/services/ && app/src/views/
 
 See app/src-gen/*** for more information
 
-**app/src/views/viewbarrel.model**
+**[app/src/views/viewbarrel.model](/app/src/views/viewbarrel.model.ts)**
 
 Defines functions for mapping views to their
 	- selectors (mapViewToHtmlElement)
@@ -150,13 +150,13 @@ Contains the documentation and its assets
 
 Contains various templates, from which the task-runner (gulp) generates additional files, whose content depends on the build-mode (production / development).
 
-**templates/index.html.template**
+**[templates/index.html.template](/templates/index.html.template)**
 
 The index file contains either a dependency to bundled and minified vendor files or it load its dependencies in separated files.
 
 Generated file: *index.html*
 
-**templates/main.ts.template**
+**[templates/main.ts.template](/templates/main.ts.template)**
 
 The main file bootstraps the application. If the building ist done in production mode, angular's production mode is enabled.
 
