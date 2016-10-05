@@ -99,6 +99,8 @@ format:
 }
 ```
 
+![Table example](https://github.com/j-moeller/dsl-angular2/blob/master/documentation/assets/table.png)
+
 **app/elements/elements.module**
 
 A module containing all elements defined in *app/elements*
@@ -117,18 +119,9 @@ This directory contains the services (e.g. a services for loading some entity).
 
 ## app/src-gen/views/
 
-This directory contains the views defined in the dsl. Every view-component defines the following values:
-  - **selector** is a unique html-identifier, which angular uses to load the view as a component
+This directory contains the views defined in the dsl.
 
-  - **inputs** is an array of entity-names, which can be used to load data into the view
-
-  - **outputs** is an array of entity-names, which the view can output (i.e. when a user selects a specific task, the task is an output of the view)
-
-  - **providers** is an array of services used by the view to load content
-
-  - **Base-class** extends the View-class defined in *app/src-gen/views/view.component* and provides basic functionality
-
-For more information about the input/output concept of the view, see the documentation.
+For more information about the view, [see the documentation](https://github.com/j-moeller/dsl-angular2/blob/master/DOCUMENTATION.md#Views).
 
 ## app/src
 
@@ -141,9 +134,9 @@ See app/src-gen/*** for more information
 **app/src/views/viewbarrel.model**
 
 Defines functions for mapping views to their
-  - selectors (mapViewToHtmlElement)
-  - inputs (mapViewToInputElement)
-  - outputs (mapViewToOutputElement)
+	- selectors (mapViewToHtmlElement)
+	- inputs (mapViewToInputElement)
+	- outputs (mapViewToOutputElement)
 
 ## dist/
 
