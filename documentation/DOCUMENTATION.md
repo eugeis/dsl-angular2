@@ -3,13 +3,9 @@
 	* [Entity-Definition](#Entity-Definition)
 	* [View-Definition](#View-Definition)
 * [Modules](#Modules)
+* [Views](#Views)
+* [Entities](#Entities)
 * [Windowmanager / vindue](https://github.com/j-moeller/vindue/blob/master/DOCUMENTATION.md)
-* [Data sharing / Communication](#Datasharing)
-	* [Viewmodel](#Viewmodel)
-	* [Client-Server](#ClientServer)
-* [Generation](#Generation)
-	* [Views](#Views)
-	* [Entities](#Entities)
 
 <a name="DSL-Code" />
 # DSL-Code
@@ -81,44 +77,34 @@ view ('TaskSearch') {
 
 The above DSL-model defines four views: one main view called _TaskEditor_, and three referenced views (_TaskExplorer_, _TaskDetails_, _TaskSearch_). Each view contains control-elements (for simplicity reasons the example only contains buttons and tables).
 
-Each view is bound to an entity, which is determined by the controls' types (in the above example its a little shady and overall implicit, that Task is the bound entity - this will be more explicit in coming versions of the DSL). These entities-bindings act like a viewmodel and therefore determine the displayed data.
+Each view is bound to an entity, which is determined by the controls' types. These entities-bindings act like a viewmodel and therefore determine the displayed data.
 
 <a name="Modules" />
 # Modules
 
 There are currently four modules in the application:
 
-1. The root-module "AppComponent", which is used for bootstrapping the application
-2. The view-module "ViewModule", which loads the [main-view](#View-Definition)-components, referenced view-components and control-components (this module might be later split up into several module, each module representing a main-view)
-3. The windowmanager-module "WindowManagerModule", which organizes the tree-component and its related components
-4. The drag-module "DragModule", which handles the components related to dragging (except for resizing which is done in ee-separator)
-
-<a name="Datasharing" />
-# Data sharing / Communication
-
-_coming soon_
-
-<a name="Viewmodel" />
-## Viewmodel
-
-_coming soon_
-
-<a name="ClientServer" />
-## Client-Server
-
-_coming soon_
-
-<a name="Generation" />
-# Generation
-
-_coming soon_
+1. The root-module "AppComponent", which is used for bootstrapping the application (*app/app.module*)
+2. The main-view-module "MainViewModule", which loads the [main-view](#View-Definition)-components (*app/src-gen/view-modules/mainview.module*)
+3. The views-module "ViewsModule", which loads the referenced views-module (*app/src-gen/view-modules*)
+4. The elements-module "ElementsModule", which loads the control-elements such as tables and buttons (*app/elements/elements.module*)
 
 <a name="Views" />
 ## Views
 
-_coming soon_
+Every view has four values:
+
+- **selector** is a unique html-identifier, which angular uses to load the view as a component
+
+- **inputs** is an array of entity-names, which can be used to load data into the view
+
+- **outputs** is an array of entity-names, which the view can output (i.e. when a user selects a specific task, the task is an output of the view)
+
+- **providers** is an array of services used by the view to load content
+
+- **Base-class** extends the View-class defined in *app/src-gen/views/view.component* and provides basic functionality
 
 <a name="Entities" />
 ## Entities
 
-_coming soon_
+Every entity inherits from the Entity-class (*app/src-gen/entities/entity.model*) and therfore has a set of properties. Each property has a name (e.g. 'id'), a type (e.g. 'number') and a value (e.g. '3').
