@@ -26,6 +26,8 @@ import { CommentLoader } from '../../src/services/commentloader.service';
 import { Entity } from '../entities/entity.model';
 import { tasks } from '../services/server.mockup';
 
+import { getFromInput } from 'vindue';
+
 export namespace TaskDetails_ {
 	export const selector: string = 'task-details';
 	export const inputs: string[] = ["Task"];
@@ -44,7 +46,7 @@ export namespace TaskDetails_ {
 		}
 
 		ngDoCheck() {
-			let viewModelTask = this.viewModel.getFromInput("task");
+			let viewModelTask = getFromInput(this.viewModel, "task");
 
 			if (viewModelTask != this.oldTask) {
 				this.cloader.getComments().then((entities) => {
@@ -58,7 +60,7 @@ export namespace TaskDetails_ {
 					});
 				});
 
-				this.oldTask = this.viewModel.getFromInput("task");
+				this.oldTask = viewModelTask;
 			}
 		}
 

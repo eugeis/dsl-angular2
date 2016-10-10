@@ -25,6 +25,8 @@ import { TaskLoader } from '../../src/services/taskloader.service';
 import { Entity } from '../entities/entity.model';
 import { tasks } from '../services/server.mockup';
 
+import { set } from 'vindue';
+
 export namespace TaskExplorer_ {
 	export const selector: string = 'task-explorer';
 	export const inputs: string[] = ["Task[]"];
@@ -43,7 +45,7 @@ export namespace TaskExplorer_ {
 		}
 
 		onSelect(e) {
-			this.viewModel.set("task", e.entity);
+			set(this.viewModel, "task", e.entity);
 
 			this.onEmitter.emit({
 				event: e,

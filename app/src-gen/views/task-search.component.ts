@@ -24,6 +24,8 @@ import { TaskActionLoader } from '../../src/services/taskactionloader.service';
 
 import { Entity } from '../entities/entity.model';
 
+import { getFromInput } from 'vindue';
+
 export namespace TaskSearch_ {
 	export const selector = 'task-search';
 	export const inputs: string[] = ["Task"];
@@ -41,7 +43,7 @@ export namespace TaskSearch_ {
 		}
 
 		ngDoCheck() {
-			let viewModelTask = this.viewModel.getFromInput("task");
+			let viewModelTask = getFromInput(this.viewModel, "task");
 			if (viewModelTask != this.oldTask) {
 				this.tloader.getTaskActions().then((entities) => {
 					this.entities = entities.filter((element) => {
