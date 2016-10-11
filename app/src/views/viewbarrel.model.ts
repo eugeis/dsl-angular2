@@ -61,14 +61,11 @@ export function mapViewToOutputElement(view: string): string[] {
 }
 
 /**
- * NEVER EVER let the user input the 'selector'-argument directly
+ * NEVER EVER let the user input the 'selector'-argument directly (XSS-vector)
  *
  * Instead, let the user choose predetermined values, which should match
  * one of the angular2-selectors in your components.
  */
 function getElementFromSelector(selector: string): string {
-	return `<` + selector + `
-	[model]="context.model"
-	(on)="context.onPanelAction($event)"
-	></` + selector + `>`;
+	return `<` + selector + ` [model]="model" (on)="callbacks.onPanelAction($event)"></` + selector + `>`;
 }
