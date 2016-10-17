@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "gulp clean",
-    "start": "gulp && lite-server",
+    "gulp": "gulp",
+    "start": "tsc -w & lite-server",
     "prod": "gulp --production && lite-server",
     "postinstall": "typings install",
     "test": "karma start karma.conf.js",
+    "tsc": "tsc",
     "typings": "typings"
   },
   "license": "Apache-2.0",
