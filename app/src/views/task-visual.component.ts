@@ -29,7 +29,7 @@ export const TaskVisualOutputs: string[] = TaskVisual_.outputs;
 @Component({
 	selector: TaskVisualSelector,
 	template: `
-		<ee-d3view></ee-d3view>
+		<ee-railroad></ee-railroad>
 	`
 })
 

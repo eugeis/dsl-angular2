@@ -29,6 +29,7 @@ import { TaskSearch } from '../../src/views/task-search.component';
 import { TaskVisual } from '../../src/views/task-visual.component';
 
 import { ElementsModule } from '../../elements/elements.module';
+import { RailroadModule } from '../../elements/railroad/railroad.module';
 
 @NgModule({
 	imports: [BrowserModule, FormsModule, CommonModule, ElementsModule],

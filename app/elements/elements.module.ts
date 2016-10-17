@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'
 
 import { Table } from './ee-table.component';
-import { D3View } from './d3view.component';
+import { RailroadModule } from './railroad/railroad.module';
 
 @NgModule({
-	imports: [BrowserModule, FormsModule, CommonModule],
-	declarations: [Table, D3View],
+	imports: [BrowserModule, FormsModule, CommonModule, RailroadModule],
+	declarations: [Table],
 	providers: [],
-	exports: [Table, D3View]
+	exports: [Table, RailroadModule]
 })
-export class ElementsModule { }
+export class ElementsModule {
+
+}
