@@ -8,7 +8,7 @@ html, body {
 	height: 100%;
 }
 
-ee-app, task-editor, task-explorer, task-details, task-search {
+ee-app, task-editor, task-explorer, task-details, task-search, task-visual {
 	display: block;
 	width: inherit;
 	height: inherit;
@@ -20,5 +20,6 @@ ee-app, task-editor, task-explorer, task-details, task-search {
 	top: 0;
 	left: 0;
 	width: 100%;
+	height: 100%;
 	padding: 5px;
 }
