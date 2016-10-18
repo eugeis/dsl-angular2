@@ -18,9 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { Component, Input } from '@angular/core';
-
-import { Wrapper } from './wrapper.model';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'slider',
@@ -64,7 +62,11 @@ import { Wrapper } from './wrapper.model';
 	template: `
 		<div *ngIf="value">
 			<input type="range"
-				[(ngModel)]="value.value"
+				[attr.min]="min"
+				[attr.max]="max"
+				[attr.steps]="steps"
+				[ngModel]="value"
+				(ngModelChange)="updateData($event)"
 				[ngStyle]="{'width': sliderWidth+'px'}">
 		</div>
 	`,
@@ -72,5 +74,15 @@ import { Wrapper } from './wrapper.model';
 
 export class Slider {
 	@Input() sliderWidth: number = 130;
-	@Input() value: Wrapper<any>;
+	@Input() min: number = 0;
+	@Input() max: number = 100;
+	@Input() steps: number = 1;
+	@Input() value: any;
+
+	@Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
+
+	updateData(event) {
+		this.value = event;
+		this.valueChange.emit(event);
+	}
 }
