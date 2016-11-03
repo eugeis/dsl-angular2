@@ -157,6 +157,44 @@ export class RailroadComponent implements OnInit {
 	constructor(private er: ElementRef, private rs: RailroadService) { }
 
 	ngOnInit() {
+		function drin(min, max) {
+			return Math.random() * (max-min) + min;
+		}
+
+		let sw = 10000;
+		let sh = 10000;
+
+		let s = 100;
+
+		let each = 5000;
+
+		for (let i = 0; i < each; i++) {
+			this.mockup.push("M " + drin(0,sw) + " " + drin(0,sh) + " h  " + s + " v " + s + " h " + -s + " Z");
+		}
+
+		for (let i = 0; i < each; i++) {
+			this.mockup.push("M " + drin(0,sw) + " " + drin(0,sh)
+				+ " l  " + drin(-s,s) + " " + drin(-s,s)
+				+ " l  " + drin(-s,s) + " " + drin(-s,s) + " Z");
+		}
+
+		for (let i = 0; i < each; i++) {
+			let start = [drin(0,sw), drin(0,sh)];
+			let end = [drin(-s,s), drin(-s,s)];
+
+			let first = [drin(-s,s), drin(-s,s)];
+			let snd = [drin(-s,s), drin(-s,s)];
+			let third = [drin(-s,s), drin(-s,s)];
+
+			this.mockup.push("M " + start[0] + " " + start[1]
+				+ " c " + first[0] + " " + first[1]
+				+ "," + snd[0] + " " + snd[1]
+				+ "," + end[0] + " " + end[1]
+				+ " s " + third[0] + " " + third[1]
+				+ "," + -end[0] + " " + -end[1]
+				+ " Z");
+		}
+
 		let svg = this.er.nativeElement.querySelector("svg");
 
 		if (!svg) {
@@ -209,5 +247,9 @@ export class RailroadComponent implements OnInit {
 
 	select(item: string) {
 		console.log(item);
+	}
+
+	onDestroy() {
+		this.mockup = undefined;
 	}
 }
