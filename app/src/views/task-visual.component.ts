@@ -19,21 +19,25 @@
  * @author Jonas Möller
  */
 import { Component } from '@angular/core';
+import { ViewMetaData } from 'vindue';
 
 import { TaskVisual_ } from '../../src-gen/views/task-visual.component';
 
-export const TaskVisualSelector: string = TaskVisual_.selector;
-export const TaskVisualInputs: string[] = TaskVisual_.inputs;
-export const TaskVisualOutputs: string[] = TaskVisual_.outputs;
+export const metadata: ViewMetaData = {
+	selector: 'task-visual',
+	inputs: ["Task"],
+	outputs: [],
+	name: "TaskVisual"
+}
 
 @Component({
-	selector: TaskVisualSelector,
+	selector: metadata.selector,
 	template: `
 		<ee-railroad></ee-railroad>
 	`
 })
 
-export class TaskVisual extends TaskVisual_.Base {
+export class Class extends TaskVisual_ {
 	constructor() {
 		super();
 	}

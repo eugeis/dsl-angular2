@@ -18,18 +18,6 @@
  *
  * @author Jonas Möller
  */
-import { View } from './view.component';
+import { View } from 'vindue';
 
-export namespace TaskVisual_ {
-	export const selector: string = 'task-visual';
-	export const inputs: string[] = ["Task"];
-	export const outputs: string[] = [""];
-
-	export const providers = []
-
-	export class Base extends View {
-		constructor() {
-			super();
-		}
-	}
-}
+export class TaskVisual_ extends View { }

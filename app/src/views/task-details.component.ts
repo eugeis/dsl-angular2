@@ -19,17 +19,21 @@
  * @author Jonas Möller
  */
 import { Component, EventEmitter, Input } from '@angular/core';
+import { ViewMetaData } from 'vindue';
 
 import { TaskDetails_ } from '../../src-gen/views/task-details.component';
 import { TaskActionLoader } from '../services/taskactionloader.service';
 import { CommentLoader } from '../services/commentloader.service';
 
-export const TaskDetailsSelector: string = TaskDetails_.selector;
-export const TaskDetailsInputs: string[] = TaskDetails_.inputs;
-export const TaskDetailsOutputs: string[] = TaskDetails_.outputs;
+export const metadata: ViewMetaData = {
+	selector: 'task-details',
+	inputs: ["Task"],
+	outputs: ["TaskAction", "Comment"],
+	name: "TaskDetails"
+}
 
 @Component({
-	selector: TaskDetailsSelector,
+	selector: metadata.selector,
 	template: `
 		<ee-table (onSelect)="onSelect($event)" [entities]="cEntities"></ee-table>
 		<ee-table (onSelect)="onSelect($event)" [entities]="tEntities"></ee-table>
@@ -37,7 +41,7 @@ export const TaskDetailsOutputs: string[] = TaskDetails_.outputs;
 	providers: [TaskActionLoader, CommentLoader]
 })
 
-export class TaskDetails extends TaskDetails_.Base {
+export class Class extends TaskDetails_ {
 	constructor(tloader: TaskActionLoader, cloader: CommentLoader) {
 		super(tloader, cloader);
 	}

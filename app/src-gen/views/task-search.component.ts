@@ -18,55 +18,45 @@
  *
  * @author Jonas Möller
  */
-import { View } from './view.component';
-
-import { TaskActionLoader } from '../../src/services/taskactionloader.service';
-
-import { Entity } from '../entities/entity.model';
-
+import { View } from 'vindue';
 import { getFromInput } from 'vindue';
 
-export namespace TaskSearch_ {
-	export const selector = 'task-search';
-	export const inputs: string[] = ["Task"];
-	export const outputs: string[] = ["TaskAction"];
+import { Entity } from '../entities/entity.model';
+import { TaskActionLoader } from '../../src/services/taskactionloader.service';
 
-	export const providers = [];
+export class TaskSearch_ extends View {
+	entities: Entity[] = [];
 
-	export class Base extends View {
-		entities: Entity[] = [];
+	oldTask: any;
 
-		oldTask: any;
+	constructor(public tloader: TaskActionLoader) {
+		super();
+	}
 
-		constructor(public tloader: TaskActionLoader) {
-			super();
-		}
-
-		ngDoCheck() {
-			let viewModelTask = getFromInput(this.viewModel, "task");
-			if (viewModelTask != this.oldTask) {
-				this.tloader.getTaskActions().then((entities) => {
-					this.entities = entities.filter((element) => {
-						return element.task === viewModelTask;
-					});
+	ngDoCheck() {
+		let viewModelTask = getFromInput(this.viewModel, "task");
+		if (viewModelTask != this.oldTask) {
+			this.tloader.getTaskActions().then((entities) => {
+				this.entities = entities.filter((element) => {
+					return element.task === viewModelTask;
 				});
-
-				this.oldTask = viewModelTask;
-			}
-		}
-
-		onSelect(e) {
-			this.onEmitter.emit({
-				event: e,
-				type: "Select"
 			});
-		}
 
-		onAction(e) {
-			this.onEmitter.emit({
-				event: e,
-				type: "Action"
-			});
+			this.oldTask = viewModelTask;
 		}
+	}
+
+	onSelect(e) {
+		this.onEmitter.emit({
+			event: e,
+			type: "Select"
+		});
+	}
+
+	onAction(e) {
+		this.onEmitter.emit({
+			event: e,
+			type: "Action"
+		});
 	}
 }

@@ -19,16 +19,20 @@
  * @author Jonas Möller
  */
 import { Component, EventEmitter } from '@angular/core';
+import { ViewMetaData } from 'vindue';
 
 import { TaskExplorer_ } from '../../src-gen/views/task-explorer.component';
 import { TaskLoader } from '../services/taskloader.service';
 
-export const TaskExplorerSelector: string = TaskExplorer_.selector;
-export const TaskExplorerInputs: string[] = TaskExplorer_.inputs;
-export const TaskExplorerOutputs: string[] = TaskExplorer_.outputs;
+export const metadata: ViewMetaData = {
+	selector: 'task-explorer',
+	inputs: ["Task[]"],
+	outputs: ["Task"],
+	name: "TaskExplorer"
+}
 
 @Component({
-	selector: TaskExplorerSelector,
+	selector: metadata.selector,
 	template: `
 		<input type="button" class="btn btn-default" (click)="onAction('add')" value="Add">
 		<input type="button" class="btn btn-default" (click)="onAction('delete')" value="Delete">
@@ -37,7 +41,7 @@ export const TaskExplorerOutputs: string[] = TaskExplorer_.outputs;
 	providers: [TaskLoader]
 })
 
-export class TaskExplorer extends TaskExplorer_.Base {
+export class Class extends TaskExplorer_ {
 	constructor(loader: TaskLoader) {
 		super(loader);
 	}

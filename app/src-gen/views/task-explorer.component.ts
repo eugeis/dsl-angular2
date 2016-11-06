@@ -18,7 +18,7 @@
  *
  * @author Jonas Möller
  */
-import { View } from './view.component';
+import { View } from 'vindue';
 
 import { TaskLoader } from '../../src/services/taskloader.service';
 
@@ -27,37 +27,31 @@ import { tasks } from '../services/server.mockup';
 
 import { set } from 'vindue';
 
-export namespace TaskExplorer_ {
-	export const selector: string = 'task-explorer';
-	export const inputs: string[] = ["Task[]"];
-	export const outputs: string[] = ["Task"];
+export class TaskExplorer_ extends View {
+	entities: Entity[] = [];
 
-	export class Base extends View {
-		entities: Entity[] = [];
+	constructor(public loader: TaskLoader) {
+		super();
+		loader.getTasks().then((tasks) => this.entities = tasks);
+	}
 
-		constructor(public loader: TaskLoader) {
-			super();
-			loader.getTasks().then((tasks) => this.entities = tasks);
-		}
+	ngOnInit() {
+		super.ngOnInit();
+	}
 
-		ngOnInit() {
-			super.ngOnInit();
-		}
+	onSelect(e) {
+		set(this.viewModel, "task", e.entity);
 
-		onSelect(e) {
-			set(this.viewModel, "task", e.entity);
+		this.onEmitter.emit({
+			event: e,
+			type: "Select"
+		});
+	}
 
-			this.onEmitter.emit({
-				event: e,
-				type: "Select"
-			});
-		}
-
-		onAction(e) {
-			this.onEmitter.emit({
-				event: e,
-				type: "Action"
-			});
-		}
+	onAction(e) {
+		this.onEmitter.emit({
+			event: e,
+			type: "Action"
+		});
 	}
 }

@@ -19,16 +19,26 @@
  * @author Jonas Möller
  */
 import { Component, OnInit } from '@angular/core';
+import { ViewMetaData } from 'vindue';
 
 import { TaskActionLoader } from '../services/taskactionloader.service';
 import { TaskSearch_ } from '../../src-gen/views/task-search.component';
 
-export const TaskSearchSelector:string = TaskSearch_.selector;
-export const TaskSearchInputs: string[] = TaskSearch_.inputs;
-export const TaskSearchOutputs: string[] = TaskSearch_.outputs;
+export const metadata: ViewMetaData = {
+	selector: 'task-search',
+	inputs: ["Task"],
+	outputs: ["TaskAction"],
+	name: "TaskSearch"
+}
+
+export const selector = 'task-search';
+export const inputs: string[] = ["Task"];
+export const outputs: string[] = ["TaskAction"];
+export const name: string = "TaskSearch";
+
 
 @Component({
-	selector: TaskSearchSelector,
+	selector: metadata.selector,
 	template: `
 		<ee-table [entities]="entities" (onSelect)="onSelect($event)"></ee-table>
 		<input type="button" class="btn btn-default" (click)="onAction('search')" value="Search">
@@ -36,7 +46,7 @@ export const TaskSearchOutputs: string[] = TaskSearch_.outputs;
 	providers: [TaskActionLoader]
 })
 
-export class TaskSearch extends TaskSearch_.Base {
+export class Class extends TaskSearch_ {
 	constructor(tloader: TaskActionLoader) {
 		super(tloader);
 	}

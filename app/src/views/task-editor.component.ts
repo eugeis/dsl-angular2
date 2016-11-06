@@ -25,11 +25,7 @@ import { TaskEditor_ } from '../../src-gen/views/task-editor.component';
 @Component({
 	selector: 'task-editor',
 	template: `
-		<ee-tree
-			[windows]="windows"
-			[map]="map"
-			(on)="on($event)">
-		</ee-tree>
+		<ee-tree (on)="on($event)"></ee-tree>
 	`
 })
 

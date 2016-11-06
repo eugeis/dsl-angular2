@@ -23,19 +23,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'
 
-import { TaskDetails } from '../../src/views/task-details.component';
-import { TaskExplorer } from '../../src/views/task-explorer.component';
-import { TaskSearch } from '../../src/views/task-search.component';
-import { TaskVisual } from '../../src/views/task-visual.component';
+import { provideViews } from 'vindue';
+
+import * as TaskDetails from '../../src/views/task-details.component';
+import * as TaskExplorer from '../../src/views/task-explorer.component';
+import * as TaskSearch from '../../src/views/task-search.component';
+import * as TaskVisual from '../../src/views/task-visual.component';
 
 import { ElementsModule } from '../../elements/elements.module';
 import { RailroadModule } from '../../elements/railroad/railroad.module';
 
+provideViews([TaskDetails.metadata, TaskExplorer.metadata, TaskSearch.metadata, TaskVisual.metadata]);
+
 @NgModule({
 	imports: [BrowserModule, FormsModule, CommonModule, ElementsModule],
-	declarations: [TaskDetails, TaskExplorer, TaskSearch, TaskVisual],
+	declarations: [TaskDetails.Class, TaskExplorer.Class, TaskSearch.Class, TaskVisual.Class],
 	providers: [],
-	exports: [TaskDetails, TaskExplorer, TaskSearch, TaskVisual]
+	exports: [TaskDetails.Class, TaskExplorer.Class, TaskSearch.Class, TaskVisual.Class]
 })
 
 export class ViewsModule { }
