@@ -31,7 +31,6 @@ import * as TaskSearch from '../../src/views/task-search.component';
 import * as TaskVisual from '../../src/views/task-visual.component';
 
 import { ElementsModule } from '../../elements/elements.module';
-import { RailroadModule } from '../../elements/railroad/railroad.module';
 
 provideViews([TaskDetails.metadata, TaskExplorer.metadata, TaskSearch.metadata, TaskVisual.metadata]);
 

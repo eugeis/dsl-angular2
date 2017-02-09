@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'
 
 import { Table } from './ee-table.component';
-import { RailroadModule } from './railroad/railroad.module';
+import { RailroadModule } from 'railroad';
 
 @NgModule({
 	imports: [BrowserModule, FormsModule, CommonModule, RailroadModule],

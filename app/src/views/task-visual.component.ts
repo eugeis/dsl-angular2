@@ -25,7 +25,7 @@ import { TaskVisual_ } from '../../src-gen/views/task-visual.component';
 
 export const metadata: ViewMetaData = {
 	selector: 'task-visual',
-	inputs: ["Task"],
+	inputs: [],
 	outputs: [],
 	name: "TaskVisual"
 }

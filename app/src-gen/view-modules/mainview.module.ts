@@ -30,7 +30,7 @@ import { ViewsModule } from './views.module';
 
 
 @NgModule({
-	imports: [CommonModule, FormsModule, WindowManagerModule],
+	imports: [CommonModule, FormsModule, WindowManagerModule, ViewsModule],
 	declarations: [TaskEditor],
 	exports: [TaskEditor],
 	providers: [

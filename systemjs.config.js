@@ -32,7 +32,8 @@
       // other libraries
       'rxjs': 'node_modules/rxjs',
       'vindue': 'node_modules/vindue',
-      'angular2-component-outlet': 'node_modules/angular2-component-outlet'
+      'angular2-component-outlet': 'node_modules/angular2-component-outlet',
+      'railroad': 'node_modules/railroad'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -44,7 +45,11 @@
         defaultExtension: 'js'
       },
       'vindue': { main: 'index.js', defaultExtension: 'js' },
-      'angular2-component-outlet': { main: 'index.js' }
+      'angular2-component-outlet': { main: 'index.js' },
+      railroad: {
+        main: 'index.js',
+        defaultExtension: 'js'
+      }
     }
   });
 })(this);
