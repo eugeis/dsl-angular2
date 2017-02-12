@@ -4,8 +4,8 @@
   "scripts": {
     "clean": "gulp clean",
     "gulp": "gulp",
-    "start": "tsc -w & lite-server",
-    "prod": "gulp --production & lite-server",
+    "start": "npm run prod && lite-server",
+    "prod": "npm run tsc && gulp --production",
     "test": "karma start karma.conf.js",
     "tsc": "tsc"
   },

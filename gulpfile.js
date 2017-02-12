@@ -134,7 +134,7 @@ gulp.task("config:dev", function() {
 });
 
 gulp.task("compile:dev", ["template:dev"], function() {
-	return tsProject.src('./app')
+	return gulp.src('./app')
 	.pipe(sourcemaps.init())
 	.pipe(tsProject())
 	.js.pipe(sourcemaps.write())
@@ -189,7 +189,7 @@ gulp.task("config:prod", function() {
 });
 
 gulp.task("compile:prod", ["template:prod"], function() {
-	return tsProject.src('./app')
+	return gulp.src('./app')
 	.pipe(sourcemaps.init())
 	.pipe(tsProject())
 	.js.pipe(sourcemaps.write())
